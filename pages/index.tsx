@@ -1,12 +1,12 @@
 import { getAuth } from "firebase/auth";
 import FirebaseProvider from "../components/firebase/FirebaseProvider";
 import InputArea from "../components/Login/InputArea";
-import Login from "./login/Login";
+import LoginView from "./login/LoginView";
 
 export default function Home() {
   return (
     <>
-      <Login />
+      <LoginView />
     </>
   );
 }
