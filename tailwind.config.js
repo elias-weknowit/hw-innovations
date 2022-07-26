@@ -12,6 +12,7 @@ module.exports = {
       "light-text": "#6F6F6F",
       white: "#fff",
       black: "#000",
+      "footer-pink": "#4F3B69",
     },
     fontFamily: {
       mulish: "font-family: 'Mulish', sans-serif",
