@@ -25,7 +25,7 @@ export default function LoginView() {
           />
         </div>
 
-        <div className="flex flex-2 flex-grow flex-col w-auto items-center justify-center">
+        <div className="flex flex-2 flex-grow flex-col min-h-screen w-auto items-center justify-center">
           <div className="p-6 flex flex-col">
             <div className="flex m-0 mt-6 justify-center">
               <Image src={logo} width={370} height={123} />
