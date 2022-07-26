@@ -13,9 +13,8 @@ export default function LoginView() {
       </Head>
 
       <div className="flex flex-row bg-background-white-color">
-        <div className="w-1/2 min-h-screen relative hidden md:inline">
+        <div className="w-1/2 min-h-screen relative hidden md:inline ">
           <Image
-            className=""
             src={landing_img}
             alt="Landing picture for the website"
             layout="fill"
@@ -24,9 +23,9 @@ export default function LoginView() {
           />
         </div>
 
-        <div className="bg-black md:bg-primary-color lg:bg-secondary-color flex flex-2 flex-grow flex-col w-auto items-center">
-          <div className="bg-secondary-color">
-            <div className="flex m-0 mt-20">
+        <div className="flex flex-2 flex-grow flex-col w-auto items-center">
+          <div className="p-6">
+            <div className="flex m-0 mt-6 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
             <Loginform />

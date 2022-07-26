@@ -5,16 +5,18 @@ import InputArea from "./InputArea";
 export default function Loginform() {
   return (
     <div className="content-center w-full">
-      <div className="flex-col justify-center ">
-        <h1 className="flex justify-start font-mulish font-semibold text-3xl mt-8 m-0">
-          Logga in
-        </h1>
-        <p className="m-0 mt-4 mb-6 font-mulish font text-lg w-1/2">
-          Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
-        </p>
-        <InputArea placeholder="E-mail" type="text" />
-        <InputArea placeholder="Lösenord" type="password" />
-        <Button title="Logga in" />
+      <div className="flex flex-col items-center">
+        <div className="flex flex-col flex-grow w-80 font-mulish mt-2 mb-4">
+          <h1 className="justify-start font-semibold text-3xl">Logga in</h1>
+          <p className="justify-start mt-3 text-lg">
+            Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
+          </p>
+        </div>
+        <div className="mt-3 w-full flex flex-col items-center">
+          <InputArea placeholder="E-mail" type="text" />
+          <InputArea placeholder="Lösenord" type="password" />
+          <Button title="Logga in" />
+        </div>
       </div>
     </div>
   );
