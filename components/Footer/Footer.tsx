@@ -8,8 +8,8 @@ import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
 
 export default function Footer() {
   return (
-    <footer className=" flex flex-col p-3 bg-primary-color shadow md:px-6 md:py-8">
-      <div className="sm:flex sm:items-center sm:justify-between">
+    <footer className=" flex flex-col p-3 bg-primary-color shadow md:px-6 md:py-4">
+      <div className="sm:flex sm:items-center sm:justify-evenly">
         <div className="flex justify-center">
           <Image className=" rounded-lg" src={logo} width={179} height={58} />
         </div>
@@ -28,9 +28,7 @@ export default function Footer() {
           title="Kontakta oss"
           subTitle="info.hw@gmail.com"
         />
-        <div className="text-white font-mulish">
-          <p>© 2022, H&W Innovations</p>
-        </div>
+        <p className="text-white font-mulish">© 2022, H&W Innovations</p>
       </div>
 
       <span className="block text-sm text-white p-3 sm:text-center dark:text-gray-400">
