@@ -9,28 +9,28 @@ export default function AlternateLogins({ className = '',  enableApple = false, 
     return (
         <div className={className}>
             <div className='flex flex-row justify-evenly '>
-            {enableGoogle && 
-            <IconButton className='bg-white drop-shadow' size='large'>
-                <Link href="/">
-                    <SvgIcon component={GoogleIcon} inheritViewBox/>
-                </Link>
-            </IconButton>
-            }
-            {enableApple && 
-            <IconButton className='bg-white drop-shadow' size='large'>
-                <Link href="/">
-                    <SvgIcon component={AppleIcon} inheritViewBox/>
-                </Link>
-            </IconButton>
-            }
-            {enableFacebook && 
-            <IconButton className='bg-white drop-shadow' size='large'>
-                <Link href="/">
-                    <SvgIcon component={FacebookIcon} inheritViewBox/>
-                </Link>
-            </IconButton>
-            }
-        </div>
+                {enableGoogle && 
+                <IconButton className='bg-white drop-shadow' size='large'>
+                    <Link href="/">
+                        <SvgIcon component={GoogleIcon} inheritViewBox/>
+                    </Link>
+                </IconButton>
+                }
+                {enableApple && 
+                <IconButton className='bg-white drop-shadow' size='large'>
+                    <Link href="/">
+                        <SvgIcon component={AppleIcon} inheritViewBox/>
+                    </Link>
+                </IconButton>
+                }
+                {enableFacebook && 
+                <IconButton className='bg-white drop-shadow' size='large'>
+                    <Link href="/">
+                        <SvgIcon component={FacebookIcon} inheritViewBox/>
+                    </Link>
+                </IconButton>
+                }
+            </div>
         </div>
         
     );
