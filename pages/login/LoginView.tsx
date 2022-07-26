@@ -12,16 +12,25 @@ export default function LoginView() {
         <title>HW Innovations | Välkommen </title>
       </Head>
 
-      <div className="flex bg-background-white-color">
-        <div className="w-1/2 h-auto min-h-screen content-center">
-          <Image src={landing_img} alt="Landing picture for the website" />
+      <div className="flex flex-row bg-background-white-color">
+        <div className="w-1/2 min-h-screen relative hidden md:inline">
+          <Image
+            className=""
+            src={landing_img}
+            alt="Landing picture for the website"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="left"
+          />
         </div>
 
-        <div className="flex flex-col w-1/3">
-          <div className="flex ml-32 mt-24">
-            <Image src={logo} width={370} height={123} />
+        <div className="bg-black md:bg-primary-color lg:bg-secondary-color flex flex-2 flex-grow flex-col w-auto items-center">
+          <div className="bg-secondary-color">
+            <div className="flex m-0 mt-20">
+              <Image src={logo} width={370} height={123} />
+            </div>
+            <Loginform />
           </div>
-          <Loginform />
         </div>
       </div>
     </>
