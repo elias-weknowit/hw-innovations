@@ -31,7 +31,7 @@ export default function LoginView() {
               <Image src={logo} width={370} height={123} />
             </div>
             <Loginform />
-            <a href="" className="m-8 self-center text-light-text">Glömt lösenord?</a>
+            <a href="" className="m-8 self-center text-primary-color">Glömt lösenord?</a>
             <div>
               <Divider className='text-light-text'>Eller fortsätt med</Divider>
             </div>
