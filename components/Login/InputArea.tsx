@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function InputArea({
   placeholder,
   type,
   IconComponent,
-  HidePassword,
+  Password_hide,
+  Password,
+  onClick,
+  Password_Visibile,
+  valid_user = false,
 }) {
   return (
     <div>
@@ -16,16 +21,34 @@ export default function InputArea({
               style={{ color: "#6F6F6F" }}
             />
             <input
-              className="w-80 px-12 h-14 text-primary outline-none text-base font-light rounded-md border-none ring-1 ring-white focus:ring-primary-color"
+              className={`w-80 px-12 h-14 text-primary outline-none text-base font-light rounded-md border-none ring-1 ring-white focus:ring-primary-color`}
               type={type}
               placeholder={placeholder}
             />
-            <button className="flex justify-end items-center">
-              <HidePassword
-                className="w-5 h-5 absolute mr-5"
-                style={{ color: "#000" }}
+            <label
+              className="flex justify-end items-center cursor-pointer"
+              onClick={onClick}
+            >
+              {Password ? (
+                <Password_hide
+                  className="w-5 h-5 absolute mr-5"
+                  style={{ color: "#000" }}
+                />
+              ) : (
+                <Password_Visibile
+                  className="w-5 h-5 absolute mr-5"
+                  style={{ color: "#000" }}
+                />
+              )}
+            </label>
+          </div>
+          <div className="flex items-center ml-2">
+            {valid_user && (
+              <CheckCircleIcon
+                className="w-5 h-5"
+                style={{ color: "#009262" }}
               />
-            </button>
+            )}
           </div>
         </div>
       </div>

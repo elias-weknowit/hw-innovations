@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./LoginButton";
 import InputArea from "./InputArea";
 import MailIcon from "@mui/icons-material/Mail";
 import KeyIcon from "@mui/icons-material/Key";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Password } from "@mui/icons-material";
 
 export default function Loginform() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const passwordToggle = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="content-center w-full">
       <div className="flex flex-col items-center">
@@ -20,13 +28,19 @@ export default function Loginform() {
             IconComponent={MailIcon}
             placeholder="E-mail"
             type="text"
-            HidePassword="none"
+            Password_Visibile="none"
+            Password_hide="none"
+            Password="none"
+            onClick="none"
           />
           <InputArea
             IconComponent={KeyIcon}
             placeholder="Lösenord"
-            type="password"
-            HidePassword={RemoveRedEyeIcon}
+            type={showPassword ? "text" : "password"}
+            Password_hide={RemoveRedEyeIcon}
+            Password_Visibile={VisibilityOffIcon}
+            Password={Password}
+            onClick={passwordToggle}
           />
           <Button title="Logga in" />
         </div>
