@@ -2,7 +2,8 @@ import React from "react";
 import Button from "./LoginButton";
 import InputArea from "./InputArea";
 import MailIcon from "@mui/icons-material/Mail";
-import KeyIcon from '@mui/icons-material/Key';
+import KeyIcon from "@mui/icons-material/Key";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 export default function Loginform() {
   return (
@@ -15,8 +16,18 @@ export default function Loginform() {
           </p>
         </div>
         <div className="mt-3 w-full flex flex-col items-center">
-          <InputArea IconComponent={MailIcon} placeholder="E-mail" type="text" />
-          <InputArea IconComponent={KeyIcon} placeholder="Lösenord" type="password" />
+          <InputArea
+            IconComponent={MailIcon}
+            placeholder="E-mail"
+            type="text"
+            HidePassword="none"
+          />
+          <InputArea
+            IconComponent={KeyIcon}
+            placeholder="Lösenord"
+            type="password"
+            HidePassword={RemoveRedEyeIcon}
+          />
           <Button title="Logga in" />
         </div>
       </div>
