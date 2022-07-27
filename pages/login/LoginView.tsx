@@ -12,7 +12,7 @@ export default function LoginView() {
   return (
     <>
       <Head>
-        <title>HW Innovations | Välkommen </title>
+        <title>HW Innovations | Logga in </title>
       </Head>
 
       <div className="flex flex-row bg-background-white-color">
@@ -47,7 +47,10 @@ export default function LoginView() {
             />
             <p className="self-center text-light-text">
               Har du inget konto?{" "}
-              <a href="" className="text-primary-color">
+              <a
+                href="/create-account/CreateAccountView"
+                className="text-primary-color"
+              >
                 Registrera
               </a>
             </p>
