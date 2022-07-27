@@ -8,9 +8,9 @@ import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
 
 export default function Footer() {
   return (
-    <footer className=" flex flex-col p-3 bg-primary-color shadow md:px-6 md:py-4">
+    <footer className=" flex flex-col p-2 bg-primary-color shadow md:px-6 md:py-6 md:fixed inset-x-0 bottom-0">
       <div className="sm:flex sm:items-center sm:justify-evenly">
-        <div className="flex justify-center">
+        <div className="flex justify-center m-1">
           <Image className=" rounded-lg" src={logo} width={179} height={58} />
         </div>
         <InformationArea
@@ -28,10 +28,12 @@ export default function Footer() {
           title="Kontakta oss"
           subTitle="info.hw@gmail.com"
         />
-        <p className="text-white font-mulish">© 2022, H&W Innovations</p>
+        <p className="text-white flex justify-center items-center font-mulish">
+          © 2022, H&W Innovations
+        </p>
       </div>
 
-      <span className="block text-sm text-white p-3 sm:text-center dark:text-gray-400">
+      <span className="flex text-sm text-white p-3 justify-center items-center">
         Utvecklad av{" "}
         <a href="https://weknowit.se/" className="underline">
           We know IT.

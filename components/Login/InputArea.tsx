@@ -22,7 +22,7 @@ export default function InputArea({
             />
             <button className="flex justify-end items-center">
               <HidePassword
-                className=" flex justify-end w-6 h-6 absolute mr-3"
+                className="w-5 h-5 absolute mr-5"
                 style={{ color: "#000" }}
               />
             </button>

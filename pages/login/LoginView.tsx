@@ -40,7 +40,7 @@ export default function LoginView() {
             </div>
 
             <AlternateLogins
-              className="p-6"
+              className="p-6 md:p-6 md:mb-24"
               enableApple
               enableFacebook
               enableGoogle
