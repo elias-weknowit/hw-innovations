@@ -6,7 +6,7 @@ export default function InputArea({
   type,
   IconComponent,
   Password_hide,
-  Password,
+  password_visibility,
   onClick,
   Password_Visibile,
   valid_user = false,
@@ -29,7 +29,7 @@ export default function InputArea({
               className="flex justify-end items-center cursor-pointer"
               onClick={onClick}
             >
-              {Password ? (
+              {password_visibility ? (
                 <Password_hide
                   className="w-5 h-5 absolute mr-5"
                   style={{ color: "#000" }}

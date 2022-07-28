@@ -30,7 +30,7 @@ export default function Loginform() {
             type="text"
             Password_Visibile="none"
             Password_hide="none"
-            Password="none"
+            password_visibility="none"
             onClick="none"
           />
           <InputArea
@@ -39,7 +39,7 @@ export default function Loginform() {
             type={showPassword ? "text" : "password"}
             Password_hide={RemoveRedEyeIcon}
             Password_Visibile={VisibilityOffIcon}
-            Password={Password}
+            password_visibility={showPassword}
             onClick={passwordToggle}
           />
           <Button title="Logga in" />

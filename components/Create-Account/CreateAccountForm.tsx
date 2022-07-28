@@ -7,7 +7,6 @@ import KeyIcon from "@mui/icons-material/Key";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PersonIcon from "@mui/icons-material/Person";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { Password } from "@mui/icons-material";
 
 export default function CreateAccountForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +31,7 @@ export default function CreateAccountForm() {
             type="text"
             Password_Visibile="none"
             Password_hide="none"
-            Password="none"
+            password_visibility="none"
             onClick="none"
           />
           <InputArea
@@ -41,7 +40,7 @@ export default function CreateAccountForm() {
             type="text"
             Password_Visibile="none"
             Password_hide="none"
-            Password="none"
+            password_visibility="none"
             onClick="none"
           />
           <InputArea
@@ -50,7 +49,7 @@ export default function CreateAccountForm() {
             type={showPassword ? "text" : "password"}
             Password_hide={RemoveRedEyeIcon}
             Password_Visibile={VisibilityOffIcon}
-            Password={Password}
+            password_visibility={showPassword}
             onClick={passwordToggle}
           />
           <LoginButton title="Forsätt" />
