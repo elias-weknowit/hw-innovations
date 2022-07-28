@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "./LoginButton";
+import LoginButton from "./LoginButton";
 import InputArea from "./InputArea";
 import MailIcon from "@mui/icons-material/Mail";
 import KeyIcon from "@mui/icons-material/Key";
@@ -7,7 +7,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Password } from "@mui/icons-material";
 
-export default function Loginform() {
+export default function Loginform({onSubmit}: {onSubmit: (formData: {user: string, password: string}) => void}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const passwordToggle = () => {
@@ -43,7 +43,7 @@ export default function Loginform() {
               password_visibility={showPassword}
               onClick={passwordToggle}
             />
-            <Button title="Logga in" />
+            <LoginButton title="Logga in"/>
           </div>
         </form>
       </div>
