@@ -15,6 +15,25 @@ export default function CreateAccountForm() {
     setShowPassword(!showPassword);
   };
 
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUserNameChange = (event) => {
+    setUserName(event.target.value);
+    console.log(userName);
+  }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    console.log(email);
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    console.log(password);
+  }
+
   return (
     <div className="content-center w-full">
       <div className="flex flex-col items-center">
@@ -34,6 +53,7 @@ export default function CreateAccountForm() {
               Password_hide="none"
               password_visibility="none"
               onClick="none"
+              onChange={userName => handleUserNameChange(userName)}
             />
             <InputArea
               IconComponent={MailIcon}
@@ -43,6 +63,7 @@ export default function CreateAccountForm() {
               Password_hide="none"
               password_visibility="none"
               onClick="none"
+              onChange={mail => handleEmailChange(mail)}
             />
             <InputArea
               IconComponent={KeyIcon}
@@ -52,6 +73,7 @@ export default function CreateAccountForm() {
               Password_Visibile={VisibilityOffIcon}
               password_visibility={showPassword}
               onClick={passwordToggle}
+              onChange={password => handlePasswordChange(password)}
             />
             <LoginButton title="Forsätt" />
           </div>

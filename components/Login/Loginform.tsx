@@ -14,6 +14,20 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
     setShowPassword(!showPassword);
   };
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+    console.log(email);
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    console.log(password);
+  }
+
   return (
     <div className="content-center w-full">
       <div className="flex flex-col items-center">
@@ -33,6 +47,7 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
               Password_hide="none"
               password_visibility="none"
               onClick="none"
+              onChange={email => handleEmailChange(email)}
             />
             <InputArea
               IconComponent={KeyIcon}
@@ -42,8 +57,9 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
               Password_Visibile={VisibilityOffIcon}
               password_visibility={showPassword}
               onClick={passwordToggle}
-            />
-            <LoginButton title="Logga in"/>
+              onChange={password => handlePasswordChange(password)}
+              />
+            <LoginButton title="Logga in" />
           </div>
         </form>
       </div>

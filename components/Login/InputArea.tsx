@@ -8,6 +8,7 @@ export default function InputArea({
   Password_hide,
   password_visibility,
   onClick,
+  onChange,
   Password_Visibile,
   valid_user = false,
 }) {
@@ -24,6 +25,7 @@ export default function InputArea({
               className={`w-80 px-12 h-14 text-primary outline-none text-base font-light rounded-md border-none ring-1 ring-white focus:ring-primary-color`}
               type={type}
               placeholder={placeholder}
+              onChange={onChange}
             />
             <label
               className="flex justify-end items-center cursor-pointer"
