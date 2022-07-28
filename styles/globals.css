@@ -1,4 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap');
+
+
+@font-face {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/Mulish-Regular.ttf');;
+}
+
+@font-face {
+    font-family: 'MyFont';
+    font-style: bold;
+    font-weight: 600;
+    src: url('/fonts/Mulish-Bold.ttf');;
+}
 
 @tailwind base;
 @tailwind components;
