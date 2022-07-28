@@ -1,5 +1,6 @@
 import { ThemeProvider, createTheme } from "@mui/material";
 import { AppProps } from "next/app";
+import { AuthUserProvider } from "../components/firebase/AuthUserProvider";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 import { initFirebase } from "../util/firebase/init";
@@ -45,11 +46,13 @@ initFirebase();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <AuthUserProvider>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </AuthUserProvider>
   );
 }
 
