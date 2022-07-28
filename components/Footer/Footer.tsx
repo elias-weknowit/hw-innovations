@@ -13,24 +13,36 @@ export default function Footer() {
         <div className="flex justify-center m-1">
           <Image className=" rounded-lg" src={logo} width={179} height={58} />
         </div>
-        <InformationArea
-          Icon={BuildOutlinedIcon}
-          title="Support"
-          subTitle="support.hw@gmail.com"
-        />
-        <InformationArea
-          Icon={PhoneInTalkOutlinedIcon}
-          title="Har du en fråga?"
-          subTitle="+468978653"
-        />
-        <InformationArea
-          Icon={MarkunreadOutlinedIcon}
-          title="Kontakta oss"
-          subTitle="info.hw@gmail.com"
-        />
-        <p className="text-white flex justify-center items-center font-mulish">
-          © 2022, H&W Innovations
-        </p>
+        <div className="flex justify-center">
+          <div className="sm:flex justify-center items-center  md:justify-evenly ">
+            <div className="flex justify-start  m-1">
+              <InformationArea
+                Icon={BuildOutlinedIcon}
+                title="Support"
+                subTitle="support.hw@gmail.com"
+              />
+            </div>
+            <div className="flex justify-start  m-1">
+              <InformationArea
+                Icon={PhoneInTalkOutlinedIcon}
+                title="Har du en fråga?"
+                subTitle="+468978653"
+              />
+            </div>
+            <div className="flex justify-start  m-1">
+              <InformationArea
+                Icon={MarkunreadOutlinedIcon}
+                title="Kontakta oss"
+                subTitle="info.hw@gmail.com"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="m-1">
+          <p className="text-white flex justify-center items-center font-mulish">
+            © 2022, H&W Innovations
+          </p>
+        </div>
       </div>
 
       <span className="flex text-sm text-white p-3 justify-center items-center">
