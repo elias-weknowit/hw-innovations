@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import logo from "../../public/logo.svg";
@@ -31,7 +32,7 @@ export default function LoginView() {
             <div className="flex m-0 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
-            <Loginform />
+            <Loginform onSubmit={(loginData => {})} />
             <a href="" className="m-8 self-center text-primary-color">
               Glömt lösenord?
             </a>
@@ -47,12 +48,14 @@ export default function LoginView() {
             />
             <p className="self-center text-light-text">
               Har du inget konto?{" "}
-              <a
-                href="/create-account/CreateAccountView"
-                className="text-primary-color"
-              >
-                Registrera
-              </a>
+              <Link href="/create-account/CreateAccountView">
+                <a
+                  className="text-primary-color"
+                >
+                  Registrera
+                </a>
+              </Link>
+              
             </p>
           </div>
         </div>
