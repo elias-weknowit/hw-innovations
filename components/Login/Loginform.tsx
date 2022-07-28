@@ -20,12 +20,10 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    console.log(email);
   }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    console.log(password);
   }
 
   return (
@@ -37,7 +35,7 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
             Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
           </p>
         </div>
-        <form className="w-full flex flex-col items-center">
+        <form className="w-full flex flex-col items-center" onSubmit={e => e.preventDefault()}>
           <div className="mt-3">
             <InputArea
               IconComponent={MailIcon}
@@ -59,7 +57,7 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
               onClick={passwordToggle}
               onChange={password => handlePasswordChange(password)}
               />
-            <LoginButton title="Logga in" />
+            <LoginButton onClick={() => onSubmit({user: email, password})} title="Logga in" />
           </div>
         </form>
       </div>
