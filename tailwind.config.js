@@ -15,7 +15,7 @@ module.exports = {
       "footer-pink": "#4F3B69",
     },
     fontFamily: {
-      mulish: "font-family: 'Mulish', sans-serif",
+      'mulish': ['Mulish', 'sans-serif'],
     },
     extend: {},
   },
