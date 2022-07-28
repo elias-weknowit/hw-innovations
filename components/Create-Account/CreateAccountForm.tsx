@@ -1,5 +1,4 @@
-import { Button } from "@mui/material";
-import React from "react";
+import { useState } from "react";
 import InputArea from "../Login/InputArea";
 import LoginButton from "../Login/LoginButton";
 
@@ -7,8 +6,16 @@ import MailIcon from "@mui/icons-material/Mail";
 import KeyIcon from "@mui/icons-material/Key";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PersonIcon from "@mui/icons-material/Person";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Password } from "@mui/icons-material";
 
 export default function CreateAccountForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const passwordToggle = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="content-center w-full">
       <div className="flex flex-col items-center">
@@ -23,19 +30,28 @@ export default function CreateAccountForm() {
             IconComponent={PersonIcon}
             placeholder="Namn"
             type="text"
-            HidePassword="none"
+            Password_Visibile="none"
+            Password_hide="none"
+            Password="none"
+            onClick="none"
           />
           <InputArea
             IconComponent={MailIcon}
             placeholder="E-mail"
             type="text"
-            HidePassword="none"
+            Password_Visibile="none"
+            Password_hide="none"
+            Password="none"
+            onClick="none"
           />
           <InputArea
             IconComponent={KeyIcon}
-            placeholder="Password"
-            type="password"
-            HidePassword={RemoveRedEyeIcon}
+            placeholder="Lösenord"
+            type={showPassword ? "text" : "password"}
+            Password_hide={RemoveRedEyeIcon}
+            Password_Visibile={VisibilityOffIcon}
+            Password={Password}
+            onClick={passwordToggle}
           />
           <LoginButton title="Forsätt" />
         </div>

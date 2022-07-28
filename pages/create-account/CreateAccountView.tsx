@@ -41,7 +41,6 @@ export default function CreateAccountView() {
           />
         </div>
       </div>
-      <Footer />
     </>
   );
 }
