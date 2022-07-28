@@ -18,16 +18,23 @@ export default function CreateAccountView() {
         <div className="flex flex-2 flex-grow flex-col min-h-screen w-auto items-center justify-center">
           <div className="p-4 flex flex-col">
             <CreateAccountForm />
-            <div className="m-14">
-              <Divider className="text-light-text"></Divider>
+
+            <div className="mt-12">
+              <Divider className="text-light-text">Eller fortsätt med</Divider>
             </div>
+
+            <AlternateLogins
+              className="p-6"
+              enableFacebook
+              enableGoogle
+              enableApple
+            />
             <p className="self-center text-light-text">
               Har du redan ett konto?{" "}
               <a href="/login/LoginView" className="text-primary-color">
                 Logga in
               </a>
             </p>
-            <AlternateLogins className="p-6" enableFacebook enableMail />
           </div>
         </div>
 
