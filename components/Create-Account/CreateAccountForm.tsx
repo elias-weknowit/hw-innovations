@@ -24,36 +24,38 @@ export default function CreateAccountForm() {
             Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
           </p>
         </div>
-        <div className="mt-3 w-full flex flex-col items-center">
-          <InputArea
-            IconComponent={PersonIcon}
-            placeholder="Namn"
-            type="text"
-            Password_Visibile="none"
-            Password_hide="none"
-            password_visibility="none"
-            onClick="none"
-          />
-          <InputArea
-            IconComponent={MailIcon}
-            placeholder="E-mail"
-            type="text"
-            Password_Visibile="none"
-            Password_hide="none"
-            password_visibility="none"
-            onClick="none"
-          />
-          <InputArea
-            IconComponent={KeyIcon}
-            placeholder="Lösenord"
-            type={showPassword ? "text" : "password"}
-            Password_hide={RemoveRedEyeIcon}
-            Password_Visibile={VisibilityOffIcon}
-            password_visibility={showPassword}
-            onClick={passwordToggle}
-          />
-          <LoginButton title="Forsätt" />
-        </div>
+        <form className="w-full flex flex-col items-center">
+          <div className="mt-3">
+            <InputArea
+              IconComponent={PersonIcon}
+              placeholder="Namn"
+              type="text"
+              Password_Visibile="none"
+              Password_hide="none"
+              password_visibility="none"
+              onClick="none"
+            />
+            <InputArea
+              IconComponent={MailIcon}
+              placeholder="E-mail"
+              type="text"
+              Password_Visibile="none"
+              Password_hide="none"
+              password_visibility="none"
+              onClick="none"
+            />
+            <InputArea
+              IconComponent={KeyIcon}
+              placeholder="Lösenord"
+              type={showPassword ? "text" : "password"}
+              Password_hide={RemoveRedEyeIcon}
+              Password_Visibile={VisibilityOffIcon}
+              password_visibility={showPassword}
+              onClick={passwordToggle}
+            />
+            <LoginButton title="Forsätt" />
+          </div>
+        </form>
       </div>
     </div>
   );

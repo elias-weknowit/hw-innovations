@@ -23,27 +23,29 @@ export default function Loginform() {
             Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
           </p>
         </div>
-        <div className="mt-3 w-full flex flex-col items-center">
-          <InputArea
-            IconComponent={MailIcon}
-            placeholder="E-mail"
-            type="text"
-            Password_Visibile="none"
-            Password_hide="none"
-            password_visibility="none"
-            onClick="none"
-          />
-          <InputArea
-            IconComponent={KeyIcon}
-            placeholder="Lösenord"
-            type={showPassword ? "text" : "password"}
-            Password_hide={RemoveRedEyeIcon}
-            Password_Visibile={VisibilityOffIcon}
-            password_visibility={showPassword}
-            onClick={passwordToggle}
-          />
-          <Button title="Logga in" />
-        </div>
+        <form className="w-full flex flex-col items-center">
+          <div className="mt-3">
+            <InputArea
+              IconComponent={MailIcon}
+              placeholder="E-mail"
+              type="text"
+              Password_Visibile="none"
+              Password_hide="none"
+              password_visibility="none"
+              onClick="none"
+            />
+            <InputArea
+              IconComponent={KeyIcon}
+              placeholder="Lösenord"
+              type={showPassword ? "text" : "password"}
+              Password_hide={RemoveRedEyeIcon}
+              Password_Visibile={VisibilityOffIcon}
+              password_visibility={showPassword}
+              onClick={passwordToggle}
+            />
+            <Button title="Logga in" />
+          </div>
+        </form>
       </div>
     </div>
   );
