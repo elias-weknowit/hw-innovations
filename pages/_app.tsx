@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { AppProps } from "next/app";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
+import { initFirebase } from "../util/firebase/init";
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,8 @@ const theme = createTheme({
     fontFamily: "Mulish, sans-serif",
   }
 })
+
+initFirebase();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
