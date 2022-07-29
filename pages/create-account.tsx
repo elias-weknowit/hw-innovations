@@ -39,7 +39,7 @@ export default function CreateAccountView() {
             />
             <p className="self-center text-light-text">
               Har du redan ett konto?{" "}
-              <Link href="/login/LoginView">
+              <Link href="/login">
                 <a className="text-primary-color">
                   Logga in
                 </a>
