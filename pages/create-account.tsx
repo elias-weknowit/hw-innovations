@@ -1,12 +1,20 @@
 import React from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { Divider } from "@mui/material";
 
-import CreateAccountForm from "../../components/Create-Account/CreateAccountForm";
-import landing_img from "../../public/manWorking.svg";
-import AlternateLogins from "../../components/Login/AlternateLogins";
-import Footer from "../../components/Footer/Footer";
+import CreateAccountForm from "../components/Create-Account/CreateAccountForm";
+import landing_img from "../public/manWorking.svg";
+import AlternateLogins from "../components/Login/AlternateLogins";
+import Footer from "../components/Footer/Footer";
+
+interface UserProfileDto {
+  fullName: string;
+  info: string;
+  skills: string[];
+  experience: {title: string, provider; string, startDate: string, endDate: string}[];
+}
 
 export default function CreateAccountView() {
   return (
@@ -31,9 +39,12 @@ export default function CreateAccountView() {
             />
             <p className="self-center text-light-text">
               Har du redan ett konto?{" "}
-              <a href="/login/LoginView" className="text-primary-color">
-                Logga in
-              </a>
+              <Link href="/login/LoginView">
+                <a className="text-primary-color">
+                  Logga in
+                </a>
+              </Link>
+              
             </p>
           </div>
         </div>

@@ -2,13 +2,13 @@ import Head from "next/head";
 import Link from "next/link";
 import React, { useContext } from "react";
 import Image from "next/image";
-import logo from "../../public/logo.svg";
-import Loginform from "../../components/Login/Loginform";
-import AlternateLogins from "../../components/Login/AlternateLogins";
-import landing_img from "../../public/manWorking.svg";
+import logo from "../public/logo.svg";
+import Loginform from "../components/Login/Loginform";
+import AlternateLogins from "../components/Login/AlternateLogins";
+import landing_img from "../public/manWorking.svg";
 import { Divider } from "@mui/material";
-import Footer from "../../components/Footer/Footer";
-import { useAuth } from "../../components/firebase/AuthUserProvider";
+import Footer from "../components/Footer/Footer";
+import { useAuth } from "../components/firebase/AuthUserProvider";
 
 
 
