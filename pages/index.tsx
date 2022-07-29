@@ -1,9 +1,13 @@
-import LoginView from "./login/LoginView";
+import LoginView from "./login";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <>
-      <LoginView />
+      <Link href="/login">
+        <button>Hej</button>
+      </Link>
     </>
+    
   );
 }
