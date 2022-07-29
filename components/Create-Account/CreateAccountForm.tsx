@@ -8,6 +8,8 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import PersonIcon from "@mui/icons-material/Person";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
+import { useAuth } from "../../components/firebase/AuthUserProvider";
+
 export default function CreateAccountForm() {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,6 +36,14 @@ export default function CreateAccountForm() {
     console.log(password);
   }
 
+  const { createUserWithEmailAndPassword } = useAuth();
+  
+  const onSubmit = (formData: {user: string, password: string}) => {
+    createUserWithEmailAndPassword(formData.user, formData.password)
+      .then( userCredential => console.log(userCredential))
+      .catch(console.log);
+  }
+
   return (
     <div className="content-center w-full">
       <div className="flex flex-col items-center">
@@ -43,7 +53,7 @@ export default function CreateAccountForm() {
             Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
           </p>
         </div>
-        <form className="w-full flex flex-col items-center">
+        <form className="w-full flex flex-col items-center" onSubmit={(e) => e.preventDefault()}>
           <div className="mt-3">
             <InputArea
               IconComponent={PersonIcon}
@@ -75,7 +85,7 @@ export default function CreateAccountForm() {
               onClick={passwordToggle}
               onChange={password => handlePasswordChange(password)}
             />
-            <LoginButton title="Forsätt" />
+            <LoginButton onClick={() => onSubmit({user: email, password})} title="Forsätt" />
           </div>
         </form>
       </div>
