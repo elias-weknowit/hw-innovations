@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase/auth';
-import { Auth, UserCredential } from 'firebase/auth';
+import { Auth, UserCredential, GoogleAuthProvider } from 'firebase/auth';
 import { useState, useEffect } from 'react'
-import { signInWithEmailAndPassword as _signInWithEmailAndPassword, createUserWithEmailAndPassword as _createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithRedirect, getRedirectResult as _getRedirectResult, signInWithEmailAndPassword as _signInWithEmailAndPassword, createUserWithEmailAndPassword as _createUserWithEmailAndPassword } from 'firebase/auth';
 
 const formatAuthUser = (user) => ({
   uid: user.uid,
@@ -13,12 +13,14 @@ export interface FireBaseAuthHook {
   loading: boolean,
   signInWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential>,
   createUserWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential>,
+  signInWithGoogleRedirect: () => Promise<never>,
+  getRedirectResult: () => Promise<UserCredential>,
   signOut: () => Promise<void>,
 }
 
 export default function useFirebaseAuth(): FireBaseAuthHook {
   const [authUser, setAuthUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const auth = getAuth();
 
   const authStateChanged = async (authState) => {
@@ -43,6 +45,10 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
 
   const createUserWithEmailAndPassword = (email: string, password: string) => _createUserWithEmailAndPassword(auth, email, password);
 
+  const signInWithGoogleRedirect = () => signInWithRedirect(auth, new GoogleAuthProvider());
+
+  const getRedirectResult = () => _getRedirectResult(auth);
+
   const signOut = () => auth.signOut().then(clear);
 
 // listen for Firebase state change
@@ -56,6 +62,8 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    signInWithGoogleRedirect,
+    getRedirectResult,
     signOut
   };
 }
