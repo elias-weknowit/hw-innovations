@@ -7,6 +7,7 @@ import AboutMe from "../components/Profile/AboutMe";
 import Skills from "../components/Profile/Skills";
 import Experience from "../components/Profile/Experience";
 import Equipment from "../components/Profile/Equipment";
+import Navbar from "../components/Navbar";
 
 export default function UserProfile() {
   return (
@@ -14,6 +15,7 @@ export default function UserProfile() {
       <Head>
         <title>H&W Innovations | Profil </title>
       </Head>
+      <Navbar />
       <div className="md:mx-32">
         {/*User presentation section*/}
         <div className="flex justify-center sm:rounded-none md:rounded-3xl mb-10 h-64 shadow-lg">
