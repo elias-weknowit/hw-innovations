@@ -14,6 +14,7 @@ module.exports = {
       black: "#000",
       "footer-pink": "#4F3B69",
       "profile-available": "#EBE6F1",
+      "profile-sections": "#FBFBFB",
     },
     fontFamily: {
       mulish: ["Mulish", "sans-serif"],
