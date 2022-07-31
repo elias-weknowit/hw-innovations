@@ -5,7 +5,8 @@ import UserPresentation from "../../components/Profile/UserPresentation";
 import Available from "../../components/Profile/Available";
 import AboutMe from "../../components/Profile/AboutMe";
 import Skills from "../../components/Profile/Skills";
-import Contact from "../../components/Profile/Contact";
+import Experience from "../../components/Profile/Experience";
+import Equipment from "../../components/Profile/Equipment";
 
 export default function UserProfile() {
   return (
@@ -36,13 +37,20 @@ export default function UserProfile() {
           </div>
         </div>
         {/*About me and skills section*/}
-        <div className="flex flex-row">
-          <div className="bg-profile-sections w-1/2 m-3 rounded-xl shadow-md">
+        <div className="md:flex flex-row">
+          <div className="bg-profile-sections md:w-1/2 m-2 rounded-2xl shadow-md">
             <AboutMe title="Om mig" />
           </div>
-          <div className="bg-profile-sections w-1/2 m-3 rounded-xl  shadow-md">
+          <div className="bg-profile-sections md:w-1/2 m-2 rounded-2xl shadow-md">
             <Skills />
           </div>
+        </div>
+        {/*Experience section*/}
+        <div className="bg-profile-sections shadow-md m-2 mt-5 rounded-2xl">
+          <Experience />
+        </div>
+        <div className="bg-profile-sections shadow-md m-2 mt-5 rounded-2xl">
+          <Equipment />
         </div>
       </div>
     </>
