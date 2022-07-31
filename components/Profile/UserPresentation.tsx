@@ -11,7 +11,7 @@ export default function UserPresentation({ userName, userPosition }) {
           <p className="sm:text-lg md:text-4xl font-mulish text-white">
             {userName}
           </p>
-          <p className="smtext-sm opacity-80 font-mulish text-white">
+          <p className="smtext-sm opacity-80 mt-4 font-mulish text-white">
             {userPosition}
           </p>
         </div>
