@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
-import EditProfile from "../../components/Profile/EditProfile";
-import UserPresentation from "../../components/Profile/UserPresentation";
-import Available from "../../components/Profile/Available";
-import AboutMe from "../../components/Profile/AboutMe";
-import Skills from "../../components/Profile/Skills";
-import Experience from "../../components/Profile/Experience";
-import Equipment from "../../components/Profile/Equipment";
+import EditProfile from "../components/Profile/EditProfile";
+import UserPresentation from "../components/Profile/UserPresentation";
+import Available from "../components/Profile/Available";
+import AboutMe from "../components/Profile/AboutMe";
+import Skills from "../components/Profile/Skills";
+import Experience from "../components/Profile/Experience";
+import Equipment from "../components/Profile/Equipment";
 
 export default function UserProfile() {
   return (

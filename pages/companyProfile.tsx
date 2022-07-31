@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
-import UserPresentation from "../../components/Profile/UserPresentation";
-import EditProfile from "../../components/Profile/EditProfile";
-import AboutMe from "../../components/Profile/AboutMe";
-import Contact from "../../components/Profile/Contact";
+import UserPresentation from "../components/Profile/UserPresentation";
+import EditProfile from "../components/Profile/EditProfile";
+import AboutMe from "../components/Profile/AboutMe";
+import Contact from "../components/Profile/Contact";
 
 export default function companyProfile() {
   return (
