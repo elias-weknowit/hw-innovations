@@ -18,7 +18,7 @@ const theme = createTheme({
       light: "#f2797e",
     },
     error: { main: "#F04848" },
-    warning: { main: "#F5BF00"},
+    warning: { main: "#F5BF00" },
     info: { main: "#4D69FF" },
     success: { main: "#23AC00" },
     grey: {
@@ -34,13 +34,13 @@ const theme = createTheme({
     },
     background: {
       default: "#FBFBFB",
-    }
+    },
   },
-  shape:{ borderRadius: "5px" },
+  shape: { borderRadius: "5px" },
   typography: {
     fontFamily: "Mulish, sans-serif",
-  }
-})
+  },
+});
 
 initFirebase();
 
@@ -49,7 +49,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <AuthUserProvider>
       <ThemeProvider theme={theme}>
         <Layout>
-          <Component {...pageProps} />
+          <div className="bg-background-white-color">
+            <Component {...pageProps} />
+          </div>
         </Layout>
       </ThemeProvider>
     </AuthUserProvider>
