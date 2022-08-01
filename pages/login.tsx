@@ -9,6 +9,7 @@ import landing_img from "../public/manWorking.svg";
 import { Divider } from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import { useAuth } from "../components/firebase/AuthUserProvider";
+import { useRouter } from "next/router";
 
 export type LoginError = {
   message: string;
@@ -17,11 +18,12 @@ export type LoginError = {
 
 export default function LoginView() {
   const { signInWithEmailAndPassword } = useAuth();
+  const router = useRouter();
   const [error, setError] = useState<LoginError | null>(null)
   
   const onSubmit = (formData: {user: string, password: string}) => {
     signInWithEmailAndPassword(formData.user, formData.password)
-      .then( userCredential => {/*TODO: Redirect to home page*/})
+      .then( userCredential => {router.push("/")} )
       .catch( error => {
         switch (error.code) {
           case "auth/user-not-found":

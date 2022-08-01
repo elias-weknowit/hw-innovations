@@ -5,6 +5,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import { useAuth } from "../../components/firebase/AuthUserProvider";
 import MailIcon from "@mui/icons-material/Mail";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function AlternateLogins({
   className = "",
@@ -13,6 +14,7 @@ export default function AlternateLogins({
   enableFacebook = false,
   enableMail = false,
 }) {
+  const router = useRouter();
   const { signInWithGoogleRedirect } = useAuth();
 
   return (
@@ -24,7 +26,7 @@ export default function AlternateLogins({
           </IconButton>
         )}
         {enableGoogle && (
-          <IconButton className="bg-white drop-shadow" size="large" onClick={signInWithGoogleRedirect}>
+          <IconButton className="bg-white drop-shadow" size="large" onClick={() => signInWithGoogleRedirect().then(router.push("/"))}>
               <SvgIcon component={GoogleIcon} inheritViewBox />
           </IconButton>
         )}
