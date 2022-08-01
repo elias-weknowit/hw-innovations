@@ -35,7 +35,7 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
           </p>
         </Link>
       </div>
-      {user && <ProfilePreview name={user.email} image={LoginImg} />}
+      <ProfilePreview user={user} image={LoginImg} />
     </div>
   );
 }
