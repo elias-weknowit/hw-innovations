@@ -15,6 +15,8 @@ module.exports = {
       "footer-pink": "#4F3B69",
       "profile-available": "#EBE6F1",
       "profile-sections": "#FBFBFB",
+      "error": "#F04848",
+      "success": "#23AC00",
     },
     fontFamily: {
       mulish: ["Mulish", "sans-serif"],
