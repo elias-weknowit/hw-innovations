@@ -15,7 +15,7 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
-const authUserContext = createContext(null);
+const authUserContext = createContext<FireBaseAuthHook>(null);
 
 export function AuthUserProvider({ children }) {
   // if a Firebase instance doesn't exist, create one
