@@ -6,8 +6,9 @@ import KeyIcon from "@mui/icons-material/Key";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Password } from "@mui/icons-material";
+import { LoginError } from "../../pages/login";
 
-export default function Loginform({onSubmit}: {onSubmit: (formData: {user: string, password: string}) => void}) {
+export default function Loginform({error, onSubmit}: {error: LoginError | null, onSubmit: (formData: {user: string, password: string}) => void}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const passwordToggle = () => {
@@ -45,6 +46,8 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
               Password_hide="none"
               password_visibility="none"
               onClick="none"
+              error={error?.type === "email" || error?.type === "both"}
+              errorMessage={error?.message}
               onChange={email => handleEmailChange(email)}
             />
             <InputArea
@@ -55,6 +58,8 @@ export default function Loginform({onSubmit}: {onSubmit: (formData: {user: strin
               Password_Visibile={VisibilityOffIcon}
               password_visibility={showPassword}
               onClick={passwordToggle}
+              error={error?.type === "password" || error?.type === "both"}
+              errorMessage={error?.message}
               onChange={password => handlePasswordChange(password)}
               />
             <LoginButton onClick={() => onSubmit({user: email, password})} title="Logga in" />
