@@ -1,6 +1,7 @@
 import { getAuth, User } from 'firebase/auth';
 import { Auth, UserCredential, GoogleAuthProvider } from 'firebase/auth';
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router';
 import { signInWithRedirect, getRedirectResult as _getRedirectResult, signInWithEmailAndPassword as _signInWithEmailAndPassword, createUserWithEmailAndPassword as _createUserWithEmailAndPassword } from 'firebase/auth';
 
 export interface FireBaseAuthHook {
@@ -16,23 +17,26 @@ export interface FireBaseAuthHook {
 export default function useFirebaseAuth(): FireBaseAuthHook {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
   const auth = getAuth();
 
   const authStateChanged = async (authState: User) => {
     if (!authState) {
       setUser(null)
       setLoading(false)
+      router.push('/login');
       return;
     }
 
     setLoading(true)
-    setUser(authState);    
+    setUser(authState);   
+    router.push('/');
     setLoading(false);
   };
 
   const clear = () => {
     setUser(null);
-    setLoading(true);
+    setLoading(false);
   };
 
   const signInWithEmailAndPassword = (email: string, password: string) => _signInWithEmailAndPassword(auth, email, password);
