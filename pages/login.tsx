@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import Image from "next/image";
 import logo from "../public/Logo.svg";
 import Loginform from "../components/Login/Loginform";
@@ -93,4 +93,13 @@ export default function LoginView() {
       </div>
     </>
   );
+}
+
+LoginView.getLayout = function getLayout( page: ReactElement) {
+  return (
+    <>
+    {page}
+    <Footer />
+    </>
+  )
 }
