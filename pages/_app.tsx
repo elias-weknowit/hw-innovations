@@ -5,7 +5,7 @@ import { AppProps } from "next/app";
 import { AuthUserProvider } from "../components/firebase/AuthUserProvider";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
-import { initFirebase } from "../util/firebase/init";
+import { initAuth, initFirebase } from "../util/firebase/init";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 
@@ -47,6 +47,7 @@ const theme = createTheme({
 });
 
 initFirebase();
+initAuth();
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
