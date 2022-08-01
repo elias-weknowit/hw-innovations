@@ -24,7 +24,7 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
     if (!authState) {
       setUser(null)
       setLoading(false)
-      router.push('/login');
+      //router.push('/login');
       return;
     }
 
