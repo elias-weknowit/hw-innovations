@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import React, { useContext } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import logo from "../public/logo.svg";
 import Loginform from "../components/Login/Loginform";
@@ -10,15 +10,30 @@ import { Divider } from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import { useAuth } from "../components/firebase/AuthUserProvider";
 
-
+export type LoginError = {
+  message: string;
+  type: "email" | "password" | "both";
+}
 
 export default function LoginView() {
   const { signInWithEmailAndPassword } = useAuth();
+  const [error, setError] = useState<LoginError | null>(null)
   
   const onSubmit = (formData: {user: string, password: string}) => {
     signInWithEmailAndPassword(formData.user, formData.password)
-      .then( userCredential => console.log(JSON.stringify(userCredential)))
-      .catch(console.log);
+      .then( userCredential => {/*TODO: Redirect to home page*/})
+      .catch( error => {
+        switch (error.code) {
+          case "auth/user-not-found":
+            setError({ message: "E-postadressen hittades inte", type: "email" });
+            break;
+          case "auth/wrong-password":
+            setError({ message: "Fel lösenord", type: "password" });
+            break;
+          default:
+            setError({ message: "Något gick fel", type: "both" });
+        }
+      });
   }
 
   return (
@@ -43,7 +58,7 @@ export default function LoginView() {
             <div className="flex m-0 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
-            <Loginform onSubmit={(loginData => onSubmit(loginData))} />
+            <Loginform error={error} onSubmit={(loginData => onSubmit(loginData))} />
             <a href="" className="m-8 self-center text-primary-color">
               Glömt lösenord?
             </a>
