@@ -19,7 +19,11 @@ module.exports = {
     fontFamily: {
       mulish: ["Mulish", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "homeScreen-landingPage": "url('../public/landingPage.png')",
+      },
+    },
   },
   plugins: [],
 };
