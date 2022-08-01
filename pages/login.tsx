@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useEffect } from "react";
 import Image from "next/image";
 import logo from "../public/Logo.svg";
 import Loginform from "../components/Login/Loginform";
@@ -17,9 +17,19 @@ export type LoginError = {
 };
 
 export default function LoginView() {
-  const { signInWithEmailAndPassword } = useAuth();
+  const { signInWithEmailAndPassword, getRedirectResult, loading, user } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<LoginError | null>(null);
+
+  if(!loading && user) {
+    router.push("/");
+  }
+
+  useEffect( () => {
+    getRedirectResult().catch( error => console.log(error));
+  })
+
+  
 
   const onSubmit = (formData: { user: string; password: string }) => {
     signInWithEmailAndPassword(formData.user, formData.password)
@@ -65,10 +75,7 @@ export default function LoginView() {
             <div className="flex m-0 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
-            <Loginform
-              error={error}
-              onSubmit={(loginData) => onSubmit(loginData)}
-            />
+            {loading ? <p className="text-center self-center">Logging in...</p> : <Loginform error={error} onSubmit={(loginData) => onSubmit(loginData)}/> }
             <a href="" className="m-8 self-center text-primary-color">
               Glömt lösenord?
             </a>
