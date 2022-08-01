@@ -13,8 +13,7 @@ export default function companyProfile() {
         <Head>
           <title>H&W Innovations | Profil </title>
         </Head>
-        <Navbar />
-        <div className="md:mx-32">
+        <div className="md:mx-32 mt-20">
           <div className="flex justify-center sm:rounded-none md:rounded-3xl mb-10 h-64 shadow-lg">
             <div className="flex flex-row w-full sm:rounded-none md:rounded-3xl bg-primary-color">
               <div className="w-1/2 flex justify-start m-3">
