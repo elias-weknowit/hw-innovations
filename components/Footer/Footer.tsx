@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logo from "../../public/logo.svg";
+import logo from "../../public/Logo.svg";
 import InformationArea from "./InformationArea";
 import BuildOutlinedIcon from "@mui/icons-material/BuildOutlined";
 import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";

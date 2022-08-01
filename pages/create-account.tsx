@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Divider } from "@mui/material";
 
 import CreateAccountForm from "../components/Create-Account/CreateAccountForm";
-import landing_img from "../public/manWorking.svg";
+import landing_img from "../public/CreateImg.png";
 import AlternateLogins from "../components/Login/AlternateLogins";
 import Footer from "../components/Footer/Footer";
 
@@ -13,7 +13,13 @@ interface UserProfileDto {
   fullName: string;
   info: string;
   skills: string[];
-  experience: {title: string, provider; string, startDate: string, endDate: string}[];
+  experience: {
+    title: string;
+    provider;
+    string;
+    startDate: string;
+    endDate: string;
+  }[];
 }
 
 export default function CreateAccountView() {
@@ -40,11 +46,8 @@ export default function CreateAccountView() {
             <p className="self-center text-light-text">
               Har du redan ett konto?{" "}
               <Link href="/login">
-                <a className="text-primary-color">
-                  Logga in
-                </a>
+                <a className="text-primary-color">Logga in</a>
               </Link>
-              
             </p>
           </div>
         </div>

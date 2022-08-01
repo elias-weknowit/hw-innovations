@@ -1,9 +1,13 @@
 import { ThemeProvider, createTheme } from "@mui/material";
+import type { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
 import { AppProps } from "next/app";
 import { AuthUserProvider } from "../components/firebase/AuthUserProvider";
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 import { initFirebase } from "../util/firebase/init";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer/Footer";
 
 const theme = createTheme({
   palette: {
@@ -44,18 +48,34 @@ const theme = createTheme({
 
 initFirebase();
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  // Use the layout defined at the page level, if available
+  const getLayout =
+    Component.getLayout ??
+    ((page) => {
+      return (
+        <>
+          <Navbar />
+          {page}
+          <Footer />
+        </>
+      );
+    });
+
+  //<Component {...pageProps} />
   return (
     <AuthUserProvider>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <div className="bg-background-white-color">
-            <Component {...pageProps} />
-          </div>
-        </Layout>
-      </ThemeProvider>
+      <div className="bg-background-white-color">
+        {getLayout(<Component {...pageProps} />)}
+      </div>
     </AuthUserProvider>
   );
 }
-
-export default MyApp;

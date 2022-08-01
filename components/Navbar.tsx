@@ -6,7 +6,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export default function Navbar() {
   return (
-    <div className="flex flex-row justify-between items-center h-20 bg-primary-color mb-20">
+    <div className="flex flex-row justify-between items-center h-20 bg-primary-color">
       <div className="md:m-32">
         <Image src={logo} width={171} height={56} />
       </div>
@@ -31,8 +31,8 @@ export default function Navbar() {
           img
         </div>
         <div className="flex flex-row items-center">
-          <p className="font-mulish text-white text-lg m-2">Emil Emilsson</p>
-          <button>
+          <button className="flex flex-row  items-center">
+            <p className="font-mulish text-white text-lg m-2">Emil Emilsson</p>
             <KeyboardArrowDownIcon
               className="w-5 h-5"
               style={{ color: "white" }}

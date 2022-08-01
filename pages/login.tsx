@@ -5,21 +5,19 @@ import Image from "next/image";
 import logo from "../public/logo.svg";
 import Loginform from "../components/Login/Loginform";
 import AlternateLogins from "../components/Login/AlternateLogins";
-import landing_img from "../public/manWorking.svg";
+import landing_img from "../public/LoginImg.png";
 import { Divider } from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import { useAuth } from "../components/firebase/AuthUserProvider";
 
-
-
 export default function LoginView() {
   const { signInWithEmailAndPassword } = useAuth();
-  
-  const onSubmit = (formData: {user: string, password: string}) => {
+
+  const onSubmit = (formData: { user: string; password: string }) => {
     signInWithEmailAndPassword(formData.user, formData.password)
-      .then( userCredential => console.log(JSON.stringify(userCredential)))
+      .then((userCredential) => console.log(JSON.stringify(userCredential)))
       .catch(console.log);
-  }
+  };
 
   return (
     <>
@@ -43,7 +41,7 @@ export default function LoginView() {
             <div className="flex m-0 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
-            <Loginform onSubmit={(loginData => onSubmit(loginData))} />
+            <Loginform onSubmit={(loginData) => onSubmit(loginData)} />
             <a href="" className="m-8 self-center text-primary-color">
               Glömt lösenord?
             </a>
@@ -60,13 +58,8 @@ export default function LoginView() {
             <p className="self-center text-light-text">
               Har du inget konto?{" "}
               <Link href="/create-account">
-                <a
-                  className="text-primary-color"
-                >
-                  Registrera
-                </a>
+                <a className="text-primary-color">Registrera</a>
               </Link>
-              
             </p>
           </div>
         </div>
