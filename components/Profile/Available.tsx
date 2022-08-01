@@ -4,19 +4,19 @@ import { Divider } from "@mui/material";
 
 export default function Available({ startDate, endDate }) {
   return (
-    <div className="flex flex-row items-center  w-full">
-      <div className="w-1/2">
-        <div className="flex flex-row items-center m-10">
+    <div className="flex flex-col md:flex-row items-center w-full">
+      <div className="md:w-1/2">
+        <div className="flex flex-row md:items-center md:m-10">
           <EventAvailableOutlinedIcon
             className="h-7 w-7"
             style={{ color: "red" }}
           />
-          <p className="text-lg font-bold font-mulish m-2 text-black">
+          <p className="text-md md:text-lg font-bold font-mulish m-2 text-black">
             Tillgänglighet
           </p>
         </div>
       </div>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center m-2">
         <div className="flex flex-row">
           <div className="font-mulish text-md font-bold mr-10 text-black">
             Från
