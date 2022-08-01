@@ -4,7 +4,7 @@ import UserPresentation from "../components/Profile/UserPresentation";
 import EditProfile from "../components/Profile/EditProfile";
 import AboutMe from "../components/Profile/AboutMe";
 import Contact from "../components/Profile/Contact";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 
 export default function companyProfile() {
   return (
