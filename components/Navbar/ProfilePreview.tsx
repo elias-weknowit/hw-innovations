@@ -20,7 +20,7 @@ export default function ProfilePreview({user, image}: ProfilePreviewProps) {
                     <Image src={image} width="100%" height="100%" />
                 </div>
                 <div className="flex flex-row items-center">
-                    <Link href="/login">
+                    <Link href="/user-profile">
                         <a className="font-mulish text-white text-lg m-2">
                             {user.email}
                         </a>
