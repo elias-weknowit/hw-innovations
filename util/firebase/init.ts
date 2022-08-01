@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, browserSessionPersistence} from "firebase/auth";
 import { useEffect } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 
@@ -27,5 +27,7 @@ export function initFirestore(): boolean {
 }
 
 export function initAuth(): boolean {
+  const auth = getAuth();
+  auth.setPersistence(browserSessionPersistence);
   return false;
 }

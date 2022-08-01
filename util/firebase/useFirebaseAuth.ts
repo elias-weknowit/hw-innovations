@@ -1,15 +1,10 @@
-import { getAuth } from 'firebase/auth';
+import { getAuth, User } from 'firebase/auth';
 import { Auth, UserCredential, GoogleAuthProvider } from 'firebase/auth';
 import { useState, useEffect } from 'react'
 import { signInWithRedirect, getRedirectResult as _getRedirectResult, signInWithEmailAndPassword as _signInWithEmailAndPassword, createUserWithEmailAndPassword as _createUserWithEmailAndPassword } from 'firebase/auth';
 
-const formatAuthUser = (user) => ({
-  uid: user.uid,
-  email: user.email
-});
-
 export interface FireBaseAuthHook {
-  authUser: Auth | null,
+  user: User | null,
   loading: boolean,
   signInWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential>,
   createUserWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential>,
@@ -19,25 +14,24 @@ export interface FireBaseAuthHook {
 }
 
 export default function useFirebaseAuth(): FireBaseAuthHook {
-  const [authUser, setAuthUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const auth = getAuth();
 
-  const authStateChanged = async (authState) => {
+  const authStateChanged = async (authState: User) => {
     if (!authState) {
-      setAuthUser(null)
+      setUser(null)
       setLoading(false)
       return;
     }
 
     setLoading(true)
-    var formattedUser = formatAuthUser(authState);
-    setAuthUser(formattedUser);    
+    setUser(authState);    
     setLoading(false);
   };
 
   const clear = () => {
-    setAuthUser(null);
+    setUser(null);
     setLoading(true);
   };
 
@@ -58,7 +52,7 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
   }, []);
 
   return {
-    authUser,
+    user,
     loading,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
