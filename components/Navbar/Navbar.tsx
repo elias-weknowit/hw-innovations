@@ -6,11 +6,16 @@ import ProfilePreview from "./ProfilePreview";
 import LoginImg from "../../public/LoginImg.png";
 import { useAuth } from "../../components/firebase/AuthUserProvider";
 
-export default function Navbar() {
+export default function Navbar({ transparent }: { transparent?: boolean }) {
   const { user } = useAuth();
 
   return (
-    <div className="flex flex-row justify-between items-center h-20 bg-primary-color">
+    <div
+      className={
+        "flex flex-row justify-between items-center h-20 " +
+        (transparent ? "" : "bg-primary-color")
+      }
+    >
       <div className="md:m-32">
         <Image src={logo} width={171} height={56} />
       </div>
@@ -30,7 +35,7 @@ export default function Navbar() {
           </p>
         </Link>
       </div>
-      {user &&  <ProfilePreview name={user.email} image={LoginImg}/>}
+      {user && <ProfilePreview name={user.email} image={LoginImg} />}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { ReactElement } from "react";
-import Navbar from "../components/StartPage/TransparentNavbar";
+import Navbar from "../components/Navbar/Navbar";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       </Head>
 
       <div className="flex flex-col bg-homeScreen-landingPage bg-fixed bg-cover min-h-screen">
-        <Navbar />
+        <Navbar transparent />
         <div className="md:mx-32 md:mt-40 flex flex-cols">
           <div className="w-1/3">
             <p className="font-mulish text-6xl text-white">
@@ -19,7 +19,7 @@ export default function Home() {
             <p className="font-mulish tex-lg mt-12 mb-12 text-white">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              ever since the 1500s.
             </p>
             <div className="flex flex-row items-center">
               <button className="rounded-full bg-primary-color p-3 m-2 w-1/3">
