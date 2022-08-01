@@ -4,8 +4,11 @@ import logo from "../../public/Logo.svg";
 import Link from "next/link";
 import ProfilePreview from "./ProfilePreview";
 import LoginImg from "../../public/LoginImg.png";
+import { useAuth } from "../../components/firebase/AuthUserProvider";
 
 export default function Navbar() {
+  const { user } = useAuth();
+
   return (
     <div className="flex flex-row justify-between items-center h-20 bg-primary-color">
       <div className="md:m-32">
@@ -27,7 +30,7 @@ export default function Navbar() {
           </p>
         </Link>
       </div>
-      <ProfilePreview name="Emil Emilsson" image={LoginImg}/>
+      {user &&  <ProfilePreview name={user.email} image={LoginImg}/>}
     </div>
   );
 }
