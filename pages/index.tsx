@@ -2,7 +2,7 @@ import Head from "next/head";
 import { ReactElement } from "react";
 import Navbar from "../components/StartPage/TransparentNavbar";
 
-export default function LandingPage() {
+export default function Home() {
   return (
     <>
       <Head>
@@ -38,6 +38,6 @@ export default function LandingPage() {
   );
 }
 
-LandingPage.getLayout = function getLayout(page: ReactElement) {
+Home.getLayout = function getLayout(page: ReactElement) {
   return page;
 };
