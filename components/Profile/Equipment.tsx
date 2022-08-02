@@ -5,7 +5,7 @@ import { Divider } from "@mui/material";
 
 export default function Equipment() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mb-5 md:mb-20">
       {" "}
       <div className="flex flex-row items-center justify-between p-3">
         <div className="flex flex-row items-center ml-6">

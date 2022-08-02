@@ -4,7 +4,7 @@ import EditProfile from "../components/Profile/EditProfile";
 import UserPresentation from "../components/Profile/UserPresentation";
 import Available from "../components/Profile/Available";
 import AboutMe from "../components/Profile/AboutMe";
-import Skills from "../components/Profile/Skills";
+import SkillsComponent from "../components/Profile/Skills/SkillsComponent";
 import Experience from "../components/Profile/Experience";
 import Equipment from "../components/Profile/Equipment";
 
@@ -42,7 +42,7 @@ export default function UserProfile() {
             <AboutMe title="Om mig" />
           </div>
           <div className="bg-profile-sections md:w-1/2 m-2 rounded-2xl shadow-md">
-            <Skills />
+            <SkillsComponent />
           </div>
         </div>
         {/*Experience section*/}
