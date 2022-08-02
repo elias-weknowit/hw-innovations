@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Divider } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 
 export default function AboutMe({ title }) {
+  const [aboutmeText, setAboutmeText] = useState("");
+  const charactarLimit = 300;
+
+  const handleChange = (event) => {
+    if (charactarLimit - event.target.value.length >= 0) {
+      setAboutmeText(event.target.value);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center justify-between p-3">
@@ -23,13 +32,18 @@ export default function AboutMe({ title }) {
       </div>
       <Divider variant="middle" />
       <div className="p-3 ml-6">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting. Lorem Ipsum is
-        simply dummy text of the printing and typesetting industry. Lorem Ipsum
-        has been the industry's standard dummy text ever since the 1500s.
+        <div className="flex flex-col">
+          <textarea
+            className="block w-full font-mulish bg-profile-sections border-none resize-none focus:outline-none text-md"
+            placeholder="Berätta om dig själv..."
+            rows={7}
+            value={aboutmeText}
+            onChange={handleChange}
+          ></textarea>
+          <small className="flex justify-end font-mulish mr-2">
+            {aboutmeText.length}/300
+          </small>
+        </div>
       </div>
     </div>
   );
