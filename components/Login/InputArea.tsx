@@ -27,7 +27,7 @@ export default function InputArea({
   valid_user = false,
   error = false,
   errorMessage = "",
-}) {
+}: InputAreaProps) {
   return (
     <div className="mb-4">
       <span className={"flex justify-center w-80 transition duration-150 ease-in-out"}>
