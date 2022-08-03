@@ -27,7 +27,7 @@ export default function LoginView() {
 
   useEffect( () => {
     getRedirectResult().then( result => {
-      if(result.user.displayName === '' || result.user.displayName === null) {
+      if(result?.user?.displayName === '' || result.user.displayName === null) {
         //If display name is not automatically set, set it manually from the provider data. Might need to be changed from [0]
         updateProfile({displayName: result.user.providerData[0].displayName});
       }
