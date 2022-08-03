@@ -8,7 +8,7 @@ import { useAuth } from "../firebase/AuthUserProvider";
 
 interface ProfilePreviewProps {
     user: User | null;
-    image: StaticImageData;
+    image: string | StaticImageData;
 }
 
 export default function ProfilePreview({user, image}: ProfilePreviewProps) {

@@ -17,7 +17,7 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
       }
     >
       <div className="md:m-32">
-        <Image src={logo} width={171} height={56} />
+        <Image alt={"Logo"} src={logo} width={171} height={56} />
       </div>
 
       <div className="flex flex-row">
@@ -35,7 +35,7 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
           </p>
         </Link>
       </div>
-      <ProfilePreview user={user} image={LoginImg} />
+      <ProfilePreview user={user} image={user?.photoURL ? user.photoURL : logo} />
     </div>
   );
 }
