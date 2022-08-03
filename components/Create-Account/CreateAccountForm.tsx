@@ -110,6 +110,7 @@ export default function CreateAccountForm() {
               onChange={password => handlePasswordChange(password)}
               error={error?.fields.includes('password')}
               errorMessage={error?.message}
+              valid_user={password.length >= 6}
             />
             <LoginButton onClick={() => onSubmit({user: email, password, displayName: userName})} title="Forsätt" />
           </div>
