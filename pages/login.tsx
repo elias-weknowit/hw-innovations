@@ -61,12 +61,7 @@ export default function LoginView() {
 
       <div className="flex flex-row bg-background-white-color">
         <div className="w-1/2 min-h-screen relative hidden md:inline ">
-          <Image
-            src={landing_img}
-            alt="Landing picture for the website"
-            layout="fill"
-            objectFit="cover"
-            objectPosition="left"
+          <Image src={landing_img} alt="Landing picture for the website" layout="fill" objectFit="cover" objectPosition="left"
           />
         </div>
 
@@ -75,7 +70,7 @@ export default function LoginView() {
             <div className="flex m-0 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
-            {loading ? <p className="text-center self-center">Logging in...</p> : <Loginform error={error} onSubmit={(loginData) => onSubmit(loginData)}/> }
+            {loading ? <p className="text-center self-center">Loggar in...</p> : <Loginform error={error} onSubmit={(loginData) => onSubmit(loginData)}/> }
             <a href="" className="m-8 self-center text-primary-color">
               Glömt lösenord?
             </a>
@@ -83,12 +78,7 @@ export default function LoginView() {
               <Divider className="text-light-text">Eller fortsätt med</Divider>
             </div>
 
-            <AlternateLogins
-              className="p-6"
-              enableApple
-              enableFacebook
-              enableGoogle
-            />
+            <AlternateLogins className="p-6" enableApple enableFacebook enableGoogle/>
             <p className="self-center text-light-text">
               Har du inget konto?{" "}
               <Link href="/create-account">

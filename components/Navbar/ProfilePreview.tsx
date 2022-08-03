@@ -2,6 +2,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { User } from "firebase/auth";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+import { Router, useRouter } from "next/router";
 import { useAuth } from "../firebase/AuthUserProvider";
 
 
@@ -12,6 +13,7 @@ interface ProfilePreviewProps {
 
 export default function ProfilePreview({user, image}: ProfilePreviewProps) {
     const { signOut } = useAuth();
+    const router = useRouter();
     return (
         <div className="md:m-32 flex flex-row items-center justify-self-end">
             {user ?
@@ -25,7 +27,7 @@ export default function ProfilePreview({user, image}: ProfilePreviewProps) {
                             {user.email}
                         </a>
                     </Link>
-                    <button onClick={signOut}>
+                    <button onClick={() => {signOut(); router.push('/login')}}>
                         <KeyboardArrowDownIcon className="w-5 h-5" style={{ color: "white" }}/>
                     </button>
                 </div>
