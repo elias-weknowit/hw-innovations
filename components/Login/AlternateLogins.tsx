@@ -26,7 +26,7 @@ export default function AlternateLogins({
           </IconButton>
         )}
         {enableGoogle && (
-          <IconButton className="bg-white drop-shadow" size="large" onClick={() => signInWithGoogleRedirect()}>
+          <IconButton className="bg-white drop-shadow" size="large" onClick={() => {router.push('/login'); signInWithGoogleRedirect();}}>
               <SvgIcon component={GoogleIcon} inheritViewBox />
           </IconButton>
         )}
