@@ -24,7 +24,7 @@ export default function ProfilePreview({user, image}: ProfilePreviewProps) {
                 <div className="flex flex-row items-center">
                     <Link href="/user-profile">
                         <a className="font-mulish text-white text-lg m-2">
-                            {user.email}
+                            {user.displayName}
                         </a>
                     </Link>
                     <button onClick={() => {signOut(); router.push('/login')}}>
