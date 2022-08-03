@@ -1,8 +1,10 @@
 import React, { ReactElement } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { Divider } from "@mui/material";
+import { useAuth } from "../components/firebase/AuthUserProvider";
 
 import CreateAccountForm from "../components/Create-Account/CreateAccountForm";
 import landing_img from "../public/CreateImg.png";
@@ -23,6 +25,13 @@ interface UserProfileDto {
 }
 
 export default function CreateAccountView() {
+  //Redirect to homepage if user is already logged in
+  const { loading, user } = useAuth();
+  const router = useRouter();
+  if(!loading && user) {
+    router.push("/");
+  }
+
   return (
     <>
       <Head>
