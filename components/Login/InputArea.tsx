@@ -4,12 +4,12 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 interface InputAreaProps {
   placeholder: string;
   type: string;
-  IconComponent: React.ElementType<any>;
-  Password_hide?: React.ElementType<any>;
+  IconComponent: any;
+  Password_hide?: any;
   password_visibility?: boolean;
   onClick?: () => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  Password_Visibile?: React.ElementType<any>;
+  Password_Visibile?: any;
   valid_user?: boolean;
   error?: boolean;
   errorMessage?: string;
@@ -21,13 +21,13 @@ export default function InputArea({
   IconComponent,
   Password_hide,
   password_visibility,
-  onClick = () => {},
+  onClick,
   onChange,
   Password_Visibile,
   valid_user = false,
   error = false,
   errorMessage = "",
-}: InputAreaProps) {
+}) {
   return (
     <div className="mb-4">
       <span className={"flex justify-center w-80 transition duration-150 ease-in-out"}>
@@ -47,16 +47,18 @@ export default function InputArea({
               className="flex justify-end items-center cursor-pointer"
               onClick={onClick}
             >
-              {password_visibility ? (
-                <Password_hide
-                  className="w-5 h-5 absolute mr-5"
-                  style={{ color: "#000" }}
-                />
-              ) : (
-                <Password_Visibile
-                  className="w-5 h-5 absolute mr-5"
-                  style={{ color: "#000" }}
-                />
+              {(Password_hide && Password_Visibile) && (
+                password_visibility ? (
+                  <Password_hide
+                    className="w-5 h-5 absolute mr-5"
+                    style={{ color: "#000" }}
+                  />
+                ) : (
+                  <Password_Visibile
+                    className="w-5 h-5 absolute mr-5"
+                    style={{ color: "#000" }}
+                  />
+                )
               )}
             </label>
           </div>
