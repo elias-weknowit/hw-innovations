@@ -1,19 +1,33 @@
 import React, { useState } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
+interface InputAreaProps {
+  placeholder: string;
+  type: string;
+  IconComponent: React.ElementType<any>;
+  Password_hide?: React.ElementType<any>;
+  password_visibility?: boolean;
+  onClick?: () => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  Password_Visibile?: React.ElementType<any>;
+  valid_user?: boolean;
+  error?: boolean;
+  errorMessage?: string;
+}
+
 export default function InputArea({
   placeholder,
   type,
   IconComponent,
   Password_hide,
   password_visibility,
-  onClick,
+  onClick = () => {},
   onChange,
   Password_Visibile,
   valid_user = false,
   error = false,
   errorMessage = "",
-}) {
+}: InputAreaProps) {
   return (
     <div className="mb-4">
       <span className={"flex justify-center w-80 transition duration-150 ease-in-out"}>
