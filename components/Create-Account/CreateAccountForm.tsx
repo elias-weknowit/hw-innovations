@@ -88,12 +88,16 @@ export default function CreateAccountForm() {
               placeholder="Namn"
               type="text"
               onChange={userName => handleUserNameChange(userName)}
+              error={error?.fields.includes('displayName')}
+              errorMessage={error?.message}
             />
             <InputArea
               IconComponent={MailIcon}
               placeholder="E-mail"
               type="text"
               onChange={mail => handleEmailChange(mail)}
+              error={error?.fields.includes('email')}
+              errorMessage={error?.message}
             />
             <InputArea
               IconComponent={KeyIcon}
@@ -104,6 +108,8 @@ export default function CreateAccountForm() {
               password_visibility={showPassword}
               onClick={passwordToggle}
               onChange={password => handlePasswordChange(password)}
+              error={error?.fields.includes('password')}
+              errorMessage={error?.message}
             />
             <LoginButton onClick={() => onSubmit({user: email, password, displayName: userName})} title="Forsätt" />
           </div>
