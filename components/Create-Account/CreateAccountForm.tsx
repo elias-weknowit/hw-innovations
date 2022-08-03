@@ -9,9 +9,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 import { useAuth } from "../../components/firebase/AuthUserProvider";
+import { useRouter } from "next/router";
+import { deleteUser } from "firebase/auth";
+import { display } from "@mui/system";
+
+type CreateAccountError = {
+  message: string;
+  fields: ("email" | "password" | "displayName")[];
+}
 
 export default function CreateAccountForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const passwordToggle = () => {
     setShowPassword(!showPassword);
@@ -20,6 +29,7 @@ export default function CreateAccountForm() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<CreateAccountError | null>(null);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
@@ -38,10 +48,28 @@ export default function CreateAccountForm() {
 
   const { createUserWithEmailAndPassword, updateProfile } = useAuth();
   
-  const onSubmit = (formData: {user: string, password: string, displayName: string}) => {
-    createUserWithEmailAndPassword(formData.user, formData.password)
-      .then( userCredential => updateProfile({displayName: formData.displayName}, userCredential.user))
-      .catch(console.log);
+  const onSubmit = async (formData: {user: string, password: string, displayName: string}) => {
+    createUserWithEmailAndPassword(formData.user, formData.password).then(result => {
+      updateProfile({displayName: formData.displayName}, result.user).then(() => router.push('/')).catch(error => {
+        deleteUser(result.user);
+        setError({message: 'Något gick fel vid sättning av namn.', fields: ['displayName']});
+      });
+    }).catch(error => {
+      switch(error.code) {
+        case 'auth/email-already-in-use':
+          setError({message: 'E-postadressen används redan.', fields: ['email']});
+          break;
+        case 'auth/invalid-email':
+          setError({message: 'E-postadressen är ogiltig.', fields: ['email']});
+          break;
+        case 'auth/weak-password':
+          setError({message: 'Lösenordet måste vara minst 6 tecken.', fields: ['password']});
+          break;
+        default:
+          setError({message: 'Något gick fel.', fields: ['email', 'password', 'displayName']});
+      }
+    });
+    
   }
 
   return (
