@@ -17,19 +17,18 @@ export type LoginError = {
 };
 
 export default function LoginView() {
-  const { signInWithEmailAndPassword, getRedirectResult, loading, user } = useAuth();
+  const { signInWithEmailAndPassword, getRedirectResult, loading, user } =
+    useAuth();
   const router = useRouter();
   const [error, setError] = useState<LoginError | null>(null);
 
-  if(!loading && user) {
-    router.push("/");
+  if (!loading && user) {
+    router.push("/user-profile");
   }
 
-  useEffect( () => {
-    getRedirectResult().catch( error => console.log(error));
-  })
-
-  
+  useEffect(() => {
+    getRedirectResult().catch((error) => console.log(error));
+  });
 
   const onSubmit = (formData: { user: string; password: string }) => {
     signInWithEmailAndPassword(formData.user, formData.password)
@@ -75,7 +74,14 @@ export default function LoginView() {
             <div className="flex m-0 justify-center">
               <Image src={logo} width={370} height={123} />
             </div>
-            {loading ? <p className="text-center self-center">Logging in...</p> : <Loginform error={error} onSubmit={(loginData) => onSubmit(loginData)}/> }
+            {loading ? (
+              <p className="text-center self-center">Logging in...</p>
+            ) : (
+              <Loginform
+                error={error}
+                onSubmit={(loginData) => onSubmit(loginData)}
+              />
+            )}
             <a href="" className="m-8 self-center text-primary-color">
               Glömt lösenord?
             </a>
@@ -102,11 +108,11 @@ export default function LoginView() {
   );
 }
 
-LoginView.getLayout = function getLayout( page: ReactElement) {
+LoginView.getLayout = function getLayout(page: ReactElement) {
   return (
     <>
-    {page}
-    <Footer />
+      {page}
+      <Footer />
     </>
-  )
-}
+  );
+};
