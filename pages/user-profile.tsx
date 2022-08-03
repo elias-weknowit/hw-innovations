@@ -4,9 +4,9 @@ import EditProfile from "../components/Profile/EditProfile";
 import UserPresentation from "../components/Profile/UserPresentation";
 import Available from "../components/Profile/Available";
 import AboutMe from "../components/Profile/AboutMe";
-import SkillsComponent from "../components/Profile/Skills/SkillsBox";
+import SkillsComponent from "../components/Profile/SkillSection/SkillsBox";
 import Experience from "../components/Profile/Experience";
-import Equipment from "../components/Profile/Equipment";
+import Equipment from "../components/Profile/EquipmentSection/EquipmentBox";
 
 export default function UserProfile() {
   return (

@@ -31,17 +31,18 @@ export default function AboutMe({ title }) {
         </div>
       </div>
       <Divider variant="middle" />
-      <div className="p-3 ml-6">
+      <div className="p-3">
         <div className="flex flex-col">
           <textarea
-            className="block w-full font-mulish bg-profile-sections border-none resize-none focus:outline-none text-md"
+            className="block w-full font-mulish p-3 md:mx-1 bg-profile-sections border-none resize-none focus:outline-none text-md"
             placeholder="Berätta om dig själv..."
             rows={7}
             value={aboutmeText}
             onChange={handleChange}
           ></textarea>
           <small className="flex justify-end font-mulish mr-2">
-            {aboutmeText.length}/300
+            <p className="font-mulish font-semibold ">{aboutmeText.length}</p>
+            /300
           </small>
         </div>
       </div>
