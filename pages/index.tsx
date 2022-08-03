@@ -9,11 +9,11 @@ export default function Home() {
         <title>H&W Innovations | Välkommen</title>
       </Head>
 
-      <div className="flex flex-col bg-homeScreen-landingPage bg-fixed bg-cover min-h-screen">
+      <div className="flex flex-col bg-homeScreen-landingPage bg-fixed bg-cover min-h-screen ">
         <Navbar transparent />
-        <div className="md:mx-32 md:mt-40 flex flex-cols">
-          <div className="md:w-1/3">
-            <p className="text-5xl items-center mt-20 text-center md:text-start font-mulish md:text-6xl text-white">
+        <div className="md:mx-32 mt-40 md:mt-40 flex flex-cols">
+          <div className="md:w-full lg:w-full  xl:w-1/3">
+            <p className="text-5xl items-center  text-center md:text-start font-mulish md:text-6xl text-white">
               Erbjud och hitta arbetskraft här
             </p>
             <p className="font-mulish tex-lg mt-12 mb-12 text-center md:text-start text-white">
@@ -23,12 +23,12 @@ export default function Home() {
               dummy text ever since the 1500s.
             </p>
             <div className="flex flex-row items-center justify-center md:justify-start">
-              <button className="rounded-full bg-primary-color p-3 m-2 w-1/3">
+              <button className="rounded-full bg-primary-color p-2 md:p-3 m-2 w-1/3">
                 <p className="font-mulish text-md text-white">
                   Sök arbetskraft
                 </p>
               </button>
-              <button className="rounded-full bg-secondary-color p-3 m-2 w-1/3">
+              <button className="rounded-full bg-secondary-color p-2 md:p-3 m-2 w-1/3">
                 <p className="font-mulish text-md text-white">Sök jobb</p>
               </button>
             </div>

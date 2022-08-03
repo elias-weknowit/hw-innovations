@@ -6,7 +6,7 @@ import { Divider } from "@mui/material";
 import Skill from "./Skill";
 
 export default function SkillsBox() {
-  const [skills, setSkills] = useState(["Måla", "Bygga", "Körkort"]);
+  const [skills, setSkills] = useState([]);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [isRemovingSkill, setIsRemovingSkill] = useState(false);
 

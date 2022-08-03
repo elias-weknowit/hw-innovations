@@ -6,11 +6,7 @@ import { Divider } from "@mui/material";
 import Equipment from "./Equipment";
 
 export default function EquipmentBox() {
-  const [equipment, setEquipment] = useState([
-    "Skruvmejsel",
-    "Motorsåg",
-    "Borrmaskin",
-  ]);
+  const [equipment, setEquipment] = useState([]);
   const [isAddingEquipment, setIsAddingEquipment] = useState(false);
   const [isRemoveEquipment, setIsRemoveEquipment] = useState(false);
 
