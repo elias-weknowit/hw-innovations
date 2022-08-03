@@ -36,11 +36,11 @@ export default function CreateAccountForm() {
     console.log(password);
   }
 
-  const { createUserWithEmailAndPassword } = useAuth();
+  const { createUserWithEmailAndPassword, updateProfile } = useAuth();
   
-  const onSubmit = (formData: {user: string, password: string}) => {
+  const onSubmit = (formData: {user: string, password: string, displayName: string}) => {
     createUserWithEmailAndPassword(formData.user, formData.password)
-      .then( userCredential => console.log(userCredential))
+      .then( userCredential => updateProfile({displayName: formData.displayName}, userCredential.user))
       .catch(console.log);
   }
 
@@ -59,20 +59,12 @@ export default function CreateAccountForm() {
               IconComponent={PersonIcon}
               placeholder="Namn"
               type="text"
-              Password_Visibile="none"
-              Password_hide="none"
-              password_visibility="none"
-              onClick="none"
               onChange={userName => handleUserNameChange(userName)}
             />
             <InputArea
               IconComponent={MailIcon}
               placeholder="E-mail"
               type="text"
-              Password_Visibile="none"
-              Password_hide="none"
-              password_visibility="none"
-              onClick="none"
               onChange={mail => handleEmailChange(mail)}
             />
             <InputArea
@@ -85,7 +77,7 @@ export default function CreateAccountForm() {
               onClick={passwordToggle}
               onChange={password => handlePasswordChange(password)}
             />
-            <LoginButton onClick={() => onSubmit({user: email, password})} title="Forsätt" />
+            <LoginButton onClick={() => onSubmit({user: email, password, displayName: userName})} title="Forsätt" />
           </div>
         </form>
       </div>
