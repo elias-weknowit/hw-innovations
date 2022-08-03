@@ -42,10 +42,6 @@ export default function Loginform({error, onSubmit}: {error: LoginError | null, 
               IconComponent={MailIcon}
               placeholder="E-mail"
               type="text"
-              Password_Visibile="none"
-              Password_hide="none"
-              password_visibility="none"
-              onClick="none"
               error={error?.type === "email" || error?.type === "both"}
               errorMessage={error?.message}
               onChange={email => handleEmailChange(email)}
