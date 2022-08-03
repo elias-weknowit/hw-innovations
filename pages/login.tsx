@@ -17,7 +17,7 @@ export type LoginError = {
 };
 
 export default function LoginView() {
-  const { signInWithEmailAndPassword, getRedirectResult, loading, user } = useAuth();
+  const { signInWithEmailAndPassword, getRedirectResult, loading, user, updateProfile } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<LoginError | null>(null);
 
@@ -26,8 +26,14 @@ export default function LoginView() {
   }
 
   useEffect( () => {
-    getRedirectResult().catch( error => console.log(error));
-  })
+    getRedirectResult().then( result => {
+      if(result.user.displayName === '' || result.user.displayName === null) {
+        //If display name is not automatically set, set it manually from the provider data. Might need to be changed from [0]
+        updateProfile({displayName: result.user.providerData[0].displayName});
+      }
+    })
+    .catch( error => console.log(error));
+  }, [])
 
   
 
