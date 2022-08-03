@@ -6,7 +6,7 @@ import { Divider } from "@mui/material";
 import Skill from "./Skill";
 
 export default function SkillsBox() {
-  const [skills, setSkills] = useState(["Paint", "Build", "Drive"]);
+  const [skills, setSkills] = useState(["Måla", "Bygga", "Körkort"]);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [isRemovingSkill, setIsRemovingSkill] = useState(false);
 
@@ -16,6 +16,7 @@ export default function SkillsBox() {
       setSkills((skills) => [...skills, e.target[0].value]);
     }
   };
+
   return (
     <div className="flex flex-col ml-6">
       <div className="flex flex-row items-center justify-between p-3">
@@ -61,9 +62,9 @@ export default function SkillsBox() {
           />
         ))}
       </div>
-      <div className="flex flex-row mb-4 md:justify-center items-center bottom-0">
+      <div className="flex flex-row mb-4 justify-center items-center">
         {isAddingSkill && (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="flex items-center">
             <input
               className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
               type="text"
@@ -73,7 +74,7 @@ export default function SkillsBox() {
               className="font-mulish bg-profile-available shadow-md  rounded-lg p-1 ml-4"
               type="submit"
             >
-              Lägg til
+              Lägg till
             </button>
           </form>
         )}
