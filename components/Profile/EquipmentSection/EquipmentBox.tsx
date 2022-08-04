@@ -9,11 +9,13 @@ export default function EquipmentBox() {
   const [equipment, setEquipment] = useState([]);
   const [isAddingEquipment, setIsAddingEquipment] = useState(false);
   const [isRemoveEquipment, setIsRemoveEquipment] = useState(false);
+  const [newEquipmentInput, setNewEquipmentInput] = useState<string>("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!equipment.find((equipment) => equipment === e.target[0].value)) {
       setEquipment((equipment) => [...equipment, e.target[0].value]);
+      setNewEquipmentInput("");
     }
   };
 
@@ -51,8 +53,9 @@ export default function EquipmentBox() {
       </div>
       <Divider variant="middle" />
       <div className="p-3 ml-6 flex flex-wrap">
-        {equipment.map((equipment) => (
+        {equipment.map((equipment, idx) => (
           <Equipment
+            key={idx}
             equipmentName={equipment}
             isRemoving={isRemoveEquipment}
             onRemoveEquipment={() =>
@@ -72,6 +75,8 @@ export default function EquipmentBox() {
               className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
               type="text"
               placeholder="Lägg till ny utrustning"
+              onChange={(e) => setNewEquipmentInput(e.target.value)}
+              value={newEquipmentInput}
             />
             <button
               className="font-mulish bg-profile-available shadow-md rounded-lg p-1 ml-4"

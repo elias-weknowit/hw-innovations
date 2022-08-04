@@ -2,24 +2,55 @@ import React, { useState } from "react";
 import { Divider } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import ExperienceDetails from "./ExperienceDetails";
 
-export default function ExperienceBox() {
-  const [title, setTitle] = useState([]);
-  const [companyName, setCompanyName] = useState([]);
-  const [isAddingExperience, setIsAddingExperience] = useState(false);
-  const [isRemovingExperience, setIsRemovingExperience] = useState(false);
+export type Experience = {title: string, company: string, to: string, from: string, workTime: number | null}
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.find((title) => title === e.target[0].value)) {
-      setTitle((titles) => [...titles, e.target[0].value]);
+function experienceIsValid(experience: Experience): boolean {return experience.title.length > 0 && experience.company.length > 0 && experience.to.length > 0 && experience.from.length > 0 /* && experience.workTime !== null*/} 
+function experienceIsEmpty(experience: Experience): boolean {return experience.title.length === 0 && experience.company.length === 0 && experience.to.length === 0 && experience.from.length === 0/*&& experience.workTime === null*/}
+
+export default function ExperienceBox() {
+  const [newExperiences, setNewExperiences] = useState<Experience[]>([]);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleAdd = () => {
+    let addFlag = true;
+    newExperiences.forEach(experience => {
+      if (!experienceIsValid(experience) && !experienceIsEmpty(experience)) {
+        addFlag = false;
+      }
+    });
+
+    if(addFlag){
+      setExperiences([...experiences, ...(newExperiences.filter(experience => !experienceIsEmpty(experience)))]);
+      setNewExperiences([]);
     }
-    if (!companyName.find((companyName) => companyName === e.target[0].value)) {
-      setCompanyName((companyNames) => [...companyNames, e.target[0].value]);
-    }
+
+    return addFlag;
   };
+
+  const onNewExperienceEdit = (editedIndex, editedExperience) => {
+    setNewExperiences(prev => prev.map( (experience, index) => {
+      if(index === editedIndex){
+        return editedExperience;
+      } else{
+        return experience;
+      }
+    }));
+  }
+
+  const onExperienceEdit = (editedIndex, editedExperience) => {
+    setExperiences(prev => prev.map( (experience, index) => {
+      if(index === editedIndex){
+        return editedExperience;
+      } else{
+        return experience;
+      }
+    }));
+  }
 
   return (
     <div className="flex flex-col">
@@ -33,53 +64,71 @@ export default function ExperienceBox() {
             Erfarenhet/Tidigare arbetsgivare
           </p>
         </div>
-        <div className="mr-6">
+        
+        <div className="mr-6 flex flex-row">
           <div
             onClick={() => {
-              setIsAddingExperience(!isAddingExperience);
-              setIsRemovingExperience(!isRemovingExperience);
+              if(isEditing){
+                //TODO: Save changes
+                if(newExperiences.length > 0){
+                  if(!handleAdd()){
+                    alert("Du måste fylla i alla fält");                    
+                  } else{
+                    setIsEditing(false);
+                  }
+                } else{
+                  setIsEditing(false);
+                }
+              } else{
+                setIsEditing(true);
+              }
             }}
           >
-            {isAddingExperience ? (
+            {isEditing ? (
               <SaveIcon
                 className="w-6 h-6 ml-4 cursor-pointer	"
                 style={{ color: "red" }}
               />
             ) : (
-              <AddCircleOutlineOutlinedIcon
+              <BorderColorOutlinedIcon
                 className="w-6 h-6 ml-4"
                 style={{ color: "red" }}
               />
             )}
           </div>
+          <div
+            onClick={() => {
+              setIsEditing(true);
+              setNewExperiences( prev => [ {title: "", company: "", to: "", from: "", workTime: null}, ...prev]);
+            }}
+          >
+           
+          <AddCircleOutlineOutlinedIcon
+            className="w-6 h-6 ml-4"
+            style={{ color: "red" }}
+          />
+            
+          </div>
         </div>
       </div>
       <Divider variant="middle" />
       <div className="p-3 flex flex-wrap fle flex-col">
-        {title.map((title) => (
+        {newExperiences.map((newExperience, idx) => {
+          return <ExperienceDetails key={-idx} experience={newExperience} isEditing={true} onEdit={ e => onNewExperienceEdit(idx, e)} onRemove={() => setNewExperiences((prev) => prev.filter((_, idx2) => idx2 !== idx))} />
+        })}
+        {experiences.map((experience, idx) => (
           <ExperienceDetails
-            title={title}
-            isRemoving={isRemovingExperience}
-            onRemoveExperience={() =>
-              setTitle((experience) =>
-                experience.filter((name) => name !== title)
+            key={idx}
+            experience={experience}
+            isEditing={isEditing}
+            onEdit={ e => onExperienceEdit(idx, e)}
+            onRemove={() =>
+              setExperiences((prev) =>
+                prev.filter((_, idx2) => idx2 !== idx)
               )
             }
           />
         ))}
-      </div>
-      <div>
-        {isAddingExperience && (
-          <form onSubmit={handleSubmit}>
-            <div className="md:ml-6 m-2">
-              <input
-                className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
-                type="text"
-                placeholder="Lägg till nya färdigheter..."
-              />
-            </div>
-          </form>
-        )}
       </div>
     </div>
   );
