@@ -43,10 +43,11 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
         </div>
       </div>
       <div
-        className={`md:flex md:p-1 md:flex-row md:z-auto w-full md:w-auto translate-all ease-in ${
+        className={`md:flex md:p-1 md:flex-row w-full md:w-auto translate-all ease-in ${
           open
-            ? "flex flex-col items-center mt-1 w-full bg-primary-color z-10"
-            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0 z-10"
+            ? "flex flex-col items-center mt-1 w-full " +
+              (transparent ? "" : "bg-primary-color")
+            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0"
         }`}
       >
         <Link href={"/login"}>
@@ -63,8 +64,9 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
       <div
         className={`md:flex md:flex-row md:z-auto w-full md:w-auto translate-all ease-in ${
           open
-            ? "flex flex-col items-center w-full bg-primary-color z-10"
-            : "flex flex-col items-center md:opacity-100 w-full opacity-0 z-10"
+            ? "flex flex-col items-center w-full " +
+              (transparent ? "" : "bg-primary-color")
+            : "flex flex-col items-center md:opacity-100 w-full opacity-0"
         }`}
       >
         <div className="text-primary-color font-mulish font-semibold text-lg  md:mr-5">
