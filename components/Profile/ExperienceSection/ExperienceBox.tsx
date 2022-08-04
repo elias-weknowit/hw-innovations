@@ -6,10 +6,30 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import ExperienceDetails from "./ExperienceDetails";
 
-export type Experience = {title: string, company: string, to: string, from: string, workTime: number | null}
+export type Experience = {
+  title: string;
+  company: string;
+  to: string;
+  from: string;
+  workTime: number | null;
+};
 
-function experienceIsValid(experience: Experience): boolean {return experience.title.length > 0 && experience.company.length > 0 && experience.to.length > 0 && experience.from.length > 0 /* && experience.workTime !== null*/} 
-function experienceIsEmpty(experience: Experience): boolean {return experience.title.length === 0 && experience.company.length === 0 && experience.to.length === 0 && experience.from.length === 0/*&& experience.workTime === null*/}
+function experienceIsValid(experience: Experience): boolean {
+  return (
+    experience.title.length > 0 &&
+    experience.company.length > 0 &&
+    experience.to.length > 0 &&
+    experience.from.length > 0
+  ); /* && experience.workTime !== null*/
+}
+function experienceIsEmpty(experience: Experience): boolean {
+  return (
+    experience.title.length === 0 &&
+    experience.company.length === 0 &&
+    experience.to.length === 0 &&
+    experience.from.length === 0
+  ); /*&& experience.workTime === null*/
+}
 
 export default function ExperienceBox() {
   const [newExperiences, setNewExperiences] = useState<Experience[]>([]);
@@ -18,14 +38,19 @@ export default function ExperienceBox() {
 
   const handleAdd = () => {
     let addFlag = true;
-    newExperiences.forEach(experience => {
+    newExperiences.forEach((experience) => {
       if (!experienceIsValid(experience) && !experienceIsEmpty(experience)) {
         addFlag = false;
       }
     });
 
-    if(addFlag){
-      setExperiences([...experiences, ...(newExperiences.filter(experience => !experienceIsEmpty(experience)))]);
+    if (addFlag) {
+      setExperiences([
+        ...experiences,
+        ...newExperiences.filter(
+          (experience) => !experienceIsEmpty(experience)
+        ),
+      ]);
       setNewExperiences([]);
     }
 
@@ -33,24 +58,28 @@ export default function ExperienceBox() {
   };
 
   const onNewExperienceEdit = (editedIndex, editedExperience) => {
-    setNewExperiences(prev => prev.map( (experience, index) => {
-      if(index === editedIndex){
-        return editedExperience;
-      } else{
-        return experience;
-      }
-    }));
-  }
+    setNewExperiences((prev) =>
+      prev.map((experience, index) => {
+        if (index === editedIndex) {
+          return editedExperience;
+        } else {
+          return experience;
+        }
+      })
+    );
+  };
 
   const onExperienceEdit = (editedIndex, editedExperience) => {
-    setExperiences(prev => prev.map( (experience, index) => {
-      if(index === editedIndex){
-        return editedExperience;
-      } else{
-        return experience;
-      }
-    }));
-  }
+    setExperiences((prev) =>
+      prev.map((experience, index) => {
+        if (index === editedIndex) {
+          return editedExperience;
+        } else {
+          return experience;
+        }
+      })
+    );
+  };
 
   return (
     <div className="flex flex-col">
@@ -64,22 +93,22 @@ export default function ExperienceBox() {
             Erfarenhet/Tidigare arbetsgivare
           </p>
         </div>
-        
+
         <div className="mr-6 flex flex-row">
           <div
             onClick={() => {
-              if(isEditing){
+              if (isEditing) {
                 //TODO: Save changes
-                if(newExperiences.length > 0){
-                  if(!handleAdd()){
-                    alert("Du måste fylla i alla fält");                    
-                  } else{
+                if (newExperiences.length > 0) {
+                  if (!handleAdd()) {
+                    alert("Du måste fylla i alla fält");
+                  } else {
                     setIsEditing(false);
                   }
-                } else{
+                } else {
                   setIsEditing(false);
                 }
-              } else{
+              } else {
                 setIsEditing(true);
               }
             }}
@@ -99,33 +128,44 @@ export default function ExperienceBox() {
           <div
             onClick={() => {
               setIsEditing(true);
-              setNewExperiences( prev => [ {title: "", company: "", to: "", from: "", workTime: null}, ...prev]);
+              setNewExperiences((prev) => [
+                { title: "", company: "", to: "", from: "", workTime: null },
+                ...prev,
+              ]);
             }}
           >
-           
-          <AddCircleOutlineOutlinedIcon
-            className="w-6 h-6 ml-4"
-            style={{ color: "red" }}
-          />
-            
+            <AddCircleOutlineOutlinedIcon
+              className="w-6 h-6 ml-4"
+              style={{ color: "red" }}
+            />
           </div>
         </div>
       </div>
       <Divider variant="middle" />
       <div className="p-3 flex flex-wrap fle flex-col">
         {newExperiences.map((newExperience, idx) => {
-          return <ExperienceDetails key={-idx} experience={newExperience} isEditing={true} onEdit={ e => onNewExperienceEdit(idx, e)} onRemove={() => setNewExperiences((prev) => prev.filter((_, idx2) => idx2 !== idx))} />
+          return (
+            <ExperienceDetails
+              key={-idx}
+              experience={newExperience}
+              isEditing={true}
+              onEdit={(e) => onNewExperienceEdit(idx, e)}
+              onRemove={() =>
+                setNewExperiences((prev) =>
+                  prev.filter((_, idx2) => idx2 !== idx)
+                )
+              }
+            />
+          );
         })}
         {experiences.map((experience, idx) => (
           <ExperienceDetails
             key={idx}
             experience={experience}
             isEditing={isEditing}
-            onEdit={ e => onExperienceEdit(idx, e)}
+            onEdit={(e) => onExperienceEdit(idx, e)}
             onRemove={() =>
-              setExperiences((prev) =>
-                prev.filter((_, idx2) => idx2 !== idx)
-              )
+              setExperiences((prev) => prev.filter((_, idx2) => idx2 !== idx))
             }
           />
         ))}

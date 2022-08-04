@@ -6,7 +6,13 @@ import { Divider } from "@mui/material";
 import { Experience } from "./ExperienceBox";
 
 interface ExperienceDetailsProps {
-  experience: {title: string, company: string, to: string, from: string, workTime: number};
+  experience: {
+    title: string;
+    company: string;
+    to: string;
+    from: string;
+    workTime: number;
+  };
   isEditing: boolean;
   onRemove: () => void;
   onEdit: (exp: Experience) => void;
@@ -16,13 +22,23 @@ export default function ExperienceDetails({
   experience,
   isEditing,
   onRemove,
-  onEdit
+  onEdit,
 }: ExperienceDetailsProps) {
   return (
     <div className="p-3 ml-6">
       <div className="flex flex-col mb-4">
         <div className="flex flex-row justify-between mr-6">
-          {isEditing ? <input value={experience.title} onChange={e => onEdit({...experience, title: e.target.value})} className="font-mulish text-lg font-bold" type={'text'}/> : <p className="font-mulish text-lg font-bold">{experience.title}</p>}
+          {isEditing ? (
+            <input
+              value={experience.title}
+              onChange={(e) => onEdit({ ...experience, title: e.target.value })}
+              className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
+              type={"text"}
+              placeholder="Vad jobbade du med?"
+            />
+          ) : (
+            <p className="font-mulish text-lg font-bold">{experience.title}</p>
+          )}
           <div className="flex flex-row items-center">
             {isEditing && (
               <div onClick={onRemove}>
@@ -34,17 +50,47 @@ export default function ExperienceDetails({
             )}
           </div>
         </div>
-        <div className="flex flex-row justify-between mt-2 mr-6">
-        {isEditing ? <input value={experience.company} onChange={e => onEdit({...experience, company: e.target.value})} className="font-mulish" type={'text'}/> : <p className="font-mulish">{experience.company}</p>}
+        <div className="md:flex md:flex-row justify-between mt-2 mr-6">
+          {isEditing ? (
+            <input
+              value={experience.company}
+              onChange={(e) =>
+                onEdit({ ...experience, company: e.target.value })
+              }
+              className="font-mulish outline-none ring-1 mb-4 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
+              type={"text"}
+              placeholder="Företag"
+            />
+          ) : (
+            <p className="font-mulish">{experience.company}</p>
+          )}
           <div className="flex flex-row">
             {isEditing ? (
-              <div className="flex flex.row">
-                <input value={experience.from} onChange={e => onEdit({...experience, from: e.target.value})} className="font-mulish" type={'text'}/>
-                <p className="font-mulish"> - </p>
-                <input value={experience.to} onChange={e => onEdit({...experience, to: e.target.value})} className="font-mulish" type={'text'}/>
+              <div className="md:flex md:flex-row">
+                <input
+                  value={experience.from}
+                  onChange={(e) =>
+                    onEdit({ ...experience, from: e.target.value })
+                  }
+                  className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
+                  type={"text"}
+                  placeholder="Från"
+                />
+                <p className="font-mulish mr-2 ml-2"> - </p>
+                <input
+                  value={experience.to}
+                  onChange={(e) =>
+                    onEdit({ ...experience, to: e.target.value })
+                  }
+                  className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
+                  type={"text"}
+                  placeholder="Till"
+                />
               </div>
-            )  : (
-              <p className="font-mulish mr-2">{experience.from + " - " + experience.to}</p>
+            ) : (
+              <p className="font-mulish mr-2">
+                {experience.from + " - " + experience.to}
+              </p>
             )}
           </div>
         </div>
