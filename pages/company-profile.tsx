@@ -4,22 +4,27 @@ import UserPresentation from "../components/Profile/UserPresentation";
 import EditProfile from "../components/Profile/EditProfile";
 import AboutMe from "../components/Profile/AboutMe";
 import Contact from "../components/Profile/Contact";
-import Navbar from "../components/Navbar/Navbar";
+import { useAuth } from "../components/firebase/AuthUserProvider";
+import logo from "../public/Logo.svg";
 
 export default function companyProfile() {
+  const { user } = useAuth();
   return (
-    <div>
+    <div className="px-8 sm:px-12 md:px-16 lg:px-32">
       <>
         <Head>
           <title>H&W Innovations | Profil </title>
         </Head>
-        <div className="md:mx-32 mt-20 min-h-screen">
-          <div className="flex justify-center sm:rounded-none md:rounded-3xl mb-10 h-64 shadow-lg">
-            <div className="flex flex-row w-full sm:rounded-none md:rounded-3xl bg-primary-color">
-              <div className="w-1/2 flex justify-start m-3">
+        <div className="mt-10 md:mt-20">
+          {/*Company presentation section*/}
+
+          <div className="flex flex-row w-full rounded-2xl mb-10 h-64 shadow-lg mt-32 bg-primary-color">
+            <div className="flex flex-row w-full">
+              <div className="w-1/3 md:w-1/2 flex justify-start md:m-3 p-2">
                 <UserPresentation
-                  userName="Företag AB"
-                  userPosition="Stockholm, Sverige"
+                  username="NCC"
+                  image={user?.photoURL ? user.photoURL : logo}
+                  userPosition="Umeå, Sverige"
                 />
               </div>
               <div className="flex flex-col items-end w-full m-6 text-white">

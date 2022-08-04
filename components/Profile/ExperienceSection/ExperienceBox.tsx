@@ -83,8 +83,8 @@ export default function ExperienceBox() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row items-center justify-between p-3">
-        <div className="flex flex-row items-center ml-6 ">
+      <div className="flex flex-row items-center justify-between p-3 mr-6">
+        <div className="flex flex-row items-center">
           <BusinessCenterOutlinedIcon
             className="w-6 h-6 ml-4"
             style={{ color: "red" }}
@@ -94,8 +94,9 @@ export default function ExperienceBox() {
           </p>
         </div>
 
-        <div className="mr-6 flex flex-row">
+        {isEditing ? (
           <div
+            className="flex"
             onClick={() => {
               if (isEditing) {
                 //TODO: Save changes
@@ -113,36 +114,46 @@ export default function ExperienceBox() {
               }
             }}
           >
-            {isEditing ? (
-              <SaveIcon
-                className="w-6 h-6 ml-4 cursor-pointer	"
-                style={{ color: "red" }}
-              />
-            ) : (
-              <BorderColorOutlinedIcon
-                className="w-6 h-6 ml-4"
-                style={{ color: "red" }}
-              />
-            )}
+            <SaveIcon
+              className="w-6 h-6 ml-4 cursor-pointer	"
+              style={{ color: "red" }}
+            />
           </div>
+        ) : (
           <div
+            className="flex"
             onClick={() => {
-              setIsEditing(true);
-              setNewExperiences((prev) => [
-                { title: "", company: "", to: "", from: "", workTime: null },
-                ...prev,
-              ]);
+              if (newExperiences.length === 0) {
+                setNewExperiences((prev) => [
+                  { title: "", company: "", to: "", from: "", workTime: null },
+                  ...prev,
+                ]);
+              }
+              if (isEditing) {
+                //TODO: Save changes
+                if (newExperiences.length > 0) {
+                  if (!handleAdd()) {
+                    alert("Du måste fylla i alla fält");
+                  } else {
+                    setIsEditing(false);
+                  }
+                } else {
+                  setIsEditing(false);
+                }
+              } else {
+                setIsEditing(true);
+              }
             }}
           >
-            <AddCircleOutlineOutlinedIcon
+            <BorderColorOutlinedIcon
               className="w-6 h-6 ml-4"
               style={{ color: "red" }}
             />
           </div>
-        </div>
+        )}
       </div>
       <Divider variant="middle" />
-      <div className="p-3 flex flex-wrap fle flex-col">
+      <div className="p-3 flex flex-wrap flex-col justify-center space-y-4">
         {newExperiences.map((newExperience, idx) => {
           return (
             <ExperienceDetails
@@ -169,6 +180,23 @@ export default function ExperienceBox() {
             }
           />
         ))}
+        {isEditing && (
+          <div
+            className="self-center"
+            onClick={() => {
+              setIsEditing(true);
+              setNewExperiences((prev) => [
+                { title: "", company: "", to: "", from: "", workTime: null },
+                ...prev,
+              ]);
+            }}
+          >
+            <AddCircleOutlineOutlinedIcon
+              className="w-6 h-6"
+              style={{ color: "red" }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -9,31 +9,34 @@ import Experience from "../components/Profile/ExperienceSection/ExperienceBox";
 import Equipment from "../components/Profile/EquipmentSection/EquipmentBox";
 import Navbar from "../components/Navbar/Navbar";
 import { useAuth } from "../components/firebase/AuthUserProvider";
+import logo from "../public/Logo.svg";
 
 export default function UserProfile() {
   const { user } = useAuth();
   return (
-    <>
+    <div className="px-8 sm:px-12 md:px-16 lg:px-32">
       <Head>
         <title>H&W Innovations | Profil </title>
       </Head>
 
-      <div className="md:mx-32 mt-10 md:mt-20">
+      <div className="mt-10 md:mt-20">
         {/*User presentation section*/}
 
-        <div className="flex flex-row w-full md:rounded-3xl mb-10 h-64 shadow-lg mt-32 bg-primary-color">
-          <div className="w-1/3 md:w-1/2 flex justify-start md:m-3">
+        <div className="flex flex-row w-full rounded-2xl mb-10 h-64 shadow-lg mt-32 bg-primary-color">
+          <div className="w-1/3 md:w-1/2 flex justify-start md:m-3 p-2">
             <UserPresentation
-              userName="Emil Emilsson"
+              username="Emil Emilsson"
+              image={user?.photoURL ? user.photoURL : logo}
               userPosition="Umeå, Sverige"
             />
           </div>
-          <div className="w-full md:w-1/2 flex flex-col items-end justify-around md:m-3 text-white">
-            <div className="mr-1">
+
+          <div className="w-full md:w-1/2 flex flex-col items-end justify-around text-white p-2">
+            <div className="">
               <EditProfile />
             </div>
-            <div className=" md:h-1/2 w-full md:w-1/2 mr-1">
-              <div className="rounded-2xl bg-profile-available h-full w-full">
+            <div className="w-full mr-1">
+              <div className="rounded-2xl bg-profile-available h-full w-full ">
                 <Available startDate="17 maj 2022" endDate="31 aug 2022" />
               </div>
             </div>
@@ -57,6 +60,6 @@ export default function UserProfile() {
           <Equipment />
         </div>
       </div>
-    </>
+    </div>
   );
 }
