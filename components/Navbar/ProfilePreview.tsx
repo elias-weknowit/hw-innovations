@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { useAuth } from "../firebase/AuthUserProvider";
-
+import DropDown from "./DropDown";
 
 interface ProfilePreviewProps {
     user: User | null;

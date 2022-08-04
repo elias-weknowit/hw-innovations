@@ -5,15 +5,19 @@ import UserPresentation from "../components/Profile/UserPresentation";
 import Available from "../components/Profile/Available";
 import AboutMe from "../components/Profile/AboutMe";
 import SkillsComponent from "../components/Profile/SkillSection/SkillsBox";
-import Experience from "../components/Profile/Experience";
+import Experience from "../components/Profile/ExperienceSection/ExperienceBox";
 import Equipment from "../components/Profile/EquipmentSection/EquipmentBox";
+import Navbar from "../components/Navbar/Navbar";
+import { useAuth } from "../components/firebase/AuthUserProvider";
 
 export default function UserProfile() {
+  const { user } = useAuth();
   return (
     <>
       <Head>
         <title>H&W Innovations | Profil </title>
       </Head>
+
       <div className="md:mx-32 mt-10 md:mt-20">
         {/*User presentation section*/}
 
@@ -28,7 +32,7 @@ export default function UserProfile() {
             <div className="mr-1">
               <EditProfile />
             </div>
-            <div className="md:h-1/2 w-full md:w-1/2 mr-1">
+            <div className=" md:h-1/2 w-full md:w-1/2 mr-1">
               <div className="rounded-2xl bg-profile-available h-full w-full">
                 <Available startDate="17 maj 2022" endDate="31 aug 2022" />
               </div>

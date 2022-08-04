@@ -8,24 +8,29 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Password } from "@mui/icons-material";
 import { LoginError } from "../../pages/login";
 
-export default function Loginform({error, onSubmit}: {error: LoginError | null, onSubmit: (formData: {user: string, password: string}) => void}) {
+export default function Loginform({
+  error,
+  onSubmit,
+}: {
+  error: LoginError | null;
+  onSubmit: (formData: { user: string; password: string }) => void;
+}) {
   const [showPassword, setShowPassword] = useState(false);
 
   const passwordToggle = () => {
     setShowPassword(!showPassword);
   };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-  }
+  };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-  }
+  };
 
   return (
     <div className="content-center w-full">
@@ -36,7 +41,10 @@ export default function Loginform({error, onSubmit}: {error: LoginError | null, 
             Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
           </p>
         </div>
-        <form className="w-full flex flex-col items-center" onSubmit={e => e.preventDefault()}>
+        <form
+          className="w-full flex flex-col items-center"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <div className="mt-3">
             <InputArea
               IconComponent={MailIcon}
@@ -44,7 +52,7 @@ export default function Loginform({error, onSubmit}: {error: LoginError | null, 
               type="text"
               error={error?.type === "email" || error?.type === "both"}
               errorMessage={error?.message}
-              onChange={email => handleEmailChange(email)}
+              onChange={(email) => handleEmailChange(email)}
             />
             <InputArea
               IconComponent={KeyIcon}
@@ -56,9 +64,12 @@ export default function Loginform({error, onSubmit}: {error: LoginError | null, 
               onClick={passwordToggle}
               error={error?.type === "password" || error?.type === "both"}
               errorMessage={error?.message}
-              onChange={password => handlePasswordChange(password)}
-              />
-            <LoginButton onClick={() => onSubmit({user: email, password})} title="Logga in" />
+              onChange={(password) => handlePasswordChange(password)}
+            />
+            <LoginButton
+              onClick={() => onSubmit({ user: email, password })}
+              title="Logga in"
+            />
           </div>
         </form>
       </div>
