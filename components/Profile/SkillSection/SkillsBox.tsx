@@ -9,11 +9,13 @@ export default function SkillsBox() {
   const [skills, setSkills] = useState([]);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [isRemovingSkill, setIsRemovingSkill] = useState(false);
+  const [newSkillInput, setNewSkillInput] = useState<string>("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!skills.find((skill) => skill === e.target[0].value)) {
       setSkills((skills) => [...skills, e.target[0].value]);
+      setNewSkillInput("");
     }
   };
 
@@ -69,6 +71,8 @@ export default function SkillsBox() {
               className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
               type="text"
               placeholder="Lägg till nya färdigheter..."
+              onChange={(e) => setNewSkillInput(e.target.value)}
+              value={newSkillInput}
             />
             <button
               className="font-mulish bg-profile-available shadow-md  rounded-lg p-1 ml-4"
