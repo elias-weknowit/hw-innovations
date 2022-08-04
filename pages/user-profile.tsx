@@ -21,7 +21,7 @@ export default function UserProfile() {
       <div className="md:mx-32 mt-10 md:mt-20">
         {/*User presentation section*/}
 
-        <div className="flex flex-row w-full md:rounded-3xl mb-10 h-64 shadow-lg bg-primary-color">
+        <div className="flex flex-row w-full md:rounded-3xl mb-10 h-64 shadow-lg mt-32 bg-primary-color">
           <div className="w-1/3 md:w-1/2 flex justify-start md:m-3">
             <UserPresentation
               userName="Emil Emilsson"

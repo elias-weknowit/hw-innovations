@@ -6,7 +6,7 @@ export default function Available({ startDate, endDate }) {
   return (
     <div className="flex flex-col md:flex-row items-center w-full">
       <div className="md:w-1/2">
-        <div className="flex flex-row md:items-center md:m-10">
+        <div className="flex flex-row items-center md:m-10">
           <EventAvailableOutlinedIcon
             className="h-7 w-7"
             style={{ color: "red" }}

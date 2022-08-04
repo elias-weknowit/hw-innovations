@@ -1,9 +1,8 @@
-import { ThemeProvider, createTheme } from "@mui/material";
+import { createTheme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import { AppProps } from "next/app";
 import { AuthUserProvider } from "../components/firebase/AuthUserProvider";
-import Layout from "../components/Layout";
 import "../styles/globals.css";
 import { initAuth, initFirebase } from "../util/firebase/init";
 import Navbar from "../components/Navbar/Navbar";
