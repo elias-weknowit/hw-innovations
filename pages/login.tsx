@@ -22,7 +22,7 @@ export default function LoginView() {
   const [error, setError] = useState<LoginError | null>(null);
 
   if (!loading && user) {
-    router.push("/user-profile");
+    router.push("/");
   }
 
   useEffect( () => {
