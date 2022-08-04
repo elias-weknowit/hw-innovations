@@ -16,7 +16,7 @@ import { display } from "@mui/system";
 type CreateAccountError = {
   message: string;
   fields: ("email" | "password" | "displayName")[];
-}
+};
 
 export default function CreateAccountForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,51 +26,73 @@ export default function CreateAccountForm() {
     setShowPassword(!showPassword);
   };
 
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<CreateAccountError | null>(null);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
     console.log(userName);
-  }
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
     console.log(email);
-  }
+  };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     console.log(password);
-  }
+  };
 
   const { createUserWithEmailAndPassword, updateProfile } = useAuth();
-  
-  const onSubmit = async (formData: {user: string, password: string, displayName: string}) => {
-    createUserWithEmailAndPassword(formData.user, formData.password).then(result => {
-      updateProfile({displayName: formData.displayName}, result.user).then(() => router.push('/')).catch(error => {
-        deleteUser(result.user);
-        setError({message: 'Något gick fel vid sättning av namn.', fields: ['displayName']});
+
+  const onSubmit = async (formData: {
+    user: string;
+    password: string;
+    displayName: string;
+  }) => {
+    createUserWithEmailAndPassword(formData.user, formData.password)
+      .then((result) => {
+        updateProfile({ displayName: formData.displayName }, result.user)
+          .then(() => router.push("/"))
+          .catch((error) => {
+            deleteUser(result.user);
+            setError({
+              message: "Något gick fel vid sättning av namn.",
+              fields: ["displayName"],
+            });
+          });
+      })
+      .catch((error) => {
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            setError({
+              message: "E-postadressen används redan.",
+              fields: ["email"],
+            });
+            break;
+          case "auth/invalid-email":
+            setError({
+              message: "E-postadressen är ogiltig.",
+              fields: ["email"],
+            });
+            break;
+          case "auth/weak-password":
+            setError({
+              message: "Lösenordet måste vara minst 6 tecken.",
+              fields: ["password"],
+            });
+            break;
+          default:
+            setError({
+              message: "Något gick fel.",
+              fields: ["email", "password", "displayName"],
+            });
+        }
       });
-    }).catch(error => {
-      switch(error.code) {
-        case 'auth/email-already-in-use':
-          setError({message: 'E-postadressen används redan.', fields: ['email']});
-          break;
-        case 'auth/invalid-email':
-          setError({message: 'E-postadressen är ogiltig.', fields: ['email']});
-          break;
-        case 'auth/weak-password':
-          setError({message: 'Lösenordet måste vara minst 6 tecken.', fields: ['password']});
-          break;
-        default:
-          setError({message: 'Något gick fel.', fields: ['email', 'password', 'displayName']});
-      }
-    });
-    
-  }
+  };
 
   return (
     <div className="content-center w-full">
@@ -81,22 +103,25 @@ export default function CreateAccountForm() {
             Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
           </p>
         </div>
-        <form className="w-full flex flex-col items-center" onSubmit={(e) => e.preventDefault()}>
+        <form
+          className="w-full flex flex-col items-center"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <div className="mt-3">
             <InputArea
               IconComponent={PersonIcon}
-              placeholder="Namn"
+              placeholder="Fullständigt namn"
               type="text"
-              onChange={userName => handleUserNameChange(userName)}
-              error={error?.fields.includes('displayName')}
+              onChange={(userName) => handleUserNameChange(userName)}
+              error={error?.fields.includes("displayName")}
               errorMessage={error?.message}
             />
             <InputArea
               IconComponent={MailIcon}
               placeholder="E-mail"
               type="text"
-              onChange={mail => handleEmailChange(mail)}
-              error={error?.fields.includes('email')}
+              onChange={(mail) => handleEmailChange(mail)}
+              error={error?.fields.includes("email")}
               errorMessage={error?.message}
             />
             <InputArea
@@ -107,12 +132,17 @@ export default function CreateAccountForm() {
               Password_Visibile={VisibilityOffIcon}
               password_visibility={showPassword}
               onClick={passwordToggle}
-              onChange={password => handlePasswordChange(password)}
-              error={error?.fields.includes('password')}
+              onChange={(password) => handlePasswordChange(password)}
+              error={error?.fields.includes("password")}
               errorMessage={error?.message}
               valid_user={password.length >= 6}
             />
-            <LoginButton onClick={() => onSubmit({user: email, password, displayName: userName})} title="Forsätt" />
+            <LoginButton
+              onClick={() =>
+                onSubmit({ user: email, password, displayName: userName })
+              }
+              title="Forsätt"
+            />
           </div>
         </form>
       </div>
