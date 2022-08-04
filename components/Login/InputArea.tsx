@@ -30,7 +30,11 @@ export default function InputArea({
 }: InputAreaProps) {
   return (
     <div className="mb-4">
-      <span className={"flex justify-center w-80 transition duration-150 ease-in-out"}>
+      <span
+        className={
+          "flex justify-center w-80 transition duration-150 ease-in-out"
+        }
+      >
         <div className="w-full relative flex">
           <div className="w-full relative flex items-center">
             <IconComponent
@@ -38,7 +42,10 @@ export default function InputArea({
               style={{ color: "#6F6F6F" }}
             />
             <input
-              className={`w-80 px-12 h-14 text-primary outline-none text-base font-light rounded-md border-none ring-1 ring-white focus:ring-primary-color `  + (error ? "ring-error" : "")}
+              className={
+                `w-80 px-12 h-14 text-primary outline-none text-base font-light rounded-md border-none ring-1 ring-white focus:ring-primary-color ` +
+                (error ? "ring-error" : "")
+              }
               type={type}
               placeholder={placeholder}
               onChange={onChange}
@@ -47,8 +54,9 @@ export default function InputArea({
               className="flex justify-end items-center cursor-pointer"
               onClick={onClick}
             >
-              {(Password_hide && Password_Visibile) && (
-                password_visibility ? (
+              {Password_hide &&
+                Password_Visibile &&
+                (password_visibility ? (
                   <Password_hide
                     className="w-5 h-5 absolute mr-5"
                     style={{ color: "#000" }}
@@ -58,20 +66,19 @@ export default function InputArea({
                     className="w-5 h-5 absolute mr-5"
                     style={{ color: "#000" }}
                   />
-                )
-              )}
+                ))}
             </label>
           </div>
           <div className="flex items-center ml-2">
             {valid_user && (
-              <CheckCircleIcon
-                className="w-5 h-5 bg-success"
-              />
+              <CheckCircleIcon className="w-5 h-5" style={{ color: "green" }} />
             )}
           </div>
         </div>
       </span>
-      <p className={"ml-1 font-mulish text-sm text-error"}>{error ? errorMessage : ""}</p>
+      <p className={"ml-1 font-mulish text-sm text-error"}>
+        {error ? errorMessage : ""}
+      </p>
     </div>
   );
 }
