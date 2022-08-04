@@ -7,6 +7,7 @@ import LoginImg from "../../public/LoginImg.png";
 import { useAuth } from "../../components/firebase/AuthUserProvider";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function Navbar({ transparent }: { transparent?: boolean }) {
   const { user } = useAuth();
@@ -16,12 +17,12 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
   return (
     <div
       className={
-        "md:flex md:flex-row justify-between items-center h-20 w-full " +
-        (transparent ? "" : "bg-primary-color shadow-lg")
+        "md:flex md:flex-row justify-evenly items-center h-20 w-full flex-wrap " +
+        (transparent ? "" : "bg-primary-color shadow-lg ")
       }
     >
-      <div className="flex flex-row items-center">
-        <div className="flex items-center justify-start p-1 md:m-32">
+      <div className="flex flex-row items-center flex-shrink-0">
+        <div className="flex items-center md:items-start md:justify-start justify-start p-2">
           <Image alt={"Logo"} src={logo} width={171} height={56} />
         </div>
         <div
@@ -42,10 +43,10 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
         </div>
       </div>
       <div
-        className={`md:flex md:flex-row md:z-auto w-full md:w-auto translate-all duration-300 ease-in ${
+        className={`md:flex md:p-1 md:flex-row md:z-auto w-full md:w-auto translate-all ease-in ${
           open
-            ? "flex flex-col items-center  mt-1 w-full"
-            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0"
+            ? "flex flex-col items-center mt-1 w-full bg-primary-color z-10"
+            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0 z-10"
         }`}
       >
         <Link href={"/login"}>
@@ -54,24 +55,32 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
           </p>
         </Link>
         <Link href={""}>
-          <p className="font-mulish md:mr-10 text-white cursor-pointer ">
+          <p className="font-mulish mt-1 mb-1 md:mr-10 text-white cursor-pointer ">
             Annonser
-          </p>
-        </Link>
-        <Link href={""}>
-          <p className="font-mulish md:mr-10 text-white cursor-pointer ">
-            Skapa annons
           </p>
         </Link>
       </div>
       <div
-        className={`md:flex md:flex-row md:z-auto w-full md:w-auto translate-all duration-300 ease-in ${
+        className={`md:flex md:flex-row md:z-auto w-full md:w-auto translate-all ease-in ${
           open
-            ? "flex flex-col items-center w-full "
-            : "flex flex-col items-center md:opacity-100 w-full  opacity-0 "
+            ? "flex flex-col items-center w-full bg-primary-color z-10"
+            : "flex flex-col items-center md:opacity-100 w-full opacity-0 z-10"
         }`}
       >
-        <ProfilePreview user={user} image={user?.photoURL ? user.photoURL : logo} />
+        <div className="text-primary-color font-mulish font-semibold text-lg  md:mr-5">
+          <div className=" bg-profile-available p-1 md:p-2 rounded-md ">
+            <button className="flex flex-row items-center">
+              <AddCircleIcon className="w-6 h-6 mr-2" />
+              <Link href={""}>Skapa annons </Link>
+            </button>
+          </div>
+        </div>
+        <div>
+          <ProfilePreview
+            user={user}
+            image={user?.photoURL ? user.photoURL : logo}
+          />
+        </div>
       </div>
     </div>
   );
