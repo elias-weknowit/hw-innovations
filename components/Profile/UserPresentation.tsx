@@ -1,5 +1,4 @@
 import Image, { StaticImageData } from "next/image";
-import { User } from "firebase/auth";
 import React from "react";
 
 interface UserPresentationProps {

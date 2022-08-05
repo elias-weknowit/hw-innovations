@@ -39,7 +39,7 @@ export default function AboutMe({ title }) {
             rows={7}
             value={aboutmeText}
             onChange={handleChange}
-          ></textarea>
+          />
           <small className="flex justify-end font-mulish mr-2">
             <p className="font-mulish font-semibold ">{aboutmeText.length}</p>
             /300

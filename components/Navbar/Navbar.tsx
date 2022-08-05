@@ -3,7 +3,6 @@ import Image from "next/image";
 import logo from "../../public/Logo.svg";
 import Link from "next/link";
 import ProfilePreview from "./ProfilePreview";
-import LoginImg from "../../public/LoginImg.png";
 import { useAuth } from "../../components/firebase/AuthUserProvider";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -70,10 +69,10 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
         }`}
       >
         <div className="text-primary-color font-mulish font-semibold text-lg  md:mr-5">
-          <div className=" bg-profile-available p-1 md:p-2 rounded-md ">
+          <div className="bg-profile-available p-1 md:p-2 rounded-md ">
             <button className="flex flex-row items-center">
               <AddCircleIcon className="w-6 h-6 mr-2" />
-              <Link href={""}>Skapa annons </Link>
+              <Link href={"/create-ad"}>Skapa annons </Link>
             </button>
           </div>
         </div>
