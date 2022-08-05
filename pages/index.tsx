@@ -9,7 +9,7 @@ export default function Home() {
         <title>H&W Innovations | Välkommen</title>
       </Head>
 
-      <div className="flex flex-col bg-homeScreen-landingPage bg-fixed bg-cover min-h-screen ">
+      <div className="flex flex-col bg-homeScreen-landingPage object-contain md:object-scale-down bg-fixed bg-cover min-h-screen ">
         <Navbar transparent />
         <div className="md:mx-32 mt-40 md:mt-40 flex flex-cols">
           <div className="md:w-full lg:w-full  xl:w-1/3">
