@@ -27,7 +27,7 @@ export default function InputForm({
       ) : (
         <div className="flex flex-col">
           <textarea
-            className="block w-full font-mulish p-3 md:mx-1 bg-profile-sections border-none resize-none outline-none ring-white ring-1 focus:ring-primary-color text-md rounded-lg shadow-sm"
+            className="block w-full font-mulish p-3 md:mx-1 bg-profile-sections border-none resize-none outline-none ring-profile-sections ring-1 focus:ring-primary-color text-md rounded-lg shadow-sm"
             rows={7}
             value={textAreaText}
             onChange={handleChange}
