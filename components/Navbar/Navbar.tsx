@@ -47,7 +47,7 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
           open
             ? "flex flex-col items-center mt-1 w-full " +
               (transparent ? "" : "bg-primary-color")
-            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0 pointer-events-none	"
+            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0	"
         }`}
       >
         <Link href={"/login"}>
@@ -66,7 +66,7 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
           open
             ? "flex flex-col items-center w-full " +
               (transparent ? "" : "bg-primary-color")
-            : "flex flex-col items-center md:opacity-100 w-full opacity-0 pointer-events-none	"
+            : "flex flex-col items-center md:opacity-100 w-full opacity-0	"
         }`}
       >
         <div className="text-primary-color font-mulish font-semibold text-lg  md:mr-5">
