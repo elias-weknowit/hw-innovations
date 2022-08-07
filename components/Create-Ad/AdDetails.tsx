@@ -1,6 +1,7 @@
 import React from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import Image, { StaticImageData } from "next/image";
+import Ad from "../../pages/ad";
 
 interface AdDetailsProp {
   image: string | StaticImageData;
@@ -53,9 +54,6 @@ export default function AdDetails({ image }: AdDetailsProp) {
         </div>
         <div className="bg-profile-available rounded-lg p-1 mr-2">
           <p className="font-mulish mx-3 text-sm">25 aug -</p>
-        </div>
-        <div className="bg-profile-available rounded-lg p-1">
-          <p className="font-mulish mx-3 text-sm">Yrke</p>
         </div>
       </div>
       {/**Time of post */}
