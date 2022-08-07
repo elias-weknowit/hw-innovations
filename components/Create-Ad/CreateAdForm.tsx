@@ -1,5 +1,4 @@
 import React from "react";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RadioButton from "./RadioButton";
 import InputForm from "./InputForm";
 import UploadImgForm from "./UploadImgForm";
@@ -8,7 +7,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function CreateAdForm() {
   return (
     <>
-      <ArrowBackIcon className="w-7 h-7" />
       <div className="flex flex-col bg-profile-sections sm:w-1/2 md:w-1/2 lg:w-1/2 shadow-md rounded-md p-4 mt-3 mb-10">
         {/**Tile */}
         <div className="flex flex-col justify-start mb-6">

@@ -21,13 +21,13 @@ export default function InputForm({
       <label className="font-mulish font-semibold mb-1">{labelName}</label>
       {type ? (
         <input
-          className="p-2 rounded-md font-mulish shadow-sm outline-none ring-white ring-1 focus:ring-primary-color"
+          className="p-2 rounded-md font-mulish shadow-md outline-none ring-white ring-1 focus:ring-primary-color"
           type="text"
         />
       ) : (
         <div className="flex flex-col">
           <textarea
-            className="block w-full font-mulish p-3 md:mx-1 bg-profile-sections border-none resize-none outline-none ring-profile-sections ring-1 focus:ring-primary-color text-md rounded-lg shadow-sm"
+            className="block w-full font-mulish p-3 md:mx-1 bg-profile-sections border-none resize-none outline-none ring-profile-sections ring-1 focus:ring-primary-color text-md rounded-lg shadow-md"
             rows={7}
             value={textAreaText}
             onChange={handleChange}
