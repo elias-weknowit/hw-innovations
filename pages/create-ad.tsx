@@ -26,9 +26,9 @@ export default function createAd() {
               Skapa annons
             </p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col sm:items-end md:items-end lg:items-end">
             <div
-              className="flex justify-start items-start md:hidden lg:hidden"
+              className="flex justify-start items-start sm:hidden md:hidden lg:hidden"
               onClick={goBack}
             >
               <ArrowBackIcon className="w-7 h-7" />
