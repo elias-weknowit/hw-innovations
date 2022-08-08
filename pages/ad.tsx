@@ -30,6 +30,8 @@ export default function ad() {
         </div>
         <div className="mt-4 mb-4">
           <AdDetails image={user?.photoURL ? user.photoURL : logo} />
+          <AdDetails image={user?.photoURL ? user.photoURL : logo} />
+          <AdDetails image={user?.photoURL ? user.photoURL : logo} />
         </div>
       </div>
     </div>
