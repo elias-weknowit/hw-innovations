@@ -3,9 +3,15 @@ import React, { useState } from "react";
 export default function InputForm({
   type,
   labelName,
+  date,
+  value,
+  onChange,
 }: {
   type?: boolean;
   labelName: string;
+  date: string;
+  value: any;
+  onChange: any;
 }) {
   const [textAreaText, setTextAreaText] = useState("");
   const charactarLimit = 500;
@@ -22,7 +28,9 @@ export default function InputForm({
       {type ? (
         <input
           className="p-2 rounded-md font-mulish shadow-md outline-none ring-white ring-1 focus:ring-primary-color"
-          type="text"
+          type={date}
+          value={value}
+          onChange={onChange}
         />
       ) : (
         <div className="flex flex-col">
