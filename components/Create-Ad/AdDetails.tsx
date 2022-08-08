@@ -21,7 +21,7 @@ export default function AdDetails({ image }: AdDetailsProp) {
         <div className="items-center">
           <Image src={image} width="50%" height="50%" />
         </div>
-        <div className="p-1">
+        <div className="p-1" onClick={() => {}}>
           <BorderColorOutlinedIcon
             className="w-6 h-6"
             style={{ color: "red" }}

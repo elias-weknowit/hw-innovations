@@ -1,7 +1,7 @@
 import React from "react";
-import RadioButton from "./RadioButton";
-import InputForm from "./InputForm";
-import UploadImgForm from "./UploadImgForm";
+import RadioButton from "./components/RadioButton";
+import InputForm from "./components/InputForm";
+import UploadImgForm from "./components/UploadImgForm";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function EditAd() {

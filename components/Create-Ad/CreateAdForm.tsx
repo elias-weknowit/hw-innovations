@@ -1,7 +1,7 @@
 import React from "react";
-import RadioButton from "./RadioButton";
-import InputForm from "./InputForm";
-import UploadImgForm from "./UploadImgForm";
+import RadioButton from "./components/RadioButton";
+import InputForm from "./components/InputForm";
+import UploadImgForm from "./components/UploadImgForm";
 
 export default function CreateAdForm() {
   return (
@@ -14,7 +14,7 @@ export default function CreateAdForm() {
           </p>
         </div>
         <div>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <RadioButton />
             <InputForm
               labelName="Jobbtitel"
@@ -73,13 +73,16 @@ export default function CreateAdForm() {
             />
             <UploadImgForm />
             <div className="flex flex-row items-center justify-end mt-14">
-              <div className="">
-                <button className="bg-primary-color p-1 rounded-md">
-                  <p className="font-mulish font-semibold text-white mx-6">
-                    Publicera
-                  </p>
-                </button>
-              </div>
+              <button
+                className="bg-primary-color p-1 rounded-md"
+                onClick={() => {
+                  console.log("hej");
+                }}
+              >
+                <p className="font-mulish font-semibold text-white mx-6">
+                  Publicera
+                </p>
+              </button>
             </div>
           </form>
         </div>
