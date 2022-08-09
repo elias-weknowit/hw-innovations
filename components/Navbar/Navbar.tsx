@@ -50,12 +50,12 @@ export default function Navbar({ transparent }: { transparent?: boolean }) {
             : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0"
         }`}
       >
-        <Link href={"/login"}>
+        <Link href={"/"}>
           <p className="font-mulish md:mr-10 text-white cursor-pointer  ">
             Hem
           </p>
         </Link>
-        <Link href={""}>
+        <Link href={"/"}>
           <p className="font-mulish mt-1 mb-1 md:mr-10 text-white cursor-pointer ">
             Annonser
           </p>
