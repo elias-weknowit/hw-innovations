@@ -3,6 +3,7 @@ import React from "react";
 export default function RadioButton() {
   return (
     <div>
+      <p className="font-mulish font-semibold mb-1">Erbjuder</p>
       <div className="flex items-center mb-4 bg-">
         <input
           id="radio-1"
