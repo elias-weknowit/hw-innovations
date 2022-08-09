@@ -7,7 +7,6 @@ import AboutMe from "../components/Profile/AboutMe";
 import SkillsComponent from "../components/Profile/SkillSection/SkillsBox";
 import Experience from "../components/Profile/ExperienceSection/ExperienceBox";
 import Equipment from "../components/Profile/EquipmentSection/EquipmentBox";
-import Navbar from "../components/Navbar/Navbar";
 import { useAuth } from "../components/firebase/AuthUserProvider";
 import logo from "../public/Logo.svg";
 

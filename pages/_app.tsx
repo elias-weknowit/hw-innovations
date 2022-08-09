@@ -73,7 +73,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   //<Component {...pageProps} />
   return (
     <AuthUserProvider>
-      <div className="bg-background-white-color">
+      <div className="bg-background-white-color min-h-screen">
         {getLayout(<Component {...pageProps} />)}
       </div>
     </AuthUserProvider>
