@@ -3,11 +3,12 @@ import RadioButton from "./components/RadioButton";
 import InputForm from "./components/InputForm";
 import UploadImgForm from "./components/UploadImgForm";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Link from "next/link";
 
 export default function EditAd() {
   return (
     <>
-      <div className="flex flex-col bg-profile-sections sm:w-1/2 md:w-1/2 lg:w-1/2 shadow-md rounded-3xl p-4 mt-3 mb-10">
+      <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-3xl p-4 mt-3 mb-10">
         {/**Tile */}
         <div className="flex flex-col justify-start mb-6">
           <p className="mt-4 text-3xl md:text-xl lg:text-xl font-mulish font-semibold">
@@ -86,9 +87,9 @@ export default function EditAd() {
               </div>
               <div>
                 <button className="bg-primary-color p-1 rounded-md">
-                  <p className="font-mulish font-semibold text-white mx-6">
-                    Spara
-                  </p>
+                  <div className="font-mulish font-semibold text-white mx-10">
+                    <Link href={""}>Spara</Link>
+                  </div>
                 </button>
               </div>
             </div>
