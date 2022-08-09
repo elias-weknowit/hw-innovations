@@ -46,10 +46,7 @@ export default function Footer() {
       </div>
 
       <span className="flex text-sm text-white p-3 justify-center items-center">
-        Utvecklad av {" "}
-        <a href="https://weknowit.se/" className="underline">
-          We know IT.
-        </a>
+        Utvecklad av{'\u00A0'}<a href="https://weknowit.se/" className="underline">We know IT.</a>
       </span>
     </footer>
   );
