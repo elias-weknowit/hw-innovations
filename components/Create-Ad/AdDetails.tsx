@@ -1,31 +1,29 @@
 import React from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import Image, { StaticImageData } from "next/image";
-import Ad from "../../pages/ad";
+import { IconButton } from "@mui/material";
 
 interface AdDetailsProp {
   image: string | StaticImageData;
+  onEdit: () => void;
 }
 
-export default function AdDetails({ image }: AdDetailsProp) {
+export default function AdDetails({ image, onEdit }: AdDetailsProp) {
   return (
-    <div
-      className="bg-profile-sections shadow-md rounded-md md:w-1/2 lg:w-1/3 p-2 mt-3 cursor-pointer hover:bg-primary-color"
-      onClick={() => {
-        console.log("hej");
-      }}
-    >
+    <div className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color">
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
         <div className="items-center">
           <Image src={image} width="50%" height="50%" />
         </div>
-        <div className="p-1" onClick={() => {}}>
-          <BorderColorOutlinedIcon
-            className="w-6 h-6"
-            style={{ color: "red" }}
-          />
+        <div className="p-1">
+          <IconButton onClick={onEdit}>
+            <BorderColorOutlinedIcon
+              className="w-6 h-6 cursor-point"
+              style={{ color: "red" }}
+            />
+          </IconButton>
         </div>
       </div>
       {/**Description and place */}
