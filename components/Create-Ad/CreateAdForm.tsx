@@ -6,9 +6,9 @@ import UploadImgForm from "./components/UploadImgForm";
 export default function CreateAdForm() {
   return (
     <>
-      <div className="flex flex-col bg-profile-sections sm:w-1/2 md:w-1/2 lg:w-1/2 shadow-md rounded-3xl p-4 mt-3 mb-10">
+      <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-md p-4 mt-3 mb-10">
         {/**Tile */}
-        <div className="flex flex-col justify-start mb-6">
+        <div className="flex flex-col justify-start mb-6 ">
           <p className="mt-4 text-3xl md:text-xl lg:text-xl font-mulish font-semibold">
             Skapa annons
           </p>
@@ -79,7 +79,7 @@ export default function CreateAdForm() {
                   console.log("hej");
                 }}
               >
-                <p className="font-mulish font-semibold text-white mx-6">
+                <p className="font-mulish font-semibold text-white mx-10">
                   Publicera
                 </p>
               </button>
