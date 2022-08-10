@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import CreateAdForm from "../components/Create-Ad/CreateAdForm";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 export default function createAd() {
   const router = useRouter();
+  const [ads, setAds] = useState([]);
 
   const goBack = (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ export default function createAd() {
             >
               <ArrowBackIcon className="w-7 h-7" />
             </div>
-            <CreateAdForm />
+            <CreateAdForm onSubmit={(ad) => setAds((prev) => [...prev, ad])} />
           </div>
         </div>
       </div>

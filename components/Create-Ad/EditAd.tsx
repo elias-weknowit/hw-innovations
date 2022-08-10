@@ -3,12 +3,27 @@ import RadioButton from "./components/RadioButton";
 import InputForm from "./components/InputForm";
 import UploadImgForm from "./components/UploadImgForm";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function EditAd() {
+  const router = useRouter();
+
+  const goBack = (e) => {
+    e.preventDefault();
+    router.push("#");
+  };
+
   return (
     <>
       <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-3xl p-4 mt-3 mb-10">
+        {/*<div
+          className="flex justify-start items-start md:hidden lg:hidden"
+          onClick={goBack}
+        >
+          <ArrowBackIcon className="w-7 h-7" />
+        </div>*/}
         {/**Tile */}
         <div className="flex flex-col justify-start mb-6">
           <p className="mt-4 text-3xl md:text-xl lg:text-xl font-mulish font-semibold">

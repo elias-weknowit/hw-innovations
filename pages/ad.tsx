@@ -8,10 +8,14 @@ import logo from "../public/Logo.svg";
 import CreateAdForm from "../components/Create-Ad/CreateAdForm";
 import Navbar from "../components/Navbar/Navbar";
 import EditAd from "../components/Create-Ad/EditAd";
+import { Ad } from "../shared/types";
 
 export default function ad() {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [ads, setAds] = useState([]);
+
   return (
     <>
       <Navbar hideButton />
@@ -21,32 +25,49 @@ export default function ad() {
         </Head>
 
         <div className="mt-32 md:mt-20">
-          <div className="flex flex-col md:items-center md:flex-row md:justify-between lg:flex-row lg:justify-between lg:items-center">
-            <p className="font-mulish mb-2 text-3xl font-semibold">
-              Mina annonser
-            </p>
-            <div className="text-white font-mulish font-semibold text-lg md:mr-5 md:hidden lg:hidden">
-              <div className="bg-primary-color p-1 md:p-2 rounded-md ">
-                <button className="flex flex-row items-center">
-                  <AddCircleIcon className="w-6 h-6 mr-2" />
-                  <Link href={"/create-ad"}>Skapa annons </Link>
-                </button>
+          {isEditing ? (
+            <EditAd />
+          ) : (
+            <>
+              {" "}
+              <div className="flex flex-col md:items-center md:flex-row md:justify-between lg:flex-row lg:justify-between lg:items-center">
+                <p className="font-mulish mb-2 text-3xl font-semibold">
+                  Mina annonser
+                </p>
+                <div className="text-white font-mulish font-semibold text-lg md:mr-5 md:hidden lg:hidden">
+                  <div className="bg-primary-color p-1 md:p-2 rounded-md ">
+                    <button className="flex flex-row items-center">
+                      <AddCircleIcon className="w-6 h-6 mr-2" />
+                      <Link href={"/create-ad"}>Skapa annons </Link>
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="flex w-full">
-            <div className="mb-4 w-full md:w-1/2 lg:w-1/3">
-              <div className="">
-                <AdDetails
-                  image={user?.photoURL ? user.photoURL : logo}
-                  onEdit={() => setIsEditing(true)}
-                />
+              <div className="flex w-full">
+                <div className="mb-4 w-full md:w-1/2 lg:w-1/3">
+                  <div className="">
+                    {ads.map((ad, index) => (
+                      <AdDetails
+                        key={index}
+                        image={user?.photoURL ? user.photoURL : logo}
+                        onEdit={() => setIsEditing(true)}
+                        ad={ad}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="md:w-full lg:w-full hidden md:block lg:block ">
+                  {isEditing ? (
+                    <EditAd />
+                  ) : (
+                    <CreateAdForm
+                      onSubmit={(ad) => setAds((prev) => [...prev, ad])}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="md:w-full lg:w-full hidden md:block lg:block ">
-              {isEditing ? <EditAd /> : <CreateAdForm />}
-            </div>
-          </div>
+            </>
+          )}
         </div>
       </div>
     </>

@@ -2,8 +2,28 @@ import React from "react";
 import RadioButton from "./components/RadioButton";
 import InputForm from "./components/InputForm";
 import UploadImgForm from "./components/UploadImgForm";
+import { Ad } from "../../shared/types";
 
-export default function CreateAdForm() {
+interface CreateAdFormProps {
+  onSubmit: (Ad) => void;
+}
+
+export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
+  const onSubmitForm = (e) => {
+    console.log(e);
+    e.preventDefault();
+    const ad = {
+      image: "path",
+      companyTitle: e.target[3].value,
+      workTitle: e.target[2].value,
+      timeSinceAdded: "30",
+      amountOf: e.target[7].value,
+      date: "25 aug",
+      location: e.target[4].value,
+    };
+    onSubmit(ad);
+  };
+
   return (
     <>
       <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-md p-4 mt-3 mb-10">
@@ -14,7 +34,7 @@ export default function CreateAdForm() {
           </p>
         </div>
         <div>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={onSubmitForm}>
             <RadioButton />
             <InputForm
               labelName="Jobbtitel"
