@@ -15,11 +15,28 @@ export default function InputForm({
 }) {
   const [textAreaText, setTextAreaText] = useState("");
   const charactarLimit = 500;
+  let previousLength = 0;
 
   const handleChange = (event) => {
     if (charactarLimit - event.target.value.length >= 0) {
       setTextAreaText(event.target.value);
     }
+  };
+
+  const handleTextArea = (event) => {
+    const bullet = "\u2022";
+    const newLength = event.target.value.length;
+    const charactarText = event.target.value.substr(-1).charCodeAt(0);
+
+    if (newLength > previousLength) {
+      if (charactarText === 10) {
+        event.target.value = `${event.target.value}${bullet}`;
+      } else if (newLength === 1) {
+        event.target.value = `${bullet} ${event.target.value}`;
+      }
+    }
+
+    previousLength = newLength;
   };
 
   return (
