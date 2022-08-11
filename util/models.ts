@@ -11,7 +11,7 @@ export type Advertisement = {
     location: string;
     period: {
         start: Date;
-        end: Date;
+        end?: Date;
     };
     amount: number;
     collectiveAgreement: boolean;
