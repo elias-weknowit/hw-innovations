@@ -5,7 +5,7 @@ export default function AdView() {
   return (
     <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-md mt-3 mb-10">
       {/*Ad presentation | bild och cover */}
-      <div className="flex flex-col h-24 bg-primary-color rounded-t-md">
+      <div className="flex flex-col h-24 md:h-36 bg-primary-color rounded-t-md">
         <div className="flex ml-8 rounded-full bg-white h-16 w-16">
           <div className="items-center justify-center">sd</div>
         </div>

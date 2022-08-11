@@ -52,6 +52,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               title="Erbjuder"
               alt_one="Jobb"
               alt_two="Arbetskraft"
+              onChange={null}
             />
             <InputForm
               labelName="Rubrik"
@@ -91,8 +92,9 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <RadioButton
               title="Ansluten till kollektivavtal"
-              alt_one="Jobb"
-              alt_two="Arbetskraft"
+              alt_one="Ja"
+              alt_two="Nej"
+              onChange={null}
             />
             <InputForm
               labelName="Avtalsform"
@@ -121,21 +123,21 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               onChange={null}
             />
             <InputForm
-              labelName="Antal personer"
+              labelName="Kontaktperson"
               type
               date="text"
               value={null}
               onChange={null}
             />
             <InputForm
-              labelName="Antal personer"
+              labelName="Telefonnummer"
               type
               date="text"
               value={null}
               onChange={null}
             />
             <InputForm
-              labelName="Antal personer"
+              labelName="Adress"
               type
               date="text"
               value={null}
