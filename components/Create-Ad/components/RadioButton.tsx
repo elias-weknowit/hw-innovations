@@ -1,9 +1,19 @@
 import React from "react";
 
-export default function RadioButton() {
+interface RadioButtonProps {
+  title: string;
+  alt_one: string;
+  alt_two: string;
+}
+
+export default function RadioButton({
+  title,
+  alt_one,
+  alt_two,
+}: RadioButtonProps) {
   return (
     <div>
-      <p className="font-mulish font-semibold mb-1">Erbjuder</p>
+      <p className="font-mulish font-semibold mb-1">{title}</p>
       <div className="flex items-center mb-4 bg-">
         <input
           id="radio-1"
@@ -16,7 +26,7 @@ export default function RadioButton() {
           htmlFor="radio-1"
           className="ml-4 text-md font-mulish text-primary-color"
         >
-          Jobb
+          {alt_one}
         </label>
       </div>
       <div className="flex items-center mb-5">
@@ -31,7 +41,7 @@ export default function RadioButton() {
           htmlFor="radio-2"
           className="ml-4 text-md font-mulish text-primary-color"
         >
-          Arbetskraft
+          {alt_two}
         </label>
       </div>
     </div>

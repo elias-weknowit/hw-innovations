@@ -3,23 +3,36 @@ import RadioButton from "./components/RadioButton";
 import InputForm from "./components/InputForm";
 import UploadImgForm from "./components/UploadImgForm";
 import { Ad } from "../../shared/types";
+import type { Advertisement } from "../../util/models";
+import moment from "moment";
 
 interface CreateAdFormProps {
-  onSubmit: (Ad) => void;
+  onSubmit: (Advertisement) => void;
 }
 
 export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
-  const onSubmitForm = (e) => {
+  const onSubmitHandler = (e) => {
     console.log(e);
     e.preventDefault();
-    const ad = {
-      image: "path",
-      companyTitle: e.target[3].value,
-      workTitle: e.target[2].value,
-      timeSinceAdded: "30",
-      amountOf: e.target[7].value,
-      date: "25 aug",
+    const ad: Advertisement = {
+      company: e.target[3].value,
+      title: e.target[2].value,
+      amount: e.target[7].value,
+      period: {
+        start: moment().subtract(10, "minutes").subtract(2, "hours").toDate(),
+      },
       location: e.target[4].value,
+      creatorId: "",
+      description: e.target[5].value,
+      type: "work",
+      collectiveAgreement: false,
+      contractForm: "",
+      requirements: [],
+      contact: {
+        name: "Hård Kodad",
+      },
+      createdAt: moment().subtract(10, "minutes").subtract(2, "hours").toDate(),
+      updatedAt: moment().toDate(),
     };
     onSubmit(ad);
   };
@@ -34,10 +47,14 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
           </p>
         </div>
         <div>
-          <form onSubmit={onSubmitForm}>
-            <RadioButton />
+          <form onSubmit={onSubmitHandler}>
+            <RadioButton
+              title="Erbjuder"
+              alt_one="Jobb"
+              alt_two="Arbetskraft"
+            />
             <InputForm
-              labelName="Jobbtitel"
+              labelName="Rubrik"
               type
               date="text"
               value={null}
@@ -59,21 +76,33 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
 
             <InputForm
-              labelName="När"
+              labelName="Period"
               type
               date="date"
               value={null}
               onChange={null}
             />
             <InputForm
-              labelName="Typ av arbetskraft"
+              labelName="Antal personer"
+              type
+              date="text"
+              value={null}
+              onChange={null}
+            />
+            <RadioButton
+              title="Ansluten till kollektivavtal"
+              alt_one="Jobb"
+              alt_two="Arbetskraft"
+            />
+            <InputForm
+              labelName="Avtalsform"
               type
               date="text"
               value={null}
               onChange={null}
             />
             <InputForm
-              labelName="Antal"
+              labelName="Typ av arbetskraft"
               type
               date="text"
               value={null}
@@ -91,14 +120,30 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               value={null}
               onChange={null}
             />
+            <InputForm
+              labelName="Antal personer"
+              type
+              date="text"
+              value={null}
+              onChange={null}
+            />
+            <InputForm
+              labelName="Antal personer"
+              type
+              date="text"
+              value={null}
+              onChange={null}
+            />
+            <InputForm
+              labelName="Antal personer"
+              type
+              date="text"
+              value={null}
+              onChange={null}
+            />
             <UploadImgForm />
             <div className="flex flex-row items-center justify-end mt-14">
-              <button
-                className="bg-primary-color p-1 rounded-md"
-                onClick={() => {
-                  console.log("hej");
-                }}
-              >
+              <button className="bg-primary-color p-1 rounded-md">
                 <p className="font-mulish font-semibold text-white mx-10">
                   Publicera
                 </p>
