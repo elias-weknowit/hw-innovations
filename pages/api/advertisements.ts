@@ -1,30 +1,31 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getDocs, setDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot } from 'firebase/firestore'
-import type { Advertisement, AdvertisementModel } from '../../util/models'
+import { getDocs, setDoc, addDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot } from 'firebase/firestore'
+import type { Advertisement } from '../../util/models'
 import { Timestamp as FirebaseTimestamp } from "firebase/firestore";
+import moment, { Moment } from 'moment';
 
 const db: Firestore = getFirestore();
 
 
 const converter = {
-    toFirestore: (advertisement: AdvertisementModel) => {
+    toFirestore: (advertisement: Advertisement) => {
         return {...advertisement, 
-            createdAt: FirebaseTimestamp.fromDate(advertisement.createdAt), 
-            updatedAt: FirebaseTimestamp.fromDate(advertisement.updatedAt),
-            info: {...advertisement.info,
-                whenStart: FirebaseTimestamp.fromDate(advertisement.info.whenStart),
-                whenEnd: FirebaseTimestamp.fromDate(advertisement.info.whenEnd),
+            createdAt: FirebaseTimestamp.fromDate(advertisement.createdAt.toDate()), 
+            updatedAt: FirebaseTimestamp.fromDate(advertisement.updatedAt.toDate()),
+            period: {
+                start: FirebaseTimestamp.fromDate(advertisement.period.start.toDate()),
+                end: FirebaseTimestamp.fromDate(advertisement.period.end.toDate()),
             },
         };
     },
     fromFirestore: (snapshot: DocumentData) => {
-        return {...snapshot.data(), id: snapshot.data().id,
-            createdAt: new Date(snapshot.data().createdAt),
-            updatedAt: new Date(snapshot.data().updatedAt),
-            info: {...snapshot.data().info,
-                whenStart: new Date(snapshot.data().info.whenStart.toDate()),
-                whenEnd: snapshot.data().info.whenEnd ? new Date(snapshot.data().info.whenEnd?.toDate()) : undefined,
+        return {...snapshot.data(), id: snapshot.id,
+            createdAt: moment(snapshot.data().createdAt.toDate()),
+            updatedAt: moment(snapshot.data().updatedAt.toDate()),
+            period: {
+                start: moment(snapshot.data().period.start.toDate()),
+                end: snapshot.data().period.end ? moment(snapshot.data().period.end?.toDate()) : undefined,
             },
         } as Advertisement;
     },
@@ -42,10 +43,11 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse){
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse){
-    const createdAt = new Date();
-    const newAdvertisement: AdvertisementModel = {...req.body, createdAt, updatedAt: createdAt};
+    const createdAt = moment();
+    const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
     console.log(newAdvertisement);
-    await setDoc(doc(db, 'advertisements'), newAdvertisement).catch( err => res.status(500).send(err)).then(result => res.status(200).json(result));
+    const collectionRef = collection(db, 'advertisements').withConverter(converter);
+    await addDoc(collectionRef, newAdvertisement).catch( err => res.status(500).send(err)).then(result => res.status(200).json({...newAdvertisement, id: result.id}));
 }
 
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
