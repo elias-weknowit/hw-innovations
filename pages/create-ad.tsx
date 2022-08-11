@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import AdView from "../components/Create-Ad/AdView";
 
-export default function createAd() {
+export default function CreateAd() {
   const router = useRouter();
   const [ads, setAds] = useState([]);
 

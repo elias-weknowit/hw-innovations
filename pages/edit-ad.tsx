@@ -5,7 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import EditAd from "../components/Create-Ad/EditAd";
 
-export default function editAd() {
+export default function EditAd() {
   const router = useRouter();
 
   const goBack = (e) => {

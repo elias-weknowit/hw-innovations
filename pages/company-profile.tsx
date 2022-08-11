@@ -7,7 +7,7 @@ import Contact from "../components/Profile/Contact";
 import { useAuth } from "../components/firebase/AuthUserProvider";
 import logo from "../public/Logo.svg";
 
-export default function companyProfile() {
+export default function CompanyProfile() {
   const { user } = useAuth();
   return (
     <div className="px-8 sm:px-12 md:px-16 lg:px-32">
