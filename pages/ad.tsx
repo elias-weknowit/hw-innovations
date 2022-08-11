@@ -8,25 +8,27 @@ import logo from "../public/Logo.svg";
 import CreateAdForm from "../components/Create-Ad/CreateAdForm";
 import Navbar from "../components/Navbar/Navbar";
 import EditAd from "../components/Create-Ad/EditAd";
-import { Ad } from "../shared/types";
 import { Advertisement } from "../util/models";
+import axios from "axios";
 
-export default function Ad() {
+export default function AdPage() {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [ads, setAds] = useState<Advertisement[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/advertisements")
+    if(user){
+      console.log(user)
+      fetch("http://localhost:3000/api/advertisements?userId=" + user.uid)
       .then((res) => res.json())
       .then((data) => {
         setAds(data);
       }).catch((err) => {
         console.log(err);
-      }
-      );
-  }, [])
+      });
+    }
+  }, [user])
 
   return (
     <>
@@ -58,9 +60,9 @@ export default function Ad() {
               <div className="flex w-full">
                 <div className="mb-4 w-full md:w-1/2 lg:w-1/3">
                   <div className="">
-                    {ads.map((ad, index) => (
+                    {ads.map((ad) => (
                       <AdDetails
-                        key={index}
+                        key={ad.id}
                         image={user?.photoURL ? user.photoURL : logo}
                         onEdit={() => setIsEditing(true)}
                         ad={ad}
@@ -73,7 +75,11 @@ export default function Ad() {
                     <EditAd />
                   ) : (
                     <CreateAdForm
-                      onSubmit={(ad) => setAds((prev) => [...prev, ad])}
+                      onSubmit={(ad) => {
+                        const _ad = {...ad, creatorId: user.uid};
+                        setAds((prev) => [...prev, _ad]);
+                        axios.post("/api/advertisements", _ad);
+                      }}
                     />
                   )}
                 </div>
@@ -86,6 +92,6 @@ export default function Ad() {
   );
 }
 
-ad.getLayout = function getLayout(page: ReactElement) {
+AdPage.getLayout = function getLayout(page: ReactElement) {
   return page;
 };

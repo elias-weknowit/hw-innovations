@@ -19,7 +19,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
       title: e.target[2].value,
       amount: e.target[7].value,
       period: {
-        start: moment().subtract(10, "minutes").subtract(2, "hours").toDate(),
+        start: moment().subtract(10, "minutes").subtract(2, "hours"),
       },
       location: e.target[4].value,
       creatorId: "",
@@ -31,8 +31,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
       contact: {
         name: "Hård Kodad",
       },
-      createdAt: moment().subtract(10, "minutes").subtract(2, "hours").toDate(),
-      updatedAt: moment().toDate(),
+      createdAt: moment(),
+      updatedAt: moment(),
     };
     onSubmit(ad);
   };

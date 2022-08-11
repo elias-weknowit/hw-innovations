@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getDocs, setDoc, addDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot } from 'firebase/firestore'
+import { getDocs, setDoc, addDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot, query, where } from 'firebase/firestore'
 import type { Advertisement } from '../../util/models'
 import { Timestamp as FirebaseTimestamp } from "firebase/firestore";
 import moment, { Moment } from 'moment';
@@ -32,8 +32,10 @@ const converter = {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse){
+    const userId = req.query.userId;
+    console.log(req.query);
     const collectionRef = collection(db, 'advertisements').withConverter(converter);
-    const snapshotRes: QuerySnapshot<Advertisement> | void = await getDocs(collectionRef).catch( err => res.status(500).send(err));
+    const snapshotRes: QuerySnapshot<Advertisement> | void = await getDocs(userId ? query(collectionRef, where("creatorId", "==", userId)) : collectionRef).catch( err => res.status(500).send(err));
     if(!snapshotRes){
         res.status(500).send('No snapshot');
     } else{

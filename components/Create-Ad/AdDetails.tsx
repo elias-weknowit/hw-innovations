@@ -64,7 +64,7 @@ export default function AdDetails({ image, onEdit, ad }: AdDetailsProp) {
       {/**Time of post */}
       <div className="flex">
         <p className="font-mulish text-black text-opacity-70 text-sm">
-          {moment(ad.createdAt).fromNow()}
+          {moment(ad.updatedAt).fromNow()}
         </p>
       </div>
     </div>
