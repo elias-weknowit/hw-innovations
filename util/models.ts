@@ -1,6 +1,6 @@
 
 //Declare firestore type for advertisments collection
-
+import type { Moment } from 'moment';
 
 export type Advertisement = {
     id?: string;
@@ -10,8 +10,8 @@ export type Advertisement = {
     company: string;
     location: string;
     period: {
-        start: Date;
-        end: Date;
+        start: Moment;
+        end: Moment;
     };
     amount: number;
     collectiveAgreement: boolean;
@@ -25,6 +25,6 @@ export type Advertisement = {
         phone?: string;
         address?: string;
     };
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Moment;
+    updatedAt?: Moment;
 }
