@@ -11,7 +11,7 @@ export type Advertisement = {
     location: string;
     period: {
         start: Moment;
-        end: Moment;
+        end?: Moment;
     };
     amount: number;
     collectiveAgreement: boolean;
