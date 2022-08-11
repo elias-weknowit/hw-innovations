@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import AdDetails from "../components/Create-Ad/AdDetails";
@@ -9,12 +9,24 @@ import CreateAdForm from "../components/Create-Ad/CreateAdForm";
 import Navbar from "../components/Navbar/Navbar";
 import EditAd from "../components/Create-Ad/EditAd";
 import { Ad } from "../shared/types";
+import { Advertisement } from "../util/models";
 
-export default function ad() {
+export default function Ad() {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
-  const [ads, setAds] = useState([]);
+  const [ads, setAds] = useState<Advertisement[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/advertisements")
+      .then((res) => res.json())
+      .then((data) => {
+        setAds(data);
+      }).catch((err) => {
+        console.log(err);
+      }
+      );
+  }, [])
 
   return (
     <>
