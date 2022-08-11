@@ -47,9 +47,9 @@ export default function Ad() {
                   Mina annonser
                 </p>
                 <div className="text-white font-mulish font-semibold text-lg md:mr-5 md:hidden lg:hidden">
-                  <div className="bg-primary-color p-1 md:p-2 rounded-md ">
+                  <div className="bg-primary-color p-1 w-1/2 md:p-2 rounded-md ">
                     <button className="flex flex-row items-center">
-                      <AddCircleIcon className="w-6 h-6 mr-2" />
+                      <AddCircleIcon className="w-5 h-5 mr-1" />
                       <Link href={"/create-ad"}>Skapa annons </Link>
                     </button>
                   </div>

@@ -3,6 +3,7 @@ import Head from "next/head";
 import CreateAdForm from "../components/Create-Ad/CreateAdForm";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
+import AdView from "../components/Create-Ad/AdView";
 
 export default function createAd() {
   const router = useRouter();
@@ -28,6 +29,7 @@ export default function createAd() {
             >
               <ArrowBackIcon className="w-7 h-7" />
             </div>
+            {/*<AdView />*/}
             <CreateAdForm onSubmit={(ad) => setAds((prev) => [...prev, ad])} />
           </div>
         </div>

@@ -7,6 +7,10 @@ import "../styles/globals.css";
 import { initAuth, initFirebase } from "../util/firebase/init";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import moment from "moment";
+import sv from "moment/locale/sv";
+
+moment.locale("sv", sv);
 
 const theme = createTheme({
   palette: {

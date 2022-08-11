@@ -3,14 +3,17 @@ import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import Image, { StaticImageData } from "next/image";
 import { IconButton } from "@mui/material";
 import { Ad } from "../../shared/types";
+import { Advertisement } from "../../util/models";
+import moment from "moment";
 
 interface AdDetailsProp {
   image: string | StaticImageData;
   onEdit: () => void;
-  ad: Ad;
+  ad: Advertisement;
 }
 
 export default function AdDetails({ image, onEdit, ad }: AdDetailsProp) {
+  moment.locale("sv");
   return (
     <div className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color">
       {/**Company img and edit button */}
@@ -31,12 +34,12 @@ export default function AdDetails({ image, onEdit, ad }: AdDetailsProp) {
       {/**Description and place */}
       <div>
         <div>
-          <p className="text-md font-mulish font-semibold">{ad.workTitle}</p>
+          <p className="text-md font-mulish font-semibold">{ad.title}</p>
         </div>
         <div className="flex flex-row">
           <div>
             <p className="text-md text-black font-mulish text-opacity-70">
-              {ad.companyTitle}
+              {ad.company}
             </p>
           </div>
           <p className="font-mulish ml-1 mr-1 text-black text-opacity-70">.</p>
@@ -50,16 +53,18 @@ export default function AdDetails({ image, onEdit, ad }: AdDetailsProp) {
       {/**Ad: nr of empolyee, available and typ of work */}
       <div className="flex p-2 items-center">
         <div className="bg-profile-available rounded-lg p-1 mr-2">
-          <p className="font-mulish mx-3 text-sm">{ad.amountOf}st</p>
+          <p className="font-mulish mx-3 text-sm">{ad.amount}st</p>
         </div>
         <div className="bg-profile-available rounded-lg p-1 mr-2">
-          <p className="font-mulish mx-3 text-sm">{ad.date} -</p>
+          <p className="font-mulish mx-3 text-sm">
+            {moment(ad.period.start).format("YYYY-MM-DD")} -{" "}
+          </p>
         </div>
       </div>
       {/**Time of post */}
       <div className="flex">
         <p className="font-mulish text-black text-opacity-70 text-sm">
-          {ad.timeSinceAdded} minuter sedan
+          {moment(ad.createdAt).fromNow()}
         </p>
       </div>
     </div>
