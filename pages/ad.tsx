@@ -10,6 +10,7 @@ import Navbar from "../components/Navbar/Navbar";
 import EditAd from "../components/Create-Ad/EditAd";
 import { Advertisement } from "../util/models";
 import axios from "axios";
+import AdView from "../components/Create-Ad/AdView";
 
 export default function AdPage() {
   const { user } = useAuth();
@@ -18,17 +19,18 @@ export default function AdPage() {
   const [ads, setAds] = useState<Advertisement[]>([]);
 
   useEffect(() => {
-    if(user){
-      console.log(user)
+    if (user) {
+      console.log(user);
       fetch("http://localhost:3000/api/advertisements?userId=" + user.uid)
-      .then((res) => res.json())
-      .then((data) => {
-        setAds(data);
-      }).catch((err) => {
-        console.log(err);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          setAds(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [user])
+  }, [user]);
 
   return (
     <>
@@ -52,7 +54,7 @@ export default function AdPage() {
                   <div className="bg-primary-color p-1 w-1/2 md:p-2 rounded-md ">
                     <button className="flex flex-row items-center">
                       <AddCircleIcon className="w-5 h-5 mr-1" />
-                      <Link href={"/create-ad"}>Skapa annons </Link>
+                      <Link href={"/ad/create"}>Skapa annons </Link>
                     </button>
                   </div>
                 </div>
@@ -66,6 +68,7 @@ export default function AdPage() {
                         image={user?.photoURL ? user.photoURL : logo}
                         onEdit={() => setIsEditing(true)}
                         ad={ad}
+                        onClick={null}
                       />
                     ))}
                   </div>
@@ -76,7 +79,7 @@ export default function AdPage() {
                   ) : (
                     <CreateAdForm
                       onSubmit={(ad) => {
-                        const _ad = {...ad, creatorId: user.uid};
+                        const _ad = { ...ad, creatorId: user.uid };
                         setAds((prev) => [...prev, _ad]);
                         axios.post("/api/advertisements", _ad);
                       }}

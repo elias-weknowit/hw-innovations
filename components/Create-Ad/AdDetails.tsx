@@ -5,17 +5,26 @@ import { IconButton } from "@mui/material";
 import { Ad } from "../../shared/types";
 import { Advertisement } from "../../util/models";
 import moment from "moment";
+import Link from "next/link";
 
 interface AdDetailsProp {
   image: string | StaticImageData;
   onEdit: () => void;
   ad: Advertisement;
+  onClick: () => void;
 }
 
-export default function AdDetails({ image, onEdit, ad }: AdDetailsProp) {
-  moment.locale("sv");
+export default function AdDetails({
+  image,
+  onEdit,
+  onClick,
+  ad,
+}: AdDetailsProp) {
   return (
-    <div className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color">
+    <div
+      className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color"
+      onClick={onClick}
+    >
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
