@@ -35,7 +35,7 @@ export default function CreateAccountView() {
   return (
     <>
       <Head>
-        <title>HW Innovations | Skapa konto </title>
+        <title>Work 2 Do | Skapa konto </title>
       </Head>
       <div className="flex flex-row bg-background-white-color">
         <div className="flex flex-2 flex-grow flex-col min-h-screen w-auto items-center justify-center">

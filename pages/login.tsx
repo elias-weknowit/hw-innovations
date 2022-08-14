@@ -72,7 +72,7 @@ export default function LoginView() {
   return (
     <>
       <Head>
-        <title>HW Innovations | Logga in </title>
+        <title>Work 2 Do | Logga in </title>
       </Head>
 
       <div className="flex flex-row bg-background-white-color">

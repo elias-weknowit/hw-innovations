@@ -18,7 +18,7 @@ export default function CreateAd() {
     <>
       <div className="px-8 sm:px-12 md:px-16 lg:px-32">
         <Head>
-          <title>H&W Innovations | Skapa annons</title>
+          <title>Work 2 Do | Skapa annons</title>
         </Head>
 
         <div className="mt-32 md:mt-20">

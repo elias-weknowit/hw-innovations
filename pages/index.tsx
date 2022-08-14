@@ -6,13 +6,13 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>H&W Innovations | Välkommen</title>
+        <title>Work 2 Do | Välkommen</title>
       </Head>
 
-      <div className="flex flex-col bg-homeScreen-landingPage object-contain md:object-scale-down bg-fixed bg-cover min-h-screen ">
+      <div className="flex flex-col bg-homeScreen-landingPage object-contain md:object-scale-down bg-fixed bg-cover min-h-screen">
         <Navbar transparent />
         <div className="md:mx-32 mt-40 md:mt-40 flex flex-cols">
-          <div className="md:w-full lg:w-full  xl:w-1/3">
+          <div className="md:w-full lg:w-full xl:w-1/2">
             <p className="text-5xl items-center  text-center md:text-start font-mulish md:text-6xl text-white">
               Erbjud och hitta arbetskraft här
             </p>

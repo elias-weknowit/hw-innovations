@@ -15,7 +15,7 @@ export default function UserProfile() {
   return (
     <div className="px-8 sm:px-12 md:px-16 lg:px-32">
       <Head>
-        <title>H&W Innovations | Profil </title>
+        <title>Work 2 Do | Profil </title>
       </Head>
 
       <div className="mt-10 md:mt-20">

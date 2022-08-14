@@ -10,12 +10,11 @@ import Navbar from "../components/Navbar/Navbar";
 import EditAd from "../components/Create-Ad/EditAd";
 import { Advertisement } from "../util/models";
 import axios from "axios";
-import AdView from "../components/Create-Ad/AdView";
+import Footer from "../components/Footer/Footer";
 
 export default function AdPage() {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-  const [isAdding, setIsAdding] = useState(false);
   const [ads, setAds] = useState<Advertisement[]>([]);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function AdPage() {
       <Navbar hideButton />
       <div className="px-8 sm:px-12 md:px-16 lg:px-32">
         <Head>
-          <title>H&W Innovations | Mina annons</title>
+          <title>Work 2 Do | Mina annons</title>
         </Head>
 
         <div className="mt-32 md:mt-20">
@@ -91,6 +90,7 @@ export default function AdPage() {
           )}
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
