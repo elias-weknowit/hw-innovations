@@ -10,7 +10,7 @@ export default function InputForm({
   type?: boolean;
   labelName: string;
   date: string;
-  value: any;
+  value: string;
   onChange: any;
 }) {
   const [textAreaText, setTextAreaText] = useState("");
