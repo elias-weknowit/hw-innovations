@@ -15,14 +15,14 @@ export default function ProfilePreview({ user, image }: ProfilePreviewProps) {
   const { signOut } = useAuth();
   const router = useRouter();
   return (
-    <div className="flex flex-row items-center justify-self-end">
+    <div className="flex flex-row items-center p-2 justify-self-end">
       {user ? (
         <>
-          <div className="flex bg-black bg-opacity-40 rounded-full w-11 h-11 items-center justify-center text-white overflow-hidden">
+          <div className="flex bg-black bg-opacity-40 rounded-full  w-12 h-12 items-center justify-center text-white overflow-hidden">
             <Image src={image} width="100%" height="100%" />
           </div>
           <div className="flex flex-row items-center">
-            <Link href="/user-profile">
+            <Link href="/#">
               <a className="font-mulish text-white text-lg m-2">
                 {user.displayName}
               </a>

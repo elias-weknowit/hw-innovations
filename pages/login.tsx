@@ -114,7 +114,7 @@ export default function LoginView() {
             />
             <p className="self-center text-light-text">
               Har du inget konto?{" "}
-              <Link href="/create-account">
+              <Link href="/create/userAccount">
                 <a className="text-primary-color">Registrera</a>
               </Link>
             </p>

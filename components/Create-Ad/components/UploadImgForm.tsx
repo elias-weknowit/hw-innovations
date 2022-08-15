@@ -2,10 +2,11 @@ import React from "react";
 import Link from "next/link";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-export default function UploadImgForm() {
+export default function UploadImgForm({ className }) {
   return (
+    //"shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2 "
     <div>
-      <div className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2 ">
+      <div className={className}>
         <div className="flex flex-row items-center">
           <AddCircleIcon
             className="w-6 h-6 mr-2"

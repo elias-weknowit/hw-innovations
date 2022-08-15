@@ -19,24 +19,31 @@ export default function AlternateLogins({
 
   return (
     <div className={className}>
-      <div className="flex flex-row justify-evenly ">
+      <div className="flex flex-row justify-evenly">
         {enableApple && (
-          <IconButton className="bg-white drop-shadow" size="large" >
-              <SvgIcon component={AppleIcon} inheritViewBox />
+          <IconButton className="bg-white drop-shadow mr-5" size="large">
+            <SvgIcon component={AppleIcon} inheritViewBox />
           </IconButton>
         )}
         {enableGoogle && (
-          <IconButton className="bg-white drop-shadow" size="large" onClick={() => {router.push('/login'); signInWithGoogleRedirect();}}>
-              <SvgIcon component={GoogleIcon} inheritViewBox />
+          <IconButton
+            className="bg-white drop-shadow mr-5"
+            size="large"
+            onClick={() => {
+              router.push("/login");
+              signInWithGoogleRedirect();
+            }}
+          >
+            <SvgIcon component={GoogleIcon} inheritViewBox />
           </IconButton>
         )}
         {enableFacebook && (
           <IconButton className="bg-white drop-shadow" size="large">
-              <SvgIcon component={FacebookIcon} inheritViewBox />
+            <SvgIcon component={FacebookIcon} inheritViewBox />
           </IconButton>
         )}
         {enableMail && (
-          <IconButton className="bg-white drop-shadow" size="large">
+          <IconButton className="bg-white drop-shadow mr-5" size="large">
             <Link href="/">
               <MailIcon inheritViewBox />
             </Link>
