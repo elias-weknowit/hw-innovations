@@ -7,7 +7,7 @@ import type { Advertisement } from "../../util/models";
 import moment from "moment";
 
 interface CreateAdFormProps {
-  onSubmit: (Advertisement) => void;
+  onSubmit: (ad: Advertisement) => void;
 }
 
 export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
@@ -45,7 +45,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
       company: e.target[3].value,
       location: e.target[4].value,
       period: {
-        start: e.target[5].value,
+        start: moment(), //Should be date from form
       },
       amount: e.target[6].value,
       collectiveAgreement: false,
@@ -77,10 +77,10 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
         <div>
           <form onSubmit={onSubmitHandler}>
             <RadioButton
+              name="workType"
+              labels={["Jobb", "Arbetskraft"]}
               title="Erbjuder"
-              alt_one="Jobb"
-              alt_two="Arbetskraft"
-              onChange={null}
+              onChange={(label) => {}}
             />
             <InputForm
               labelName="Rubrik"
@@ -130,9 +130,9 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <RadioButton
               title="Ansluten till kollektivavtal"
-              alt_one="Ja"
-              alt_two="Nej"
-              onChange={null}
+              name="collectiveAgreement"
+              labels={["Ja", "Nej"]}
+              onChange={(label) => {}}
             />
             <InputForm
               labelName="Avtalsform"
@@ -147,8 +147,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               labelName="Typ av arbetskraft"
               type
               date="text"
-              value={null}
-              onChange={null}
+              value={""}
+              onChange={() => {}}
             />
             <InputForm
               labelName="Beskrivning"
@@ -161,8 +161,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             <InputForm
               labelName="Kvalifikationer"
               date="text"
-              value={null}
-              onChange={null}
+              value={""}
+              onChange={() => {}}
             />
             <InputForm
               labelName="Kontaktperson"
@@ -191,7 +191,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
                 setInputAddress(e.target.value);
               }}
             />
-            <UploadImgForm />
+            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
             <div className="flex flex-row items-center justify-end mt-14">
               <button className="bg-primary-color p-1 rounded-md">
                 <p className="font-mulish font-semibold text-white mx-10">
