@@ -21,10 +21,7 @@ export default function AdDetails({
   ad,
 }: AdDetailsProp) {
   return (
-    <div
-      className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color"
-      onClick={onClick}
-    >
+    <div className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color">
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
@@ -41,7 +38,7 @@ export default function AdDetails({
         </div>
       </div>
       {/**Description and place */}
-      <div>
+      <div onClick={onClick}>
         <div>
           <p className="text-md font-mulish font-semibold">{ad.title}</p>
         </div>
@@ -60,12 +57,12 @@ export default function AdDetails({
         </div>
       </div>
       {/**Ad: nr of empolyee, available and typ of work */}
-      <div className="flex p-2 items-center">
+      <div className="flex mt-3 mb-2 items-center">
         <div className="bg-profile-available rounded-lg p-1 mr-2">
           <p className="font-mulish mx-3 text-sm">{ad.amount}st</p>
         </div>
         <div className="bg-profile-available rounded-lg p-1 mr-2">
-          <p className="font-mulish mx-3 text-sm">
+          <p className="font-mulish mx-1 text-sm">
             {moment(ad.period.start).format("YYYY-MM-DD")} -{" "}
           </p>
         </div>

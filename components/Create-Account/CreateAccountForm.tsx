@@ -12,6 +12,10 @@ import { useAuth } from "../../components/firebase/AuthUserProvider";
 import { useRouter } from "next/router";
 import { deleteUser } from "firebase/auth";
 import { display } from "@mui/system";
+import UploadImgForm from "../Create-Ad/components/UploadImgForm";
+import RadioButton from "../Create-Ad/components/RadioButton";
+import AlternateLogins from "../Login/AlternateLogins";
+import { Divider } from "@mui/material";
 
 type CreateAccountError = {
   message: string;
@@ -97,12 +101,6 @@ export default function CreateAccountForm() {
   return (
     <div className="content-center w-full">
       <div className="flex flex-col items-center">
-        <div className="flex flex-col flex-grow w-80 font-mulish mt-2 mb-8">
-          <h1 className="justify-start font-semibold text-3xl">Skapa konto</h1>
-          <p className="justify-start mt-3 text-lg">
-            Hitta någon som kan hjälpa dig eller hjälpa någon med det du kan.
-          </p>
-        </div>
         <form
           className="w-full flex flex-col items-center"
           onSubmit={(e) => e.preventDefault()}
@@ -137,11 +135,24 @@ export default function CreateAccountForm() {
               errorMessage={error?.message}
               valid_user={password.length >= 6}
             />
+            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
             <LoginButton
               onClick={() =>
                 onSubmit({ user: email, password, displayName: userName })
               }
-              title="Forsätt"
+              title="Skapa"
+            />
+          </div>
+          <div className="flex flex-col">
+            <div className="mt-12">
+              <Divider className="text-light-text">Eller fortsätt med</Divider>
+            </div>
+
+            <AlternateLogins
+              className="p-5"
+              enableFacebook
+              enableGoogle
+              enableApple
             />
           </div>
         </form>

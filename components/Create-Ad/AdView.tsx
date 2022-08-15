@@ -37,7 +37,9 @@ export default function AdView({ ad }: AdViewProps) {
             <p className="font-mulish font-semibold text-lg text-footer-pink">
               När behöver vi
             </p>
-            <p className="font-mulish text-md">21 aug - </p>
+            <p className="font-mulish text-md">
+              21 aug -{/*ad.period.start.format("YYYY-MM-DD")*/}
+            </p>
           </div>
           <div className="mb-4">
             <p className="font-mulish font-semibold text-lg text-footer-pink">
