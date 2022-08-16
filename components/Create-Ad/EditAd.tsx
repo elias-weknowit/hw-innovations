@@ -19,7 +19,6 @@ export default function EditAd({
   onSubmit: (ad: Advertisement) => void;
   onDelete: () => void;
 }) {
-  const router = useRouter();
   const [adData, setAdData] = useState({ ...ad });
 
   return (
@@ -41,15 +40,15 @@ export default function EditAd({
             />
             <InputForm
               labelName="Rubrik"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.title}
               onChange={(e) => setAdData({ ...adData, title: e.target.value })}
             />
             <InputForm
               labelName="Företag"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.company}
               onChange={(e) =>
                 setAdData({ ...adData, company: e.target.value })
@@ -57,8 +56,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Plats"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.location}
               onChange={(e) =>
                 setAdData({ ...adData, location: e.target.value })
@@ -66,8 +65,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Period"
-              type
-              date="date"
+              sort
+              type="date"
               value={""}
               //value={adData.period.start.format("YYY-MM-DD")}
               onChange={
@@ -80,8 +79,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Antal personer"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.amount.toString()}
               onChange={(e) =>
                 setAdData({ ...adData, amount: parseInt(e.target.value) })
@@ -95,8 +94,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Avtalsform"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.contractForm}
               onChange={(e) =>
                 setAdData({ ...adData, contractForm: e.target.value })
@@ -104,8 +103,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Typ av arbetskraft"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.typeOfWork}
               onChange={(e) =>
                 setAdData({ ...adData, typeOfWork: e.target.value })
@@ -113,7 +112,7 @@ export default function EditAd({
             />
             <InputForm
               labelName="Beskrivning"
-              date="text"
+              type="text"
               value={adData.description}
               onChange={(e) =>
                 setAdData({ ...adData, description: e.target.value })
@@ -121,7 +120,7 @@ export default function EditAd({
             />
             <InputForm
               labelName="Kvalifikationer"
-              date="text"
+              type="text"
               value={adData.requirements} //.join("\n")
               onChange={
                 (e) => setAdData({ ...adData, requirements: e.target.value }) //e.target.value.split("\n")
@@ -129,8 +128,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Kontaktperson"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.contact.name}
               onChange={(e) =>
                 setAdData({
@@ -141,8 +140,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Telefonnummer"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.contact.phone}
               onChange={(e) =>
                 setAdData({
@@ -153,8 +152,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Adress"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.contact.address}
               onChange={(e) =>
                 setAdData({
@@ -165,8 +164,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Stad"
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.contact.city}
               onChange={(e) =>
                 setAdData({
@@ -177,8 +176,8 @@ export default function EditAd({
             />
             <InputForm
               labelName="Post nr."
-              type
-              date="text"
+              sort
+              type="text"
               value={adData.contact.postCode}
               onChange={(e) =>
                 setAdData({

@@ -95,8 +95,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Rubrik"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputTitle}
               onChange={(e) => {
                 setInputTitle(e.target.value);
@@ -104,8 +104,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Företag"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputCompany}
               onChange={(e) => {
                 setInputCompany(e.target.value);
@@ -113,8 +113,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Plats"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputLocation}
               onChange={(e) => {
                 setLocation(e.target.value);
@@ -123,8 +123,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
 
             <InputForm
               labelName="Period"
-              type
-              date="date"
+              sort
+              type="date"
               value={inputPeriodStart}
               onChange={(e) => {
                 setInputPeriodStart(e.target.value);
@@ -142,8 +142,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
 
             <InputForm
               labelName="Antal personer"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputAmount}
               onChange={(e) => {
                 setInputAmount(e.target.value);
@@ -157,8 +157,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Avtalsform"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputContractForm}
               onChange={(e) => {
                 setInputContractForm(e.target.value);
@@ -166,8 +166,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Typ av arbetskraft"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputTypeOfWork}
               onChange={(e) => {
                 setInputTypeOfWork(e.target.value);
@@ -175,7 +175,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Beskrivning"
-              date="text"
+              type="text"
               value={inputDescription}
               onChange={(e) => {
                 setInputDescription(e.target.value);
@@ -183,7 +183,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Kvalifikationer"
-              date="text"
+              type="text"
               value={inputRequirements}
               onChange={(e) => {
                 setInputRequirements(e.target.value);
@@ -191,8 +191,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Kontaktperson"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputName}
               onChange={(e) => {
                 setInputName(e.target.value);
@@ -200,8 +200,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Telefonnummer"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputPhone}
               onChange={(e) => {
                 setInputPhone(e.target.value);
@@ -209,8 +209,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Adress"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputAddress}
               onChange={(e) => {
                 setInputAddress(e.target.value);
@@ -218,8 +218,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Stad"
-              type
-              date="text"
+              sort
+              type="text"
               value={inputCity}
               onChange={(e) => {
                 setInputCity(e.target.value);
@@ -227,8 +227,8 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             />
             <InputForm
               labelName="Post nr."
-              type
-              date="text"
+              sort
+              type="text"
               value={inputPostcode}
               onChange={(e) => {
                 setInputPostCode(e.target.value);

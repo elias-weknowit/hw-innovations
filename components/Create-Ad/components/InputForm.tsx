@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
 export default function InputForm({
-  type,
+  sort,
   labelName,
-  date,
+  type,
   value,
   onChange,
 }: {
-  type?: boolean;
+  sort?: boolean;
   labelName: string;
-  date: string;
+  type: string;
   value: string;
   onChange: any;
 }) {
@@ -42,10 +42,10 @@ export default function InputForm({
   return (
     <div className="flex flex-col mb-4">
       <label className="font-mulish font-semibold mb-1">{labelName}</label>
-      {type ? (
+      {sort ? (
         <input
           className="p-2 rounded-md font-mulish shadow-md outline-none ring-white ring-1 focus:ring-primary-color"
-          type={date}
+          type={type}
           value={value}
           onChange={onChange}
         />
