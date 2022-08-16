@@ -49,7 +49,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse){
     const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
     console.log(newAdvertisement);
     const collectionRef = collection(db, 'advertisements').withConverter(converter);
-    await addDoc(collectionRef, newAdvertisement).catch( err => res.status(500).send(err)).then(result => res.status(200).json({...newAdvertisement, id: result.id}));
+    await addDoc(collectionRef, newAdvertisement).catch( err => res.status(500).send(err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }
 
 async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
