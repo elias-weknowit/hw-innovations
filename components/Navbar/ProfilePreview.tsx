@@ -2,9 +2,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { User } from "firebase/auth";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useAuth } from "../firebase/AuthUserProvider";
-import DropDown from "./DropDown";
 
 interface ProfilePreviewProps {
   user: User | null;
@@ -22,7 +21,7 @@ export default function ProfilePreview({ user, image }: ProfilePreviewProps) {
             <Image src={image} width="100%" height="100%" />
           </div>
           <div className="flex flex-row items-center">
-            <Link href="/#">
+            <Link href="/profile">
               <a className="font-mulish text-white text-lg m-2">
                 {user.displayName}
               </a>
