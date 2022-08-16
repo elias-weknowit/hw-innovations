@@ -8,7 +8,7 @@ import MarkunreadOutlinedIcon from "@mui/icons-material/MarkunreadOutlined";
 
 export default function Footer() {
   return (
-    <footer className=" flex flex-col p-2 bg-primary-color shadow md:px-6 md:py-6">
+    <footer className=" flex flex-col p-2 bg-primary-color mt-10 shadow md:px-6 md:py-6">
       <div className="sm:flex sm:items-center sm:justify-evenly flex-wrap">
         <div className="flex justify-center m-1 flex-shrink-0">
           <Image className=" rounded-lg" src={logo} width={179} height={58} />
@@ -46,7 +46,10 @@ export default function Footer() {
       </div>
 
       <span className="flex text-sm text-white p-3 justify-center items-center">
-        Utvecklad av{'\u00A0'}<a href="https://weknowit.se/" className="underline">We know IT.</a>
+        Utvecklad av{"\u00A0"}
+        <a href="https://weknowit.se/" className="underline">
+          We know IT.
+        </a>
       </span>
     </footer>
   );
