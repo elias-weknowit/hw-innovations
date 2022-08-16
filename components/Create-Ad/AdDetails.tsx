@@ -2,10 +2,8 @@ import React from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import Image, { StaticImageData } from "next/image";
 import { IconButton } from "@mui/material";
-import { Ad } from "../../shared/types";
 import { Advertisement } from "../../util/models";
 import moment from "moment";
-import Link from "next/link";
 
 interface AdDetailsProp {
   image: string | StaticImageData;
@@ -21,7 +19,7 @@ export default function AdDetails({
   ad,
 }: AdDetailsProp) {
   return (
-    <div className="bg-profile-sections shadow-md rounded-md p-2 mt-3 cursor-point hover:bg-primary-color">
+    <div className="bg-profile-sections shadow-md rounded-md p-1 mt-3 cursor-point  hover:bg-primary-color">
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
@@ -57,14 +55,25 @@ export default function AdDetails({
         </div>
       </div>
       {/**Ad: nr of empolyee, available and typ of work */}
-      <div className="flex mt-3 mb-2 items-center">
-        <div className="bg-profile-available rounded-lg p-1 mr-2">
-          <p className="font-mulish mx-3 text-sm">{ad.amount}st</p>
+      <div className="flex flex-col mt-3 mb-2 items-start">
+        <div className="flex mb-2">
+          <div className="bg-profile-available rounded-lg p-1 mr-2">
+            <p className="font-mulish mx-3 text-sm">{ad.amount}st</p>
+          </div>
         </div>
-        <div className="bg-profile-available rounded-lg p-1 mr-2">
-          <p className="font-mulish mx-1 text-sm">
-            {moment(ad.period.start).format("YYYY-MM-DD")} -{" "}
-          </p>
+        <div className="flex flex-row">
+          <div className="bg-profile-available rounded-lg p-1 mr-2">
+            <p className="font-mulish mx-1 text-sm">
+              Från {moment(ad.period.start).format("YYYY-MM-DD")}
+            </p>
+          </div>
+          {/** 
+          <div className="bg-profile-available rounded-lg p-1 mr-2">
+            <p className="font-mulish mx-1 text-sm">
+              Till {moment(ad.period.end).format("YYYY-MM-DD")}
+            </p>
+          </div>
+          */}
         </div>
       </div>
       {/**Time of post */}
