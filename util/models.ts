@@ -18,12 +18,14 @@ export type Advertisement = {
     contractForm: string;
     typeOfWork?: string;
     description: string;
-    requirements: string[];
+    requirements: string;
     contact: {
         name: string;
         email?: string;
         phone?: string;
         address?: string;
+        city?:string;
+        postCode?:string;
     };
     createdAt?: Moment;
     updatedAt?: Moment;
