@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import RadioButton from "./components/RadioButton";
 import InputForm from "./components/InputForm";
 import UploadImgForm from "./components/UploadImgForm";
-import { Ad } from "../../shared/types";
 import type { Advertisement } from "../../util/models";
 import moment from "moment";
 
@@ -14,26 +13,36 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
   const [inputTitle, setInputTitle] = useState<string>("");
   const [inputCompany, setInputCompany] = useState<string>("");
   const [inputLocation, setLocation] = useState<string>("");
-  const [inputPeriod, setInputPeriod] = useState<string>("");
+  const [inputPeriodStart, setInputPeriodStart] = useState<string>("");
+  //const [inputPeriodEnd, setInputPeriodEnd] = useState<string>("");
   const [inputAmount, setInputAmount] = useState<string>("");
   const [inputContractForm, setInputContractForm] = useState<string>("");
+  const [inputTypeOfWork, setInputTypeOfWork] = useState<string>("");
   const [inputDescription, setInputDescription] = useState<string>("");
+  const [inputRequirements, setInputRequirements] = useState<string>("");
   const [inputName, setInputName] = useState<string>("");
   const [inputPhone, setInputPhone] = useState<string>("");
   const [inputAddress, setInputAddress] = useState<string>("");
+  const [inputCity, setInputCity] = useState<string>("");
+  const [inputPostcode, setInputPostCode] = useState<string>("");
 
   //Remove charactar input when submiting
   const handleinputCharactar = () => {
     setInputTitle("");
     setInputCompany("");
     setLocation("");
-    setInputPeriod("");
+    setInputPeriodStart("");
+    //setInputPeriodEnd("");
     setInputAmount("");
     setInputContractForm("");
+    setInputTypeOfWork("");
     setInputDescription("");
     setInputName("");
     setInputPhone("");
     setInputAddress("");
+    setInputCity("");
+    setInputPostCode("");
+    setInputRequirements("");
   };
 
   const onSubmitHandler = (e) => {
@@ -52,11 +61,13 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
       contractForm: e.target[9].value,
       creatorId: "",
       description: e.target[11].value,
-      requirements: [],
+      requirements: e.target[12].value,
       contact: {
         name: e.target[13].value,
         phone: e.target[14].value,
         address: e.target[15].value,
+        city: e.target[16].value,
+        postCode: e.target[17].value,
       },
       createdAt: moment(),
       updatedAt: moment(),
@@ -114,11 +125,21 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               labelName="Period"
               type
               date="date"
-              value={inputPeriod}
+              value={inputPeriodStart}
               onChange={(e) => {
-                setInputPeriod(e.target.value);
+                setInputPeriodStart(e.target.value);
               }}
             />
+            {/** <InputForm
+              labelName="Period - Slut"
+              type
+              date="date"
+              value={inputPeriodEnd}
+              onChange={(e) => {
+                setInputPeriodEnd(e.target.value);
+              }}
+            />*/}
+
             <InputForm
               labelName="Antal personer"
               type
@@ -147,8 +168,10 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               labelName="Typ av arbetskraft"
               type
               date="text"
-              value={""}
-              onChange={() => {}}
+              value={inputTypeOfWork}
+              onChange={(e) => {
+                setInputTypeOfWork(e.target.value);
+              }}
             />
             <InputForm
               labelName="Beskrivning"
@@ -161,8 +184,10 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
             <InputForm
               labelName="Kvalifikationer"
               date="text"
-              value={""}
-              onChange={() => {}}
+              value={inputRequirements}
+              onChange={(e) => {
+                setInputRequirements(e.target.value);
+              }}
             />
             <InputForm
               labelName="Kontaktperson"
@@ -189,6 +214,24 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               value={inputAddress}
               onChange={(e) => {
                 setInputAddress(e.target.value);
+              }}
+            />
+            <InputForm
+              labelName="Stad"
+              type
+              date="text"
+              value={inputCity}
+              onChange={(e) => {
+                setInputCity(e.target.value);
+              }}
+            />
+            <InputForm
+              labelName="Post nr."
+              type
+              date="text"
+              value={inputPostcode}
+              onChange={(e) => {
+                setInputPostCode(e.target.value);
               }}
             />
             <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />

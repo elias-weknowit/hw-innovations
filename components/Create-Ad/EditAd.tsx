@@ -122,12 +122,9 @@ export default function EditAd({
             <InputForm
               labelName="Kvalifikationer"
               date="text"
-              value={adData.requirements.join("\n")}
-              onChange={(e) =>
-                setAdData({
-                  ...adData,
-                  requirements: e.target.value.split("\n"),
-                })
+              value={adData.requirements} //.join("\n")
+              onChange={
+                (e) => setAdData({ ...adData, requirements: e.target.value }) //e.target.value.split("\n")
               }
             />
             <InputForm
@@ -163,6 +160,30 @@ export default function EditAd({
                 setAdData({
                   ...adData,
                   contact: { ...adData.contact, address: e.target.value },
+                })
+              }
+            />
+            <InputForm
+              labelName="Stad"
+              type
+              date="text"
+              value={adData.contact.city}
+              onChange={(e) =>
+                setAdData({
+                  ...adData,
+                  contact: { ...adData.contact, city: e.target.value },
+                })
+              }
+            />
+            <InputForm
+              labelName="Post nr."
+              type
+              date="text"
+              value={adData.contact.postCode}
+              onChange={(e) =>
+                setAdData({
+                  ...adData,
+                  contact: { ...adData.contact, postCode: e.target.value },
                 })
               }
             />
