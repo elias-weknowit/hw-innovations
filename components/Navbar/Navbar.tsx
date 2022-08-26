@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Image from "next/image";
 import logo from "../../public/Logo.svg";
 import Link from "next/link";
-import ProfilePreview from "./ProfilePreview";
 import { useAuth } from "../../components/firebase/AuthUserProvider";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DropDown from "./DropDown";
 
 export default function Navbar({
   transparent,
@@ -22,7 +22,7 @@ export default function Navbar({
   return (
     <div
       className={
-        "md:flex md:flex-row justify-evenly items-center h-20 w-full flex-wrap " +
+        "md:flex md:flex-row justify-evenly items-center  h-20 w-full flex-wrap " +
         (transparent ? "" : "bg-primary-color shadow-lg ")
       }
     >
@@ -60,7 +60,7 @@ export default function Navbar({
             Hem
           </p>
         </Link>
-        <Link href={"/"}>
+        <Link href={"/job"}>
           <p className="font-mulish mt-1 mb-1 md:mr-10 text-white cursor-pointer ">
             Annonser
           </p>
@@ -88,10 +88,7 @@ export default function Navbar({
           </div>
         </div>
         <div>
-          <ProfilePreview
-            user={user}
-            image={user?.photoURL ? user.photoURL : logo}
-          />
+          <DropDown user={user} image={user?.photoURL ? user.photoURL : logo} />
         </div>
       </div>
     </div>
