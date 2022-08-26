@@ -17,6 +17,9 @@ module.exports = {
       "profile-sections": "#FBFBFB",
       error: "#F04848",
       success: "#23AC00",
+      searchBar: "#F3F3F4",
+      filterWork: "#CFD1D4",
+      filterWorkHover: "#D6CCE3",
     },
     fontFamily: {
       mulish: ["Mulish", "sans-serif"],
