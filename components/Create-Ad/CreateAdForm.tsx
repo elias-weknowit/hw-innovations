@@ -7,14 +7,18 @@ import moment from "moment";
 
 interface CreateAdFormProps {
   onSubmit: (ad: Advertisement) => void;
+  typeOfWork?: boolean;
 }
 
-export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
+export default function CreateAdForm({
+  onSubmit,
+  typeOfWork,
+}: CreateAdFormProps) {
   const [inputTitle, setInputTitle] = useState<string>("");
   const [inputCompany, setInputCompany] = useState<string>("");
   const [inputLocation, setLocation] = useState<string>("");
   const [inputPeriodStart, setInputPeriodStart] = useState<string>("");
-  //const [inputPeriodEnd, setInputPeriodEnd] = useState<string>("");
+  const [inputPeriodEnd, setInputPeriodEnd] = useState<string>("");
   const [inputAmount, setInputAmount] = useState<string>("");
   const [inputContractForm, setInputContractForm] = useState<string>("");
   const [inputTypeOfWork, setInputTypeOfWork] = useState<string>("");
@@ -26,13 +30,16 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
   const [inputCity, setInputCity] = useState<string>("");
   const [inputPostcode, setInputPostCode] = useState<string>("");
 
+  const [selectedRadio, setSelectedRadio] = useState<string>();
+  const [selectedRadio2, setSelectedRadio2] = useState<string>();
+
   //Remove charactar input when submiting
   const handleinputCharactar = () => {
     setInputTitle("");
     setInputCompany("");
     setLocation("");
     setInputPeriodStart("");
-    //setInputPeriodEnd("");
+    setInputPeriodEnd("");
     setInputAmount("");
     setInputContractForm("");
     setInputTypeOfWork("");
@@ -88,11 +95,15 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
         <div>
           <form onSubmit={onSubmitHandler}>
             <RadioButton
-              name="workType"
-              labels={["Jobb", "Arbetskraft"]}
               title="Erbjuder"
-              onChange={(label) => {}}
+              name="type"
+              labels={["Jobb", "Arbetskraft"]}
+              onChange={(e) => {
+                setSelectedRadio(e.target.value);
+                console.log(e.target.value);
+              }}
             />
+            {selectedRadio === "Jobb" ? <p></p> : <p></p>}
             <InputForm
               labelName="Rubrik"
               sort
@@ -120,25 +131,26 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
                 setLocation(e.target.value);
               }}
             />
-
-            <InputForm
-              labelName="Period"
-              sort
-              type="date"
-              value={inputPeriodStart}
-              onChange={(e) => {
-                setInputPeriodStart(e.target.value);
-              }}
-            />
-            {/** <InputForm
-              labelName="Period - Slut"
-              type
-              date="date"
-              value={inputPeriodEnd}
-              onChange={(e) => {
-                setInputPeriodEnd(e.target.value);
-              }}
-            />*/}
+            <div className="flex flex-col md:flex-row justify-evenly">
+              <InputForm
+                labelName="Period - Start"
+                sort
+                type="date"
+                value={inputPeriodStart}
+                onChange={(e) => {
+                  setInputPeriodStart(e.target.value);
+                }}
+              />
+              <InputForm
+                labelName="Period - Slut"
+                sort
+                type="date"
+                value={inputPeriodEnd}
+                onChange={(e) => {
+                  setInputPeriodEnd(e.target.value);
+                }}
+              />
+            </div>
 
             <InputForm
               labelName="Antal personer"
@@ -153,7 +165,10 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               title="Ansluten till kollektivavtal"
               name="collectiveAgreement"
               labels={["Ja", "Nej"]}
-              onChange={(label) => {}}
+              onChange={(e) => {
+                setSelectedRadio2(e.target.value);
+                console.log(e.target.value);
+              }}
             />
             <InputForm
               labelName="Avtalsform"
@@ -234,6 +249,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
                 setInputPostCode(e.target.value);
               }}
             />
+
             <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
             <div className="flex flex-row items-center justify-end mt-14">
               <button className="bg-primary-color p-1 rounded-md">
