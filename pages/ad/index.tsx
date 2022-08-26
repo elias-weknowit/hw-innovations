@@ -93,9 +93,9 @@ export default function AdPage() {
         </Head>
         <div className="flex flex-row w-full">
           {showLeftSide() && (
-            <div className={"flex flex-col w-full lg:w-1/3"}>
-              <div className="flex-5">
-                <p className="font-mulish mt-32 mb-2 text-3xl font-semibold">
+            <div className={"flex flex-col w-full lg:w-1/2"}>
+              <div className="flex-5 mt-32">
+                <p className="font-mulish mb-2 text-3xl font-semibold">
                   Mina annonser
                 </p>
                 <div className="text-white font-mulish font-semibold text-lg md:mr-5 md:hidden lg:hidden">
@@ -149,11 +149,15 @@ export default function AdPage() {
           )}
         </div>
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </>
   );
 }
 
 AdPage.getLayout = function getLayout(page: ReactElement) {
-  return page;
+  return (
+    <>
+      {page} <Footer />
+    </>
+  );
 };
