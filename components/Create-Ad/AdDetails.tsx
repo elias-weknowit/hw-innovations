@@ -24,7 +24,7 @@ export default function AdDetails({
 
       <div className="flex flex-row justify-between items-center ">
         <div className="items-center">
-          {/* <Image src={ad.image} width="50%" height="50%" /> */}
+          <Image src={image} width="50%" height="50%" />
         </div>
         <div className="p-1">
           <IconButton onClick={onEdit}>
@@ -36,7 +36,7 @@ export default function AdDetails({
         </div>
       </div>
       {/**Description and place */}
-      <div onClick={onClick}>
+      <div onClick={onClick} className="cursor-pointer">
         <div>
           <p className="text-md font-mulish font-semibold">{ad.title}</p>
         </div>
@@ -61,19 +61,18 @@ export default function AdDetails({
             <p className="font-mulish mx-3 text-sm">{ad.amount}st</p>
           </div>
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
           <div className="bg-profile-available rounded-lg p-1 mr-2">
             <p className="font-mulish mx-1 text-sm">
-              Från {moment(ad.period.start).format("YYYY-MM-DD")}
+              {moment(ad.period.start).format("YYYY-MM-DD")}
             </p>
           </div>
-          {/** 
+          <p className="font-mulish font-normal mr-2">Till</p>
           <div className="bg-profile-available rounded-lg p-1 mr-2">
             <p className="font-mulish mx-1 text-sm">
-              Till {moment(ad.period.end).format("YYYY-MM-DD")}
+              {moment(ad.period.end).format("YYYY-MM-DD")}
             </p>
           </div>
-          */}
         </div>
       </div>
       {/**Time of post */}
