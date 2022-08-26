@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import logo from "../../public/Logo.svg";
 import CreateAccountForm from "../../components/Create-Account/CreateAccountForm";
 import CreateAccountCompany from "../../components/Create-Account/CreateAccountCompany";
 import landing_img from "../../public/CreateImg.png";
-import Footer from "../../components/Footer/Footer";
+import RadioButton from "../../components/Login/RegisterRadioButton";
 
 interface UserProfileDto {
   fullName: string;
@@ -25,7 +25,7 @@ interface UserProfileDto {
 }
 
 export default function CreateAccountView() {
-  const [selectedRadio, setSelectedRadio] = useState<string>("private");
+  const [selectedRadio, setSelectedRadio] = useState<string>();
 
   //Redirect to homepage if user is already logged in
   const { loading, user } = useAuth();
@@ -40,8 +40,8 @@ export default function CreateAccountView() {
         <title>Work 2 Do | Skapa konto </title>
       </Head>
       <div className="flex flex-row bg-background-white-color">
-        <div className="flex flex-2 flex-grow flex-col min-h-screen w-auto items-center justify-center">
-          <div className="flex mb-6 m-0 items-center justify-center">
+        <div className="flex flex-2 mt-8 flex-grow flex-col min-h-screen w-auto items-center justify-center">
+          <div className="flex mb-6  items-center justify-center">
             <Image src={logo} width={370} height={123} />
           </div>
           <div className="p-4 flex flex-col">
@@ -54,45 +54,15 @@ export default function CreateAccountView() {
                 kan.
               </p>
             </div>
-            <div className="flex justify-center font-mulish p-2">
-              <div className="flex items-center mr-4">
-                <input
-                  id="alt_one"
-                  type="radio"
-                  value="private"
-                  name="userType"
-                  defaultChecked={true}
-                  className="w-4 h-4 border-primary-color focus:ring-primary-color focus:ring-1"
-                  onChange={(e) => {
-                    setSelectedRadio(e.target.value);
-                  }}
-                />
-                <label
-                  htmlFor="inline-radio"
-                  className="ml-2 text-md text-primary-color"
-                >
-                  Privatperson
-                </label>
-              </div>
-              <div className="flex items-center mr-4">
-                <input
-                  id="alt_two"
-                  type="radio"
-                  value="company"
-                  name="userType"
-                  className="w-4 h-4 border-primary-color focus:ring-primary-color focus:ring-1"
-                  onChange={(e) => {
-                    setSelectedRadio(e.target.value);
-                  }}
-                />
-                <label
-                  htmlFor="inline-2-radio"
-                  className="ml-2 text-md text-primary-color"
-                >
-                  Företag
-                </label>
-              </div>
-            </div>
+            <RadioButton
+              alt_one="Privarperson"
+              value_one="private"
+              alt_two="Företag"
+              value_two="company"
+              onChange={(e) => {
+                setSelectedRadio(e.target.value);
+              }}
+            />
             {selectedRadio === "company" ? (
               <CreateAccountCompany />
             ) : (
@@ -122,11 +92,11 @@ export default function CreateAccountView() {
   );
 }
 
-CreateAccountView.getLayout = function getLayout(page: ReactElement) {
+/*CreateAccountView.getLayout = function getLayout(page: ReactElement) {
   return (
     <>
       {page}
       <Footer />
     </>
   );
-};
+};*/
