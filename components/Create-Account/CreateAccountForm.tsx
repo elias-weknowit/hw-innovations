@@ -150,9 +150,7 @@ export default function CreateAccountForm() {
 
             <AlternateLogins
               className="p-5"
-              enableFacebook
               enableGoogle
-              enableApple
             />
           </div>
         </form>

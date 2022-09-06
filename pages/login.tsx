@@ -108,8 +108,6 @@ export default function LoginView() {
 
             <AlternateLogins
               className="p-6"
-              enableApple
-              enableFacebook
               enableGoogle
             />
             <p className="self-center text-light-text">
