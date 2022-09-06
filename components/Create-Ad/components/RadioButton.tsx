@@ -20,7 +20,7 @@ export default function RadioButton({
       <p className="font-mulish font-semibold mb-5">{title}</p>
       {labels.map((label, index) => {
         return (
-          <div className="flex items-center mb-5">
+          <div key={label} className="flex items-center mb-5">
             <input
               className="w-5 h-5 border-primary-color accent-primary-color focus:ring-primary-color focus:ring-1"
               type="radio"

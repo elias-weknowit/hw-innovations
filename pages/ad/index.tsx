@@ -28,7 +28,7 @@ export default function AdPage() {
     window.addEventListener("resize", () =>
       setIsMobile(window.innerWidth < 768)
     );
-  });
+  }, []);
 
   useEffect(() => {
     if (user) {

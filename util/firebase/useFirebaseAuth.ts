@@ -8,7 +8,7 @@ import { signInWithRedirect, getRedirectResult as _getRedirectResult, signInWith
 export interface FireBaseAuthHook {
   user: User | null,
   loading: boolean,
-  updateProfile: ({ displayName, photoURL: photoUrl }: {displayName?: string; photoURL?: string; }, user?: User) => Promise<void>
+  updateProfile: ({ displayName, photoURL }: {displayName?: string; photoURL?: string; }, user?: User) => Promise<void>
   signInWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential>,
   createUserWithEmailAndPassword: (email: string, password: string) => Promise<UserCredential>,
   signInWithGoogleRedirect: () => Promise<never>,
@@ -52,7 +52,7 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
 
   const signOut = () => auth.signOut().then(clear);
 
-  const updateProfile: ({ displayName, photoURL: photoUrl }: {displayName?: string; photoURL?: string; }, user?: User) => Promise<void> = (profileData, inputUser = user) => _updateProfile(inputUser, profileData);
+  const updateProfile: ({ displayName, photoURL }: {displayName?: string; photoURL?: string; }, user?: User) => Promise<void> = (profileData, inputUser = user) => _updateProfile(inputUser, profileData);
   
   const deleteUser: (user?: User) => Promise<void> = (inputUser = user) => _deleteUser(inputUser);
 

@@ -24,7 +24,7 @@ export default function AdDetails({
 
       <div className="flex flex-row justify-between items-center ">
         <div className="items-center">
-          <Image src={image} width="50%" height="50%" />
+          <Image alt={"Logo"} src={image} width="50%" height="50%" />
         </div>
         <div className="p-1">
           <IconButton onClick={onEdit}>

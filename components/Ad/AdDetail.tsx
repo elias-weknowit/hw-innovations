@@ -13,7 +13,7 @@ export default function AdDetail() {
 
       <div className="flex flex-row justify-between items-center ">
         <div className="items-center">
-          <Image src={logo} width="50%" height="50%" />
+          <Image alt={"Logo"} src={logo} width="50%" height="50%" />
         </div>
       </div>
       {/**Description and place */}

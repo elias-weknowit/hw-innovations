@@ -1,6 +1,6 @@
 import React from "react";
 
-interface CkechBoxProps {
+interface CheckBoxProps {
   title: string;
   name: string;
   labels: string[];
@@ -12,13 +12,14 @@ export default function CheckBox({
   onChange,
   name,
   labels,
-}: CkechBoxProps) {
+}: CheckBoxProps) {
   return (
     <div onChange={(e) => onChange((e.target as HTMLInputElement).value)}>
       <p className="font-mulish font-semibold mb-5">{title}</p>
       {labels.map((label, index) => {
+        {/*Index as key may cause problems if items change order. Should be changed*/}
         return (
-          <div className="flex items-center mb-5">
+          <div key={index} className="flex items-center mb-5">
             <input
               className="w-5 h-5 border-primary-color rounded-lg accent-primary-color"
               type="checkbox"

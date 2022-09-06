@@ -33,3 +33,5 @@ yarn-error.log*
 
 # VSCode
 .vscode/
+.firebase/hosting.b3V0.cache
+.firebase/hosting.cHVibGlj.cache

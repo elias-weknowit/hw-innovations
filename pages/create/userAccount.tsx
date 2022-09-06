@@ -42,7 +42,7 @@ export default function CreateAccountView() {
       <div className="flex flex-row bg-background-white-color">
         <div className="flex flex-2 mt-8 flex-grow flex-col min-h-screen w-auto items-center justify-center">
           <div className="flex mb-6  items-center justify-center">
-            <Image src={logo} width={370} height={123} />
+            <Image alt={"Logo"} src={logo} width={370} height={123} />
           </div>
           <div className="p-4 flex flex-col">
             <div className="flex flex-col flex-grow w-80 font-mulish mt-2">

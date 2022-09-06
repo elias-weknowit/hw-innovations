@@ -54,6 +54,7 @@ export default function SkillsBox() {
       <div className="p-3 flex flex-wrap">
         {skills.map((skill) => (
           <Skill
+            key={skill}
             skillName={skill}
             isRemoving={isRemovingSkill}
             onRemoveSkill={() =>

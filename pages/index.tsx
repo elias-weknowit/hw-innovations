@@ -9,7 +9,7 @@ export default function Home() {
         <title>Work 2 Do | Välkommen</title>
       </Head>
 
-      <div className="flex flex-col bg-homeScreen-landingPage object-contain md:object-scale-down bg-fixed bg-cover min-h-screen">
+      <div className="flex flex-col bg-[url('/landingPage.png')] object-contain md:object-scale-down bg-fixed bg-cover min-h-screen">
         <Navbar transparent />
         <div className="md:mx-32 mt-40 md:mt-40 flex flex-cols">
           <div className="md:w-full lg:w-full xl:w-1/2 2xl:w-1/3">
@@ -18,8 +18,8 @@ export default function Home() {
             </p>
             <p className="font-mulish tex-lg mt-12 mb-12 text-center md:text-start text-white">
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s. Lorem Ipsum has been the industry's standard
+              industry. Lorem Ipsum has been the industry&apos;s standard dummy text
+              ever since the 1500s. Lorem Ipsum has been the industry&apos;s standard
               dummy text ever since the 1500s.
             </p>
             <div className="flex flex-row items-center justify-center md:justify-start">

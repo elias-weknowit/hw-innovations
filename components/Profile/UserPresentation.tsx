@@ -16,7 +16,7 @@ export default function UserPresentation({
     <div className="flex flex-row items-center justify-start w-full">
       <div className="flex flex-col md:flex-row items-start md:items-center">
         <div className="bg-success bg-opacity-30 p-2 lg:p-4 rounded-full m-1 text-white lg:flex-shrink-0">
-          <Image src={image} width="100%" height="100%" />
+          <Image alt="Profile" src={image} width="100%" height="100%" />
         </div>
         <div className="flex flex-col justify-center p-4">
           <p className="text-lg lg:text-4xl font-mulish text-white">

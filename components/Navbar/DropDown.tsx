@@ -48,7 +48,7 @@ export default function DropDown({ user, image }: DropDownProps) {
                 aria-haspopup="true"
               >
                 <div className="flex bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden">
-                  <Image src={image} width="100%" height="100%" />
+                  <Image alt="Profile" src={image} width="100%" height="100%" />
                 </div>
                 <p className="font-mulish ml-5">{user.displayName}</p>
 
@@ -64,22 +64,25 @@ export default function DropDown({ user, image }: DropDownProps) {
                 aria-labelledby="menu-button"
               >
                 <div className="py-1" role="none">
-                  <a
-                    href="/profile"
-                    className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
-                    role="menuitem"
-                    id="menu-item-2"
-                  >
-                    Mitt konto
-                  </a>
-                  <a
-                    href="/ad"
-                    className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
-                    role="menuitem"
-                    id="menu-item-2"
-                  >
-                    Mina Annonser
-                  </a>
+                  <Link href="/profile">
+                    <a
+                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+                      role="menuitem"
+                      id="menu-item-2"
+                    >
+                      Mitt konto
+                    </a>
+                  </Link>
+                  <Link href="/ad">
+                    <a
+                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+                      role="menuitem"
+                      id="menu-item-2"
+                    >
+                      Mina Annonser
+                    </a>
+                  </Link>
+                  
 
                   <a
                     onClick={() => {

@@ -89,7 +89,7 @@ export default function LoginView() {
         <div className="flex flex-2 flex-grow  flex-col min-h-screen w-auto items-center justify-center">
           <div className="p-4 flex flex-col">
             <div className="flex mb-6 m-0 justify-center">
-              <Image src={logo} width={370} height={123} />
+              <Image alt={"Logo"} src={logo} width={370} height={123} />
             </div>
             {loading ? (
               <p className="text-center self-center">Loggar in...</p>
