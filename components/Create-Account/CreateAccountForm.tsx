@@ -52,6 +52,7 @@ export default function CreateAccountForm() {
 
   const { createUserWithEmailAndPassword, updateProfile } = useAuth();
 
+  //Hej
   const onSubmit = async (formData: {
     user: string;
     password: string;
