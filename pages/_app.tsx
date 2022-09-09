@@ -1,3 +1,4 @@
+import 'rsuite/dist/rsuite.min.css';
 import { createTheme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
