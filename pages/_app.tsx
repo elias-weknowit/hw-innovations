@@ -1,4 +1,3 @@
-import 'rsuite/dist/rsuite.min.css';
 import { createTheme } from "@mui/material";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
@@ -9,7 +8,7 @@ import { initAuth, initFirebase } from "../util/firebase/init";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import moment from "moment";
-import sv from "../public/sv"
+import sv from "../public/sv";
 
 moment.locale("sv", sv);
 
