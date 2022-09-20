@@ -5,7 +5,7 @@ import type { Moment } from 'moment';
 export type Advertisement = {
     id?: string;
     type: 'work' | 'labour';
-    creatorId: string;
+    //creatorId: string;
     title: string;
     company: string;
     location: string;
