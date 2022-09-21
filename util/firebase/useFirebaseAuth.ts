@@ -40,6 +40,7 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
   const clear = () => {
     setUser(null);
     setLoading(false);
+    router.push('/')
   };
 
   const signInWithEmailAndPassword = (email: string, password: string) => _signInWithEmailAndPassword(auth, email, password);
