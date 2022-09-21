@@ -35,3 +35,6 @@ yarn-error.log*
 .vscode/
 .firebase/hosting.b3V0.cache
 .firebase/hosting.cHVibGlj.cache
+
+# Firebase
+service-account.json

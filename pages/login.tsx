@@ -10,6 +10,7 @@ import { Divider } from "@mui/material";
 import Footer from "../components/Footer/Footer";
 import { useAuth } from "../components/firebase/AuthUserProvider";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export type LoginError = {
   message: string;
@@ -33,16 +34,19 @@ export default function LoginView() {
 
   useEffect(() => {
     getRedirectResult()
-      .then((result) => {
+      .then((userCredential) => {
         if (
-          result?.user?.displayName === "" ||
-          result.user.displayName === null
+          userCredential?.user?.displayName === "" ||
+          userCredential.user.displayName === null
         ) {
           //If display name is not automatically set, set it manually from the provider data. Might need to be changed from [0]
           updateProfile({
-            displayName: result.user.providerData[0].displayName,
+            displayName: userCredential.user.providerData[0].displayName,
           });
         }
+        userCredential.user.getIdToken().then( idToken => {
+          axios.post("/api/session", { idToken })
+        })
       })
       .catch((error) => console.log(error));
   }, []);
@@ -50,8 +54,10 @@ export default function LoginView() {
   const onSubmit = (formData: { user: string; password: string }) => {
     signInWithEmailAndPassword(formData.user, formData.password)
       .then((userCredential) => {
-        router.push("/");
-      })
+        userCredential.user.getIdToken().then( idToken => {
+          axios.post("/api/session", { idToken })
+        })
+      }).then( () => router.push('/'))
       .catch((error) => {
         switch (error.code) {
           case "auth/user-not-found":
