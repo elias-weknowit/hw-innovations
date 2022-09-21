@@ -10,10 +10,7 @@ interface CreateAdFormProps {
   typeOfWork?: boolean;
 }
 
-export default function CreateAdForm({
-  onSubmit,
-  typeOfWork,
-}: CreateAdFormProps) {
+export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
   const [inputTitle, setInputTitle] = useState<string>("");
   const [inputCompany, setInputCompany] = useState<string>("");
   const [inputLocation, setLocation] = useState<string>("");
@@ -65,8 +62,8 @@ export default function CreateAdForm({
         end: e.target[6].value,
       },
       amount: e.target[7].value,
-      collectiveAgreement: false,
-      contractForm: e.target[11].value,
+      collectiveAgreement: e.target[8].checked,
+      contractForm: e.target[10].value,
       description: e.target[12].value,
       requirements: e.target[13].value,
       contact: {
@@ -103,7 +100,6 @@ export default function CreateAdForm({
                 console.log(e.target.value);
               }}
             />
-            {selectedRadio === "Jobb" ? <p></p> : <p></p>}
             <InputForm
               labelName="Rubrik"
               sort
@@ -151,7 +147,6 @@ export default function CreateAdForm({
                 }}
               />
             </div>
-
             <InputForm
               labelName="Antal personer"
               sort
@@ -179,15 +174,32 @@ export default function CreateAdForm({
                 setInputContractForm(e.target.value);
               }}
             />
-            <InputForm
-              labelName="Typ av arbetskraft"
-              sort
-              type="text"
-              value={inputTypeOfWork}
-              onChange={(e) => {
-                setInputTypeOfWork(e.target.value);
-              }}
-            />
+            {selectedRadio === "Jobb" ? (
+              <div className="hidden">
+                <InputForm
+                  labelName="Typ av arbetskraft"
+                  sort
+                  type="text"
+                  value={inputTypeOfWork}
+                  onChange={(e) => {
+                    setInputTypeOfWork(e.target.value);
+                    console.log(e.target.checked);
+                  }}
+                />
+              </div>
+            ) : (
+              <InputForm
+                labelName="Typ av arbetskraft"
+                sort
+                type="text"
+                value={inputTypeOfWork}
+                onChange={(e) => {
+                  setInputTypeOfWork(e.target.value);
+                  console.log(e.target.checked);
+                }}
+              />
+            )}
+
             <InputForm
               labelName="Beskrivning"
               type="text"
@@ -249,7 +261,6 @@ export default function CreateAdForm({
                 setInputPostCode(e.target.value);
               }}
             />
-
             <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
             <div className="flex flex-row items-center justify-end mt-14">
               <button className="bg-primary-color p-1 rounded-md">
