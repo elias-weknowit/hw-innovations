@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getDocs, setDoc, deleteDoc, addDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot, query, where, QueryConstraint, limit, startAfter, startAt, orderBy } from 'firebase/firestore'
 import { DecodedIdToken } from 'firebase-admin/auth';
 import type { Advertisement } from '../../../util/models'
-import { timestampConverter } from '../../../util/firebase/adminUtil';
+import { internalError, timestampConverter } from '../../../util/firebase/adminUtil';
 import moment from 'moment';
 import { decodeCookie } from '../../../util/firebase/adminUtil';
 
@@ -31,7 +31,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<Advertisement> = snapshotRes;
         res.status(200).json(snapshot.docs.map(doc => doc.data()));
-    }).catch( err => res.status(500).send(err));
+    }).catch( err => internalError(res, err));
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
@@ -39,7 +39,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
     const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
     console.log(newAdvertisement);
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
-    await addDoc(collectionRef, newAdvertisement).catch( err => res.status(500).send(err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
+    await addDoc(collectionRef, newAdvertisement).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }
 
 async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken) {
@@ -50,12 +50,12 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 
     const updatedAt = new Date();
     const docRef = doc(collectionRef, updateObject.id);
-    await updateDoc(docRef, {...updateObject, updatedAt}).catch( err => res.status(500).send(err)).then(result => res.status(200).json(result));
+    await updateDoc(docRef, {...updateObject, updatedAt}).catch( err => internalError(res, err)).then(result => res.status(200).json(result));
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if(!db) res.status(500).send('Firebase not initialized');
-    const decodedCookie = await decodeCookie(req.cookies.session).catch(err => res.status(500).send(err));
+    if(!db) internalError(res, "Firestore not initialized");
+    const decodedCookie = await decodeCookie(req.cookies.session).catch(err => {internalError(res, err, "Faulty cookie"); return null;});
     if(!decodedCookie) return;
 
     switch(req.method){

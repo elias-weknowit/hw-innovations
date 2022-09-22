@@ -24,7 +24,6 @@ export default function useFirebaseAuth(): FireBaseAuthHook {
   const auth = getAuth();
 
   const authStateChanged = async (authState: User) => {
-    console.log('Hello')
     if (!authState) {
       setUser(null)
       setLoading(false)
