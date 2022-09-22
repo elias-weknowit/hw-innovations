@@ -1,8 +1,14 @@
 import { adminAuth } from './initAdmin';
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { DecodedIdToken} from 'firebase-admin/auth';
 import { Timestamp as FirebaseTimestamp, DocumentData } from "firebase/firestore";
 import { Advertisement } from '../models';
 import moment, { Moment } from 'moment';
+
+export function internalError(res: NextApiResponse, err: any, message?: string){
+    console.error(err);
+    res.status(500).send(message ? message : err);
+}
 
 export async function decodeCookie(sessionCookie: string): Promise<DecodedIdToken>{
     // Verify the session cookie. In this case an additional check is added to detect
