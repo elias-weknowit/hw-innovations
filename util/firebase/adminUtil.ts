@@ -45,14 +45,6 @@ export const timestampConverter = {
             }
         }
         return newObj;
-        return {...advertisement, 
-            createdAt: FirebaseTimestamp.fromDate(advertisement.createdAt.toDate()), 
-            updatedAt: FirebaseTimestamp.fromDate(advertisement.updatedAt.toDate()),
-            period: {
-                start: FirebaseTimestamp.fromDate(advertisement.period.start.toDate()),
-                end: FirebaseTimestamp.fromDate(advertisement.period.end.toDate()),
-            },
-        };
     },
     fromFirestore: (snapshot: DocumentData) => {
         return {...snapshot.data(), id: snapshot.id,
