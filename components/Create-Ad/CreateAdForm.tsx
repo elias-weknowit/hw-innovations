@@ -64,6 +64,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
       amount: e.target[7].value,
       collectiveAgreement: e.target[8].checked,
       contractForm: e.target[10].value,
+      typeOfWork: e.target[11].value,
       description: e.target[12].value,
       requirements: e.target[13].value,
       contact: {

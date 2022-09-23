@@ -72,6 +72,14 @@ export default function AdView({ ad }: AdViewProps) {
             </p>
             <p className="font-mulish text-md">{ad.contractForm}</p>
           </div>
+          {!ad.collectiveAgreement && (
+            <div className="mb-4">
+              <p className="font-mulish font-semibold text-lg text-footer-pink">
+                Typ av arbetskraft
+              </p>
+              <p className="font-mulish text-md">{ad.typeOfWork}</p>
+            </div>
+          )}
         </div>
         <Divider variant="fullWidth" className="mb-4" />
         <div>
