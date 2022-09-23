@@ -49,9 +49,14 @@ export default function AdPage() {
       return (
         <EditAd
           ad={ads[selectionIndex]}
-          onSubmit={(ad) => {}}
+          onSubmit={(ad) => {
+            let query = `/api/advertisements/${ad.id}/`;
+            axios.put(query, ad).then( () => {
+              setAds(ads.map((a) => (a.id === ad.id ? ad : a)))
+            });
+          }}
           onDelete={(ad) => {
-            let query = `/api/advertisements/${ad.id}`;
+            let query = `/api/advertisements/${ad.id}/`;
             axios.delete(query).then( () => {
               setAds(ads.filter((a) => a.id !== ad.id))
             });

@@ -44,7 +44,9 @@ export default function InputForm({
       <label className="font-mulish font-semibold mb-1">{labelName}</label>
       {sort ? (
         <input
-          className="p-2 rounded-md font-mulish shadow-md outline-none ring-white ring-1 focus:ring-primary-color"
+          className={
+            "p-2 rounded-md font-mulish shadow-md outline-none ring-white ring-1 focus:ring-primary-color"
+          }
           type={type}
           value={value}
           onChange={onChange}

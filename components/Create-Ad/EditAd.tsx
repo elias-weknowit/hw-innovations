@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RadioButton from "./components/RadioButton";
 import InputForm from "./components/InputForm";
 import UploadImgForm from "./components/UploadImgForm";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Link from "next/link";
-import { useRouter } from "next/router";
+
 import { Advertisement } from "../../util/models";
 import { useState } from "react";
-import moment from "moment";
+
+import { useAuth } from "../firebase/AuthUserProvider";
+import axios from "axios";
 
 export default function EditAd({
   ad,
   onSubmit,
-  onDelete,
 }: {
   ad: Advertisement;
   onSubmit: (ad: Advertisement) => void;
   onDelete: (ad: Advertisement) => void;
 }) {
+  //const { user } = useAuth();
   const [adData, setAdData] = useState({ ...ad });
 
+  /** 
+  const handlingDelete = () => {
+    console.log(ad.id);
+    if (user) {
+      let query = `/api/advertisements/${ad.id}`;
+      axios
+        .delete(query)
+        .then((res) => {
+          console.log("Deleted");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  };*/
   return (
     <>
       <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-3xl p-4 mt-3 mb-10">
@@ -63,20 +78,37 @@ export default function EditAd({
                 setAdData({ ...adData, location: e.target.value })
               }
             />
-            <InputForm
-              labelName="Period"
-              sort
-              type="date"
-              value={""}
-              //value={adData.period.start.format("YYY-MM-DD")}
-              onChange={
-                () => {} /*(e) =>
+            <div className="flex flex-col md:flex-row justify-evenly">
+              <InputForm
+                labelName="Period - Start"
+                sort
+                type="date"
+                value={""}
+                //value={adData.period.start.format("YYY-MM-DD")}
+                onChange={
+                  () => {} /*(e) =>
                 setAdData({
                   ...adData,
                   period: { ...adData.period, start: moment(e.target.value) },
                 })*/
-              }
-            />
+                }
+              />
+              <InputForm
+                labelName="Period - Slut"
+                sort
+                type="date"
+                value={""}
+                //value={adData.period.start.format("YYY-MM-DD")}
+                onChange={
+                  () => {} /*(e) =>
+                setAdData({
+                  ...adData,
+                  period: { ...adData.period, start: moment(e.target.value) },
+                })*/
+                }
+              />
+            </div>
+
             <InputForm
               labelName="Antal personer"
               sort
@@ -121,7 +153,8 @@ export default function EditAd({
             <InputForm
               labelName="Kvalifikationer"
               type="text"
-              value={adData.requirements} //.join("\n")
+              value={adData.requirements}
+              //.join("\n")
               onChange={
                 (e) => setAdData({ ...adData, requirements: e.target.value }) //e.target.value.split("\n")
               }

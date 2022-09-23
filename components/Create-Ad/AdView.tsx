@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { Advertisement } from "../../util/models";
 
 interface AdViewProps {
@@ -23,8 +23,7 @@ export default function AdView({ ad }: AdViewProps) {
           <div className="flex flex-row items-center justify-evenly">
             <p className="font-mulish sm:text-md md:text-xl">{ad.company}</p>
             <p className="font-mulish font-bold ">.</p>
-            <p className="font-mulish sm:text-md md:text-xl ">
-              {" "}
+            <p className="font-mulish text-md xl:text-lg ">
               {moment(ad.updatedAt).fromNow()}
             </p>
           </div>
@@ -64,7 +63,7 @@ export default function AdView({ ad }: AdViewProps) {
               Kollektivavtal
             </p>
             <p className="font-mulish text-md">
-              {ad.collectiveAgreement.valueOf()} Error: Hårdkodad.
+              {ad.collectiveAgreement ? "Ja" : "Nej"}
             </p>
           </div>
           <div className="mb-4">
@@ -73,6 +72,14 @@ export default function AdView({ ad }: AdViewProps) {
             </p>
             <p className="font-mulish text-md">{ad.contractForm}</p>
           </div>
+          {!ad.collectiveAgreement && (
+            <div className="mb-4">
+              <p className="font-mulish font-semibold text-lg text-footer-pink">
+                Typ av arbetskraft
+              </p>
+              <p className="font-mulish text-md">{ad.typeOfWork}</p>
+            </div>
+          )}
         </div>
         <Divider variant="fullWidth" className="mb-4" />
         <div>
