@@ -17,7 +17,7 @@ export default function EditAd({
 }: {
   ad: Advertisement;
   onSubmit: (ad: Advertisement) => void;
-  onDelete: () => void;
+  onDelete: (ad: Advertisement) => void;
 }) {
   const [adData, setAdData] = useState({ ...ad });
 
@@ -189,7 +189,7 @@ export default function EditAd({
             <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
             <div className="flex flex-row items-center justify-between mt-14">
               <div className="">
-                <button className="flex items-center" onClick={onDelete}>
+                <button className="flex items-center" onClick={() => onDelete(ad)}>
                   <DeleteIcon
                     className="h-5 w-5"
                     style={{ color: "#EB363D" }}

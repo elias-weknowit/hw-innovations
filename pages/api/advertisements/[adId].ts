@@ -9,15 +9,18 @@ const db: Firestore = getFirestore();
 
 async function handleDELETE(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken) {
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
-    const docRef = doc(collectionRef, req.body.id);
+    const adId: string = typeof req.query.adId === 'string' ? req.query.adId : req.query.adId[0];
+    const docRef = doc(collectionRef, adId);
     
     //Check if user is creator of advertisement
     //Really should be done in firestore rules but I couldn't figure out how to send the cookie to the rules as request.auth
-    const snapshot = await getDocs(query(collectionRef, where('id', '==', cookie.uid))).catch( err => internalError(res, err));
+    const snapshot = await getDocs(query(collectionRef, where('creatorId', '==', cookie.uid))).catch( err => internalError(res, err));
     if(!snapshot){
         internalError(res, 'No snapshot');
     } else{
-        if(snapshot.docs.length === 0) res.status(401).send('User is not creator of advertisement');
+        if(snapshot.docs.length === 0){
+            res.status(401).send('User is not creator of advertisement');
+        }
         else{
             await deleteDoc(docRef).catch( err => internalError(res, err)).then(result => res.status(200).json(result));
         }

@@ -28,11 +28,9 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     }
     queryConstraints.push(limit(amount));
     if(req.query.creatorId) queryConstraints.push(where('creatorId', '==', req.query.creatorId));
-
-    console.log(queryConstraints);
+    
     await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<Advertisement> = snapshotRes;
-        console.log(snapshot?.docs);
         res.status(200).json(snapshot.docs.map(doc => doc.data()));
     }).catch( err => internalError(res, err));
 }
@@ -40,7 +38,6 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     const createdAt = moment();
     const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
-    console.log(newAdvertisement);
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
     await addDoc(collectionRef, newAdvertisement).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }
