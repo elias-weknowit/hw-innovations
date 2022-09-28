@@ -13,6 +13,7 @@ import axios from "axios";
 export default function EditAd({
   ad,
   onSubmit,
+  onDelete
 }: {
   ad: Advertisement;
   onSubmit: (ad: Advertisement) => void;
