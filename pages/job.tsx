@@ -5,6 +5,7 @@ import FilterButton from "../components/Ad/FilterButton";
 import AdDetail from "../components/Ad/AdDetail";
 import FilterView from "../components/Ad/FilterView";
 import AdView from "../components/Create-Ad/AdView";
+import ToggleButton from "../components/Ad/ToggleButton";
 
 export default function Job() {
   return (
@@ -22,7 +23,7 @@ export default function Job() {
             <div className="block md:hidden font-mulish font-semibold text-md mb-2">
               Nya Jobb
             </div>
-            <div className="block md:hidden">Toggle button</div>
+            <ToggleButton />
           </div>
         </div>
         <div className="md:flex mb-5">
