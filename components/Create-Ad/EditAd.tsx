@@ -13,6 +13,7 @@ import axios from "axios";
 export default function EditAd({
   ad,
   onSubmit,
+  onDelete,
 }: {
   ad: Advertisement;
   onSubmit: (ad: Advertisement) => void;
@@ -222,7 +223,7 @@ export default function EditAd({
             <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
             <div className="flex flex-row items-center justify-between mt-14">
               <div className="">
-                <button className="flex items-center" onClick={() => onDelete(ad)}>
+                <button className="flex items-center" onClick={() => onDelete}>
                   <DeleteIcon
                     className="h-5 w-5"
                     style={{ color: "#EB363D" }}
