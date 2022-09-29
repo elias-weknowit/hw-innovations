@@ -74,22 +74,36 @@ export default function Navbar({
             : "flex flex-col items-center md:opacity-100 w-full opacity-0	"
         }`}
       >
-        <div
-          className={
-            "text-primary-color font-mulish font-semibold text-lg  md:mr-5 " +
-            (hideButton ? "hidden" : "")
-          }
-        >
-          <div className="bg-profile-available p-1 md:p-2 rounded-md ">
-            <button className="flex flex-row items-center">
-              <AddCircleIcon className="w-6 h-6 mr-2" />
-              <Link href={"/ad"}>Skapa annons </Link>
-            </button>
+        {user ? (
+          <>
+            <div
+              className={
+                "text-primary-color font-mulish font-semibold text-lg  md:mr-5 " +
+                (hideButton ? "hidden" : "")
+              }
+            >
+              <div className="bg-profile-available p-1 md:p-2 rounded-md ">
+                <button className="flex flex-row items-center">
+                  <AddCircleIcon className="w-6 h-6 mr-2" />
+                  <Link href={"/ad"}>Skapa annons </Link>
+                </button>
+              </div>
+            </div>
+            <div>
+              <DropDown
+                user={user}
+                image={user?.photoURL ? user.photoURL : logo}
+              />
+            </div>
+          </>
+        ) : (
+          <div>
+            <DropDown
+              user={user}
+              image={user?.photoURL ? user.photoURL : logo}
+            />
           </div>
-        </div>
-        <div>
-          <DropDown user={user} image={user?.photoURL ? user.photoURL : logo} />
-        </div>
+        )}
       </div>
     </div>
   );

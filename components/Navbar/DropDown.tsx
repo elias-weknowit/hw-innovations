@@ -66,7 +66,7 @@ export default function DropDown({ user, image }: DropDownProps) {
                 <div className="py-1" role="none">
                   <Link href="/profile">
                     <a
-                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+                      className="block px-4 py-2 text-sm cursor-pointer"
                       role="menuitem"
                       id="menu-item-2"
                     >
@@ -75,21 +75,20 @@ export default function DropDown({ user, image }: DropDownProps) {
                   </Link>
                   <Link href="/ad">
                     <a
-                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+                      className="block px-4 py-2 text-sm cursor-pointer"
                       role="menuitem"
                       id="menu-item-2"
                     >
                       Mina Annonser
                     </a>
                   </Link>
-                  
 
                   <a
                     onClick={() => {
                       signOut();
                       router.push("/");
                     }}
-                    className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+                    className="block px-4 py-2 text-sm cursor-pointer"
                     role="menuitem"
                     id="menu-item-2"
                   >
@@ -102,30 +101,11 @@ export default function DropDown({ user, image }: DropDownProps) {
         ) : (
           <div className="flex flex-row items-center">
             <Link href="/login">
-              <a className="font-mulish text-white text-lg md:p-1">Logga in</a>
+              <a className="font-mulish text-white text-md md:p-1">Logga in</a>
             </Link>
           </div>
         )}
       </div>
     </>
   );
-
-  /*<div className="flex flex-col bg-background-white-color rounded-lg mt-20">
-      <div className="flex flex-col items-start m-2 p-2">
-        <div className="font-mulish text-xl">
-          <Link href="/user-profile">Min profil</Link>
-        </div>
-        <div className="font-mulish text-xl">
-          {" "}
-          <Link href="/user-profile">Mina annonser</Link>
-        </div>
-        <div className="font-mulish text-xl">
-          {" "}
-          <Link href="/user-profile">Logga ut</Link>
-        </div>
-      </div>
-    </div>
-    
-    
-  */
 }

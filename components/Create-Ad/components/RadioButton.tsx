@@ -25,7 +25,7 @@ export default function RadioButton({
               className="w-5 h-5 border-primary-color accent-primary-color focus:ring-primary-color focus:ring-1"
               type="radio"
               value={label}
-              defaultChecked={index === 0}
+              defaultChecked={index === 1}
               name={name}
               onChange={onChange}
             />

@@ -19,7 +19,7 @@ export default function AdDetails({
   ad,
 }: AdDetailsProp) {
   return (
-    <div className="bg-profile-sections shadow-md rounded-md p-1 mt-3 cursor-point  hover:bg-primary-color">
+    <div className="bg-profile-sections shadow-md rounded-md p-3 mt-3 cursor-point  hover:bg-primary-color mb-4">
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
@@ -58,7 +58,7 @@ export default function AdDetails({
       <div className="flex flex-col mt-3 mb-2 items-start">
         <div className="flex mb-2">
           <div className="bg-profile-available rounded-lg p-1 mr-2">
-            <p className="font-mulish mx-3 text-sm">{ad.amount}st</p>
+            <p className="font-mulish mx-3 text-sm">{ad.amount} st</p>
           </div>
         </div>
         <div className="flex flex-row items-center">

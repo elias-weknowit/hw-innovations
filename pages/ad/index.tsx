@@ -31,15 +31,16 @@ export default function AdPage() {
   }, []);
 
   useEffect(() => {
+    //Fetch first visible page
     if (user) {
-      fetch("http://localhost:3000/api/advertisements?userId=" + user.uid)
-        .then((res) => res.json())
-        .then((data) => {
-          setAds(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      let query = `/api/advertisements/?creatorId=${user.uid}&amount=15`;
+      //startAt and startAfter parameters can be used for paging if kept track of.
+      //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
+      //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
+      axios.get(query).then((res) => {
+        const ads: Advertisement[] = res.data;
+        setAds(ads);
+      });
     }
   }, [user]);
 
@@ -48,8 +49,18 @@ export default function AdPage() {
       return (
         <EditAd
           ad={ads[selectionIndex]}
-          onSubmit={(ad) => {}}
-          onDelete={() => {}}
+          onSubmit={(ad) => {
+            let query = `/api/advertisements/${ad.id}/`;
+            axios.put(query, ad).then(() => {
+              setAds(ads.map((a) => (a.id === ad.id ? ad : a)));
+            });
+          }}
+          onDelete={(ad) => {
+            let query = `/api/advertisements/${ad.id}/`;
+            axios.delete(query).then(() => {
+              setAds(ads.filter((a) => a.id !== ad.id));
+            });
+          }}
         />
       );
     } else if (selectionIndex !== -1) {
@@ -112,22 +123,26 @@ export default function AdPage() {
               </div>
               <div>
                 <div className="flex-2">
-                  {ads.map((ad, index) => (
-                    <AdDetails
-                      key={ad.id}
-                      image={user?.photoURL ? user.photoURL : logo}
-                      onEdit={() => {
-                        setIsEditing(true);
-                        setSelectionIndex(index);
-                      }}
-                      ad={ad}
-                      onClick={() => {
-                        setSelectionIndex(index);
-                        setIsEditing(false);
-                        //console.log(ads[selectionIndex].period);
-                      }}
-                    />
-                  ))}
+                  {isCreating ? (
+                    <p className="font-mulish ">Du har inga annonser!</p>
+                  ) : (
+                    ads.map((ad, index) => (
+                      <AdDetails
+                        key={ad.id}
+                        image={user?.photoURL ? user.photoURL : logo}
+                        onEdit={() => {
+                          setIsEditing(true);
+                          setSelectionIndex(index);
+                        }}
+                        ad={ad}
+                        onClick={() => {
+                          setSelectionIndex(index);
+                          setIsEditing(false);
+                          //console.log(ads[selectionIndex].period);
+                        }}
+                      />
+                    ))
+                  )}
                 </div>
               </div>
             </div>
