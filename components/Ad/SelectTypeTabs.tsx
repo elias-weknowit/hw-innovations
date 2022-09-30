@@ -14,7 +14,7 @@ export default function SelectTypeTabs({ tabs, selectedTab, onSelect, className 
             key={tab}
             className={`flex  flex-grow flex-shrink-0 basis-0 flex-row justify-center items-center cursor-pointer ${
             tab === selectedTab
-              ? "bg-primary-color text-white"
+              ? "bg-primary-color text-white shadow-md"
               : "bg-white text-primary-color"
           }
           ${idx === 0 ? "rounded-l-3xl" : ""} ${idx === tabs.length - 1 ? "rounded-r-3xl" : ""}`}
