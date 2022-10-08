@@ -10,7 +10,7 @@ export type Advertisement = {
     company: string;
     location: string;
     period: {
-        start: Moment;
+        start?: Moment;
         end?: Moment;
     };
     amount: number;

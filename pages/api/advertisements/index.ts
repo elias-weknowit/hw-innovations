@@ -16,7 +16,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         return;
     }
 
-    const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
+    const collectionRef = collection(db, 'advertisements')
     const queryConstraints: QueryConstraint[]  = [];
 
     if(req.query.startAfter){
@@ -28,10 +28,9 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     }
     queryConstraints.push(limit(amount));
     if(req.query.creatorId) queryConstraints.push(where('creatorId', '==', req.query.creatorId));
-
-    await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
-        const snapshot: QuerySnapshot<Advertisement> = snapshotRes;
-        res.status(200).json(snapshot.docs.map(doc => doc.data()));
+    await getDocs(query(collectionRef, ...queryConstraints)).then(  snapshotRes => {
+        console.log(snapshotRes.docs);  
+        res.status(200).json(snapshotRes.docs.map(doc => doc.data()));
     }).catch( err => internalError(res, err));
 }
 

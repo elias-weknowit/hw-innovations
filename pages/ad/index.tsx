@@ -21,6 +21,7 @@ export default function AdPage() {
   const [isCreating, setIsCreating] = useState(false);
   const [selectionIndex, setSelectionIndex] = useState<number>(-1);
   const [ads, setAds] = useState<Advertisement[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (window.innerWidth >= 768) setIsCreating(true);
@@ -33,16 +34,22 @@ export default function AdPage() {
   useEffect(() => {
     //Fetch first visible page
     if (user) {
-      let query = `/api/advertisements/?creatorId=${user.uid}&amount=15`;
+      let query = `/api/advertisements/?creatorId=${user.uid}&amount=15`
       //startAt and startAfter parameters can be used for paging if kept track of.
       //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
       //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
       axios.get(query).then((res) => {
         const ads: Advertisement[] = res.data;
         setAds(ads);
+        setLoading(false);
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    if (loading) console.log("Loading")
+    else console.log("Done loading", ads)
+  }, [loading])
 
   const chooseRightSide = () => {
     if (isEditing) {
@@ -123,7 +130,7 @@ export default function AdPage() {
               </div>
               <div>
                 <div className="flex-2">
-                  {isCreating ? (
+                  {ads.length < 1 ? (
                     <p className="font-mulish ">Du har inga annonser!</p>
                   ) : (
                     ads.map((ad, index) => (
