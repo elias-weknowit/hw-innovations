@@ -22,6 +22,8 @@ export default function EditAd({
   //const { user } = useAuth();
   const [adData, setAdData] = useState({ ...ad });
 
+  useEffect(() => console.log(adData), [adData]);
+
   /** 
   const handlingDelete = () => {
     console.log(ad.id);
@@ -52,7 +54,7 @@ export default function EditAd({
               name="workType"
               labels={["Jobb", "Arbetskraft"]}
               title="Erbjuder"
-              onChange={(label) => {}}
+              onChange={(label) => { }}
             />
             <InputForm
               labelName="Rubrik"
@@ -87,7 +89,7 @@ export default function EditAd({
                 value={""}
                 //value={adData.period.start.format("YYY-MM-DD")}
                 onChange={
-                  () => {} /*(e) =>
+                  () => { } /*(e) =>
                 setAdData({
                   ...adData,
                   period: { ...adData.period, start: moment(e.target.value) },
@@ -101,7 +103,7 @@ export default function EditAd({
                 value={""}
                 //value={adData.period.start.format("YYY-MM-DD")}
                 onChange={
-                  () => {} /*(e) =>
+                  () => { } /*(e) =>
                 setAdData({
                   ...adData,
                   period: { ...adData.period, start: moment(e.target.value) },
@@ -123,7 +125,7 @@ export default function EditAd({
               title="Ansluten till kollektivavtal"
               name="collectiveAgreement"
               labels={["Ja", "Nej"]}
-              onChange={(label) => {}}
+              onChange={(label) => { }}
             />
             <InputForm
               labelName="Avtalsform"

@@ -28,9 +28,8 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     }
     queryConstraints.push(limit(amount));
     if(req.query.creatorId) queryConstraints.push(where('creatorId', '==', req.query.creatorId));
-    await getDocs(query(collectionRef, ...queryConstraints)).then(  snapshotRes => {
-        console.log(snapshotRes.docs);  
-        res.status(200).json(snapshotRes.docs.map(doc => doc.data()));
+    await getDocs(query(collectionRef, ...queryConstraints)).then(  snapshotRes => { 
+        res.status(200).json(snapshotRes.docs.map(doc => ({...doc.data(), id: doc.id})));
     }).catch( err => internalError(res, err));
 }
 

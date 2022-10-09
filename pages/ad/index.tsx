@@ -40,6 +40,7 @@ export default function AdPage() {
       //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
       axios.get(query).then((res) => {
         const ads: Advertisement[] = res.data;
+        console.log(res)
         setAds(ads);
         setLoading(false);
       });
@@ -48,7 +49,9 @@ export default function AdPage() {
 
   useEffect(() => {
     if (loading) console.log("Loading")
-    else console.log("Done loading", ads)
+    else {
+      ads.forEach((ad) => console.log(ad.id));
+    }
   }, [loading])
 
   const chooseRightSide = () => {
