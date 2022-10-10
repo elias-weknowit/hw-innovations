@@ -11,6 +11,12 @@ import { Pagination } from '@mui/material';
 
 export default function Job() {
   const [selectedTab, setSelectedTab] = useState<string>('Sök Jobb');
+  const [page, setPage] = useState(1);
+
+  function handlePaginationChange(e, value) {
+    setPage(value);
+    console.log(value)
+  }
 
   return (
     <>
@@ -47,13 +53,29 @@ export default function Job() {
               <AdDetail />
               <AdDetail />
               <AdDetail />
+              <AdDetail />
+              <AdDetail />
+              <AdDetail />
+              <AdDetail />
+              <AdDetail />
+              <AdDetail />
+              <AdDetail />
+              <AdDetail />
             </div>
           </div>
           <div className='hidden md:block md:w-1/2 p-1'>
             AdView ska mapas här. Hur?
           </div>
-          </div>
-          <Pagination variant='outlined' color='primary' className='pagination' style={{display: "flex", justifyContent: "space-around"}}  />
+        </div>
+        <Pagination
+          variant='outlined'
+          color='primary'
+          className='pagination'
+          style={{ display: 'flex', justifyContent: 'space-around', margin: 10 }}
+          page={page}
+          onChange={handlePaginationChange}
+          count={5}
+        />
       </div>
     </>
   );
