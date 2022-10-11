@@ -19,7 +19,8 @@ export default function DropDown({ user, image }: DropDownProps) {
 
   useEffect(() => {
     const closeWhenClickOutside = (e) => {
-      if (e.path[0] !== domNode.current) {
+      var path = e.path || (e.composedPath && e.composedPath());
+      if (path[0] !== domNode.current) {
         setShowOptions(false);
       }
     };

@@ -16,7 +16,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         return;
     }
 
-    const collectionRef = collection(db, 'advertisements')
+    const collectionRef = collection(db, 'advertisements');
     const queryConstraints: QueryConstraint[]  = [];
 
     if(req.query.startAfter){
