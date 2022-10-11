@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { Advertisement } from './../util/models';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import SearchBar from '../components/Ad/SearchBar';
 import FilterButton from '../components/Ad/FilterButton';
@@ -8,15 +9,47 @@ import AdView from '../components/Create-Ad/AdView';
 import ToggleButton from '../components/Ad/ToggleButton';
 import SelectTypeTabs from '../components/Ad/SelectTypeTabs';
 import { Pagination } from '@mui/material';
+import axios from "axios";
+
 
 export default function Job() {
   const [selectedTab, setSelectedTab] = useState<string>('Sök Jobb');
   const [page, setPage] = useState(1);
 
+  const [ads, setAds] = useState<Advertisement[]>([]);
+
+  useEffect(() => {
+    //Fetch first visible page
+    
+      let query = `/api/advertisements/?amount=10`;
+      //startAt and startAfter parameters can be used for paging if kept track of.
+      //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
+      //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
+      axios.get(query).then((res) => {
+        const ads: Advertisement[] = res.data;
+        setAds(ads);
+        console.log(ads)
+      });
+    
+  }, [page]);
+
+  const generateAds = () => {
+    return ads.map((ad, index) => {
+      return (
+        <AdDetail
+          key={index}
+          ad={ad}
+        />
+      );
+    });
+  };
+
   function handlePaginationChange(e, value) {
     setPage(value);
     console.log(value)
   }
+
+
 
   return (
     <>
@@ -49,18 +82,7 @@ export default function Job() {
           </div>
           <div className='md:w-1/3 p-1'>
             <div>
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
-              <AdDetail />
+            {generateAds()}
             </div>
           </div>
           <div className='hidden md:block md:w-1/2 p-1'>
