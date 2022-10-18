@@ -31,6 +31,28 @@ export default function AdPage() {
     );
   }, []);
 
+  //function that generates the ads in the ad page
+  const generateAds = () => {
+    return ads.map((ad, index) => {
+      return (
+        <AdDetails
+          key={index}
+          image={logo}
+          onEdit={() => {
+            setSelectionIndex(index);
+            setIsEditing(true);
+          }}
+          onClick={() => {
+            setSelectionIndex(index);
+            setIsCreating(false);
+          }}
+          ad={ad}
+        />
+      );
+    });
+  };
+
+
   useEffect(() => {
     //Fetch first visible page
     if (user) {

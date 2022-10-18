@@ -16,6 +16,7 @@ import UploadImgForm from "../Create-Ad/components/UploadImgForm";
 import RadioButton from "../Create-Ad/components/RadioButton";
 import AlternateLogins from "../Login/AlternateLogins";
 import { Divider } from "@mui/material";
+import axios from "axios";
 
 type CreateAccountError = {
   message: string;
@@ -34,6 +35,7 @@ export default function CreateAccountForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<CreateAccountError | null>(null);
+  const [image, setImage] = useState<FormData | null>(null);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
@@ -50,6 +52,12 @@ export default function CreateAccountForm() {
     console.log(password);
   };
 
+  /* handleFileChange must be passed to UploadImgForm Component */
+  const handleFileChange = (file) => {
+    setImage(file);
+    console.log(file);
+  }
+
   const { createUserWithEmailAndPassword, updateProfile } = useAuth();
 
   //Hej
@@ -57,9 +65,21 @@ export default function CreateAccountForm() {
     user: string;
     password: string;
     displayName: string;
+    image: FormData | null;
   }) => {
     createUserWithEmailAndPassword(formData.user, formData.password)
       .then((result) => {
+        image && axios.post("/api/upload", image)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            deleteUser(result.user);
+            setError({
+              message: "Något gick fel vid uppladdning av bild.",
+              fields: ["displayName"],
+            });
+          });
         updateProfile({ displayName: formData.displayName }, result.user)
           .then(() => router.push("/"))
           .catch((error) => {
@@ -136,10 +156,11 @@ export default function CreateAccountForm() {
               errorMessage={error?.message}
               valid_user={password.length >= 6}
             />
-            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
+            <UploadImgForm
+              handleSubmit={handleFileChange} />
             <LoginButton
               onClick={() =>
-                onSubmit({ user: email, password, displayName: userName })
+                onSubmit({ user: email, password, displayName: userName, image: image })
               }
               title="Skapa"
             />
