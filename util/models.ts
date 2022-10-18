@@ -30,3 +30,21 @@ export type Advertisement = {
     createdAt?: Moment;
     updatedAt?: Moment;
 }
+
+export interface User {
+    id?: string;
+    company: boolean;
+    name: string;
+    email: string;
+    phone?: string;
+    photoURL?: string;
+    createdAt?: Moment;
+    updatedAt?: Moment;
+}
+
+export interface Company extends User {
+    orgNumber: string;
+    address: string;
+    city: string;
+    postCode: string;
+}
