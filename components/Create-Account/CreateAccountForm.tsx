@@ -58,7 +58,7 @@ export default function CreateAccountForm() {
     console.log(file);
   }
 
-  const { createUserWithEmailAndPassword, updateProfile } = useAuth();
+  const { createUserWithEmailAndPassword, updateProfile, deleteUser } = useAuth();
 
   //Hej
   const onSubmit = async (formData: {
@@ -74,16 +74,31 @@ export default function CreateAccountForm() {
             console.log(res.data);
           })
           .catch((error) => {
-            deleteUser(result.user);
+            deleteUser();
             setError({
               message: "Något gick fel vid uppladdning av bild.",
               fields: ["displayName"],
             });
           });
         updateProfile({ displayName: formData.displayName }, result.user)
-          .then(() => router.push("/"))
+          .then(() => {
+            result.user.getIdToken().then(idToken => {
+              axios.post("/api/session", { idToken }).then(() => {
+                axios.post("/api/image", { idToken, image: image })
+                return axios.post("/api/users", { name: formData.displayName, email: formData.user })
+              }).catch(() => {
+                deleteUser();
+                setError({
+                  message: "Något gick fel. Försök igen senare.",
+                  fields: ["displayName"],
+                });
+              })
+            })
+            //Create user document in firebase through api-route
+            router.push("/")
+          })
           .catch((error) => {
-            deleteUser(result.user);
+            deleteUser();
             setError({
               message: "Något gick fel vid sättning av namn.",
               fields: ["displayName"],

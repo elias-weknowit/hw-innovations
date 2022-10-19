@@ -10,30 +10,33 @@ import ToggleButton from '../components/Ad/ToggleButton';
 import SelectTypeTabs from '../components/Ad/SelectTypeTabs';
 import { Pagination } from '@mui/material';
 import axios from "axios";
+import { ClipLoader } from 'react-spinners';
 
 
 export default function Job() {
   const [selectedTab, setSelectedTab] = useState<string>('Sök Jobb');
   const [page, setPage] = useState(1);
 
+  const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState<Advertisement[]>([]);
 
   useEffect(() => {
     //Fetch first visible page
-    
-      let query = `/api/advertisements/?amount=10`;
-      //startAt and startAfter parameters can be used for paging if kept track of.
-      //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
-      //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
-      axios.get(query).then((res) => {
-        const ads: Advertisement[] = res.data;
-        setAds(ads);
-        console.log(ads)
-      });
-    
+    let query = `/api/advertisements/?amount=10`;
+    //startAt and startAfter parameters can be used for paging if kept track of.
+    //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
+    //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
+    axios.get(query).then((res) => {
+      const ads: Advertisement[] = res.data;
+      setAds(ads);
+      console.log(ads)
+    }).finally(() => {
+      setLoading(false);
+    });
+
   }, [page]);
 
-  const generateAds = () => {
+  const showAds = () => {
     return ads.map((ad, index) => {
       return (
         <AdDetail
@@ -82,7 +85,15 @@ export default function Job() {
           </div>
           <div className='md:w-1/3 p-1'>
             <div>
-            {generateAds()}
+              {loading ?
+                <div className='flex flex-col items-center'>
+                  <ClipLoader
+                    color={'#8467AA'}
+                    size={60}
+                  />
+                </div>
+                :
+                showAds()}
             </div>
           </div>
           <div className='hidden md:block md:w-1/2 p-1'>
