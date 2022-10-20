@@ -24,7 +24,6 @@ export default function Profile({
 
   const handleFileChange = (file) => {
     setImage(file);
-    console.log(file);
   }
 
 

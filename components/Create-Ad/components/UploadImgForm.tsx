@@ -39,7 +39,7 @@ export default function UploadImgForm({ handleSubmit }) {
             hover:file:text-amber-700"
             onChange={(e) => handleFileChange(e)}
           />
-          <div className="flex flex-row">
+          <div className="flex flex-row items-center">
             {(file && file.length > 0) ? (
               <>
                 <label

@@ -16,16 +16,15 @@ export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
-  const uploadProfilePicture = async (file: File, userId: string) => {
+  const uploadProfilePicture = (file: File, userId: string) => {
     const storage = getStorage();
 
-    const storageRef = ref(storage, `images/profile-pictures/${userId}.jpg`);
+    const storageRef = ref(storage, `images/profilePictures/${userId}.jpg`);
     uploadBytes(storageRef, file).then((snapshot) => {
       console.log(snapshot)
       getDownloadURL(snapshot.ref).then((url) => {
-        console.log(url)
+        return url
       })
-      console.log("Uploaded a blob or file!");
     }).catch((error) => { console.log(error) });
   };
 

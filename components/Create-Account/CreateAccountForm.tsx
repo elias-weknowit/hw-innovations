@@ -17,6 +17,7 @@ import RadioButton from "../Create-Ad/components/RadioButton";
 import AlternateLogins from "../Login/AlternateLogins";
 import { Divider } from "@mui/material";
 import axios from "axios";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 type CreateAccountError = {
   message: string;
@@ -35,7 +36,7 @@ export default function CreateAccountForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<CreateAccountError | null>(null);
-  const [image, setImage] = useState<FormData | null>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
@@ -58,6 +59,18 @@ export default function CreateAccountForm() {
     console.log(file);
   }
 
+  const uploadProfilePicture = (file: File, userId: string) => {
+    const storage = getStorage();
+
+    const storageRef = ref(storage, `images/profilePictures/${userId}.jpg`);
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log(snapshot)
+      getDownloadURL(snapshot.ref).then((url) => {
+        return url
+      })
+    }).catch((error) => { console.log(error) });
+  };
+
   const { createUserWithEmailAndPassword, updateProfile, deleteUser } = useAuth();
 
   //Hej
@@ -65,7 +78,7 @@ export default function CreateAccountForm() {
     user: string;
     password: string;
     displayName: string;
-    image: FormData | null;
+    image: File | null;
   }) => {
     createUserWithEmailAndPassword(formData.user, formData.password)
       .then((result) => {
@@ -84,7 +97,6 @@ export default function CreateAccountForm() {
           .then(() => {
             result.user.getIdToken().then(idToken => {
               axios.post("/api/session", { idToken }).then(() => {
-                axios.post("/api/image", { idToken, image: image })
                 return axios.post("/api/users", { name: formData.displayName, email: formData.user })
               }).catch(() => {
                 deleteUser();
@@ -94,7 +106,6 @@ export default function CreateAccountForm() {
                 });
               })
             })
-            //Create user document in firebase through api-route
             router.push("/")
           })
           .catch((error) => {
@@ -103,6 +114,11 @@ export default function CreateAccountForm() {
               message: "Något gick fel vid sättning av namn.",
               fields: ["displayName"],
             });
+          })
+          .finally(() => {
+            if (image) {
+              uploadProfilePicture(image, result.user.uid)
+            }
           });
       })
       .catch((error) => {
