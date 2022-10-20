@@ -12,15 +12,10 @@ export default function UploadImgForm({ handleSubmit }) {
     const targetFile = e.target.files[0];
     if (!targetFile.name) return
 
-    const fileFormData = new FormData();
     setFileName(targetFile.name);
     setFile(URL.createObjectURL(targetFile));
 
-    Object.keys(targetFile).forEach((key) => {
-      fileFormData.append(key, targetFile[key]);
-    });
-
-    handleSubmit(fileFormData);
+    handleSubmit(targetFile);
   }
 
   const fileInputRef = useRef(null);

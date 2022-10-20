@@ -14,12 +14,19 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         return;
     }
 
+    const metadata = {
+        contentType: 'image/jpeg'
+      };
+
     const file = req.body;
-    
-    const fileRef = ref(storage, `images/profile-pictures/${userId}.jpg`);
-    uploadBytes(fileRef, file).then((snapshot) => {
+    console.log(file)
+
+    const storageRef = ref(storage, `images/profile-pictures/${userId}.jpg`);
+    uploadBytes(storageRef, file).then((snapshot) => {
         console.log('file uploaded, snapshot:', snapshot);
-      });
+      }).catch((error) => {
+        console.log('error uploading file:', error);
+        });
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -5,21 +5,29 @@ import React, { useState } from "react";
 import logo from "../../public/Logo.svg";
 import InputForm from "../Create-Ad/components/InputForm";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import UploadImgForm from "../Create-Ad/components/UploadImgForm";
+import axios from "axios";
 
 interface ProfilProps {
   user: User | null;
-  onSubmit: (user: User) => void;
+  onSubmit: (formData: { user: User, image: File | null }) => void;
   onDelete: () => void;
-  image: string | StaticImageData;
 }
 
 export default function Profile({
   onSubmit,
   onDelete,
   user,
-  image,
 }: ProfilProps) {
-  const [userData, setUserData] = useState({ ...user });
+  const [userData, setUserData] = useState<User>({ ...user });
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleFileChange = (file) => {
+    setImage(file);
+    console.log(file);
+  }
+
+
   return (
     <div className="px-8 sm:px-12 md:px-16 lg:px-32">
       {user ? (
@@ -63,11 +71,14 @@ export default function Profile({
                   style={{ color: "red" }}
                 />
               </div>
+              <div className="flex flex-row items-center justify-around sm:justify-center mt-3">
+                <UploadImgForm handleSubmit={handleFileChange} />
+              </div>
               <div className="flex justify-center mt-2 mb-2">
                 <button className="bg-primary-color p-1 rounded-md">
                   <div
                     className="font-mulish font-semibold text-white mx-10"
-                    onClick={() => onSubmit(userData)}
+                    onClick={() => onSubmit({ user: userData, image })}
                   >
                     Spara
                   </div>
@@ -87,7 +98,8 @@ export default function Profile({
             </Link>
           </p>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
