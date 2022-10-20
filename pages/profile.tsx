@@ -16,16 +16,19 @@ export default function ProfilePage() {
   const { user, updateProfile } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
-  const uploadProfilePicture = (file: File, userId: string) => {
+  const uploadProfilePicture = async (file: File, userId: string) => {
     const storage = getStorage();
 
     const storageRef = ref(storage, `images/profilePictures/${userId}.jpg`);
-    uploadBytes(storageRef, file).then((snapshot) => {
+    const res = await uploadBytes(storageRef, file).then(async (snapshot) => {
       console.log(snapshot)
-      getDownloadURL(snapshot.ref).then((url) => {
-        return url
+      const url = await getDownloadURL(snapshot.ref).then((url) => {
+        updateProfile({ photoURL: url }, user)
       })
+      return url;
     }).catch((error) => { console.log(error) });
+    console.log(res)
+    return res
   };
 
 
@@ -36,17 +39,19 @@ export default function ProfilePage() {
     console.log("Submitted:", formData)
     try {
       if (formData.image) {
-        uploadProfilePicture(formData.image, user.uid);
+        const url = await uploadProfilePicture(formData.image, user.uid);
+        if (url) {
+          updateProfile({ displayName: formData.user.displayName, photoURL: url }, user);
+        }
+      } else {
+        updateProfile({ displayName: formData.user.displayName }, user);
       }
-      updateProfile({ displayName: formData.user.displayName }, user);
-      axios.put("/api/users", formData.user, {
+
+      axios.put("/api/users", user, {
         headers: {
           "Content-Type": "application/json",
         }
-      }).then((res) => {
-        console.log("Submit return", res);
-        //updateProfile({ displayName: formData.displayName, photoURL: res.data });
-      }).catch((error) => { console.log(error) });
+      })
     } catch (error) {
       setError(error.message);
     }
