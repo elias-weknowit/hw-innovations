@@ -19,8 +19,8 @@ export type Advertisement = {
     typeOfWork?: string;
     description: string;
     requirements: string;
-    contact: {
-        name: string;
+    contact?: {
+        name?: string;
         email?: string;
         phone?: string;
         address?: string;

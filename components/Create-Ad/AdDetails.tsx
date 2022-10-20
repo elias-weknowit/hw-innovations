@@ -64,13 +64,13 @@ export default function AdDetails({
         <div className="flex flex-row items-center">
           <div className="bg-profile-available rounded-lg p-1 mr-2">
             <p className="font-mulish mx-1 text-sm">
-              {ad.period.start ? moment(ad.period.start).format("YYYY-MM-DD") : "placeholder"}
+              {ad.period?.start ? moment(ad.period.start).format("YYYY-MM-DD") : "placeholder"}
             </p>
           </div>
           <p className="font-mulish font-normal mr-2">Till</p>
           <div className="bg-profile-available rounded-lg p-1 mr-2">
             <p className="font-mulish mx-1 text-sm">
-              {ad.period.end ? moment(ad.period.end).format("YYYY-MM-DD") : "placeholder"}
+              {ad.period?.end ? moment(ad.period.end).format("YYYY-MM-DD") : "placeholder"}
             </p>
           </div>
         </div>

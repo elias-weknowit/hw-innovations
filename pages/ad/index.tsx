@@ -13,6 +13,7 @@ import { Advertisement } from "../../util/models";
 import axios from "axios";
 import Footer from "../../components/Footer/Footer";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { ClipLoader } from "react-spinners";
 
 export default function AdPage() {
   const { user } = useAuth();
@@ -155,26 +156,33 @@ export default function AdPage() {
               </div>
               <div>
                 <div className="flex-2">
-                  {ads.length < 1 ? (
-                    <p className="font-mulish ">Du har inga annonser!</p>
-                  ) : (
-                    ads.map((ad, index) => (
-                      <AdDetails
-                        key={ad.id}
-                        image={user?.photoURL ? user.photoURL : logo}
-                        onEdit={() => {
-                          setIsEditing(true);
-                          setSelectionIndex(index);
-                        }}
-                        ad={ad}
-                        onClick={() => {
-                          setSelectionIndex(index);
-                          setIsEditing(false);
-                          //console.log(ads[selectionIndex].period);
-                        }}
+                  {loading ?
+                    <div className='flex flex-col items-center mt-10'>
+                      <ClipLoader
+                        color={'#8467AA'}
+                        size={60}
                       />
-                    ))
-                  )}
+                    </div>
+                    : ads.length < 1 ? (
+                      <p className="font-mulish ">Du har inga annonser!</p>
+                    ) : (
+                      ads.map((ad, index) => (
+                        <AdDetails
+                          key={ad.id}
+                          image={user?.photoURL ? user.photoURL : logo}
+                          onEdit={() => {
+                            setIsEditing(true);
+                            setSelectionIndex(index);
+                          }}
+                          ad={ad}
+                          onClick={() => {
+                            setSelectionIndex(index);
+                            setIsEditing(false);
+                            //console.log(ads[selectionIndex].period);
+                          }}
+                        />
+                      ))
+                    )}
                 </div>
               </div>
             </div>

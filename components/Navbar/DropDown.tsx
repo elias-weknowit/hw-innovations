@@ -35,7 +35,7 @@ export default function DropDown({ user, image }: DropDownProps) {
     <>
       <div>
         {user ? (
-          <div className="relative inline-block text-left">
+          <div className="relative block text-left">
             <div>
               <button
                 ref={domNode}
@@ -43,17 +43,17 @@ export default function DropDown({ user, image }: DropDownProps) {
                   setShowOptions(!showOptions);
                 }}
                 type="button"
-                className="inline-flex items-center justify-center w-full rounded-md px-4 py-2 text-white bg-opacity-0 font-mulish text-lg text-gray-700 focus:outline-none"
+                className="w-full h-full inline-flex items-center justify-center rounded-md px-4 py-2 text-white bg-opacity-0 font-mulish text-lg text-gray-700 focus:outline-none"
                 id="menu-button"
                 aria-expanded="true"
                 aria-haspopup="true"
               >
-                <div className="flex bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden">
+                <div className="block bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden">
                   <Image alt="Profile" src={image} width="100%" height="100%" />
                 </div>
-                <p className="font-mulish ml-5">{user.displayName}</p>
+                <p className="font-mulish ml-5 z-60 pointer-events-none">{user.displayName}</p>
 
-                <KeyboardArrowDownIcon className="h-5 w-5 ml-2" />
+                <KeyboardArrowDownIcon className="h-5 w-5 ml-2 pointer-events-none" />
               </button>
             </div>
 

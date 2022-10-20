@@ -42,10 +42,10 @@ export default function AdView({ ad }: AdViewProps) {
             </p>
             <div className="flex justify-evenly">
               <p className="font-mulish text-md">
-                Från {moment(ad.period.start).format("YYYY-MM-DD")}
+                Från {/*moment(ad.period.start).format("YYYY-MM-DD")*/}
               </p>
               <p className="font-mulish text-md">
-                Till {moment(ad.period.end).format("YYYY-MM-DD")}
+                Till {/*moment(ad.period.end).format("YYYY-MM-DD")}*/}
               </p>
             </div>
           </div>
@@ -103,15 +103,15 @@ export default function AdView({ ad }: AdViewProps) {
         </div>
         <div>
           <div className="flex items-center justify-between mb-4">
-            <p className="font-mulish text-md">{ad.contact.name}</p>
+            <p className="font-mulish text-md">{ad.contact?.name}</p>
             <p className="font-mulish text-md font-semibold">
-              {ad.contact.phone}
+              {ad.contact?.phone}
             </p>
           </div>
           <div className="flex flex-col justify-start">
-            <p className="font-mulish text-md">{ad.contact.address}</p>
+            <p className="font-mulish text-md">{ad.contact?.address}</p>
             <p className="font-mulish text-md">
-              {ad.contact.postCode}, {ad.contact.city}
+              {ad.contact?.postCode}, {ad.contact?.city}
             </p>
           </div>
         </div>

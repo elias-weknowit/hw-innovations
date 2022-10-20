@@ -19,6 +19,7 @@ export default function Job() {
 
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState<Advertisement[]>([]);
+  const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
 
   useEffect(() => {
     //Fetch first visible page
@@ -35,14 +36,15 @@ export default function Job() {
     });
 
   }, [page]);
-
   const showAds = () => {
     return ads.map((ad, index) => {
       return (
-        <AdDetail
-          key={index}
-          ad={ad}
-        />
+        <div>
+          <AdDetail
+            key={index}
+            ad={ad}
+          />
+        </div>
       );
     });
   };
@@ -93,11 +95,21 @@ export default function Job() {
                   />
                 </div>
                 :
-                showAds()}
+                ads.map((ad, index) => {
+                  const handleClick = () => { setSelectedAd(ad) };
+                  return (
+                    <div onClick={handleClick}>
+                      <AdDetail
+                        key={index}
+                        ad={ad}
+                      />
+                    </div>
+                  );
+                })}
             </div>
           </div>
           <div className='hidden md:block md:w-1/2 p-1'>
-            AdView ska mapas här. Hur?
+            {selectedAd != null ? <AdView ad={selectedAd} /> : ''}
           </div>
         </div>
         <Pagination

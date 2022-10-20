@@ -11,7 +11,7 @@ interface AdDetailsProp {
   // onClick: () => void;
 }
 
-export default function AdDetail({ ad,} : AdDetailsProp
+export default function AdDetail({ ad, }: AdDetailsProp
 ) {
   return (
     <div className='bg-profile-sections shadow-md rounded-md p-4 mb-3 cursor-point  hover:bg-primary-color'>
@@ -30,7 +30,7 @@ export default function AdDetail({ ad,} : AdDetailsProp
         <div className='flex flex-row'>
           <div>
             <p className='text-md text-black font-mulish text-opacity-70'>
-{ad.company}            </p>
+              {ad.company}            </p>
           </div>
           <p className='font-mulish ml-1 mr-1 text-black text-opacity-70'>.</p>
           <div>
