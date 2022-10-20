@@ -14,7 +14,7 @@ export default function EditProfile() {
           />
         </button>
       </div>
-      <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
+      <UploadImgForm handleSubmit={() => { }} />
     </div>
   );
 }

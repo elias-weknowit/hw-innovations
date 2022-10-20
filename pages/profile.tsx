@@ -40,13 +40,9 @@ export default function ProfilePage() {
     try {
       if (formData.image) {
         const url = await uploadProfilePicture(formData.image, user.uid);
-        if (url) {
-          updateProfile({ displayName: formData.user.displayName, photoURL: url }, user);
-        }
       } else {
         updateProfile({ displayName: formData.user.displayName }, user);
       }
-
       axios.put("/api/users", user, {
         headers: {
           "Content-Type": "application/json",

@@ -36,25 +36,11 @@ export default function Job() {
     });
 
   }, [page]);
-  const showAds = () => {
-    return ads.map((ad, index) => {
-      return (
-        <div>
-          <AdDetail
-            key={index}
-            ad={ad}
-          />
-        </div>
-      );
-    });
-  };
 
   function handlePaginationChange(e, value) {
     setPage(value);
     console.log(value)
   }
-
-
 
   return (
     <>
@@ -98,9 +84,10 @@ export default function Job() {
                 ads.map((ad, index) => {
                   const handleClick = () => { setSelectedAd(ad) };
                   return (
-                    <div onClick={handleClick}>
+                    <div
+                      onClick={handleClick}
+                      key={index}>
                       <AdDetail
-                        key={index}
                         ad={ad}
                       />
                     </div>
