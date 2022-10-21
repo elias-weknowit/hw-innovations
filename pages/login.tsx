@@ -44,8 +44,8 @@ export default function LoginView() {
             displayName: userCredential.user.providerData[0].displayName,
           });
         }
-        userCredential.user.getIdToken().then( idToken => {
-          axios.post("/api/session", { idToken })
+        userCredential.user.getIdToken().then(idToken => {
+          axios.post("/api/session/", { idToken })
         })
       })
       .catch((error) => console.log(error));
@@ -54,10 +54,10 @@ export default function LoginView() {
   const onSubmit = (formData: { user: string; password: string }) => {
     signInWithEmailAndPassword(formData.user, formData.password)
       .then((userCredential) => {
-        userCredential.user.getIdToken().then( idToken => {
-          axios.post("/api/session", { idToken })
+        userCredential.user.getIdToken().then(idToken => {
+          axios.post("/api/session/", { idToken })
         })
-      }).then( () => router.push('/'))
+      }).then(() => router.push('/'))
       .catch((error) => {
         switch (error.code) {
           case "auth/user-not-found":

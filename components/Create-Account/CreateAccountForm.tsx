@@ -96,8 +96,8 @@ export default function CreateAccountForm() {
         updateProfile({ displayName: formData.displayName }, result.user)
           .then(() => {
             result.user.getIdToken().then(idToken => {
-              axios.post("/api/session", { idToken }).then(() => {
-                return axios.post("/api/users", { name: formData.displayName, email: formData.user })
+              axios.post("/api/session/", { idToken }).then(() => {
+                return axios.post("/api/users/", { name: formData.displayName, email: formData.user })
               }).catch(() => {
                 deleteUser();
                 setError({

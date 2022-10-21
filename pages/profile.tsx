@@ -43,7 +43,7 @@ export default function ProfilePage() {
       } else {
         updateProfile({ displayName: formData.user.displayName }, user);
       }
-      axios.put("/api/users", user, {
+      axios.put("/api/users/", user, {
         headers: {
           "Content-Type": "application/json",
         }

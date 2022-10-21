@@ -11,7 +11,7 @@ import SelectTypeTabs from '../components/Ad/SelectTypeTabs';
 import { Pagination } from '@mui/material';
 import axios from "axios";
 import { ClipLoader } from 'react-spinners';
-
+import { useRouter } from 'next/router';
 
 export default function Job() {
   const [selectedTab, setSelectedTab] = useState<string>('Sök Jobb');
@@ -23,11 +23,10 @@ export default function Job() {
 
   useEffect(() => {
     //Fetch first visible page
-    let query = `/api/advertisements/?amount=10`;
     //startAt and startAfter parameters can be used for paging if kept track of.
     //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
-    axios.get(query).then((res) => {
+    axios.get("/api/advertisements").then((res) => {
       const ads: Advertisement[] = res.data;
       setAds(ads);
       console.log(ads)
@@ -35,7 +34,7 @@ export default function Job() {
       setLoading(false);
     });
 
-  }, [page]);
+  }, []);
 
   function handlePaginationChange(e, value) {
     setPage(value);
@@ -81,18 +80,19 @@ export default function Job() {
                   />
                 </div>
                 :
-                ads.map((ad, index) => {
-                  const handleClick = () => { setSelectedAd(ad) };
-                  return (
-                    <div
-                      onClick={handleClick}
-                      key={index}>
-                      <AdDetail
-                        ad={ad}
-                      />
-                    </div>
-                  );
-                })}
+                !ads.length ? <p>Inga aktiva annonser för tillfället.</p> :
+                  ads.map((ad, index) => {
+                    const handleClick = () => { setSelectedAd(ad) };
+                    return (
+                      <div
+                        onClick={handleClick}
+                        key={index}>
+                        <AdDetail
+                          ad={ad}
+                        />
+                      </div>
+                    );
+                  })}
             </div>
           </div>
           <div className='hidden md:block md:w-1/2 p-1'>
