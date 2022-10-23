@@ -74,7 +74,7 @@ export default function Profile({
                 <UploadImgForm handleSubmit={handleFileChange} />
               </div>
               <div className="flex justify-center mt-2 mb-2">
-                <button className="bg-primary-color p-1 rounded-md">
+                <button className="bg-primary-color p-1 rounded-md hover:opacity-80">
                   <div
                     className="font-mulish font-semibold text-white mx-10"
                     onClick={() => onSubmit({ user: userData, image })}

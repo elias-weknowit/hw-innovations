@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     //Update user with id macthing id from cookie using information from request body
-    const snapshot = await getDocs(query(collection(db, 'users'), where(documentId(), '==', cookie.uid))).catch(err => internalError(res,err));
+    const snapshot = await getDocs(query(collection(db, 'users'), where('id', '==', cookie.uid))).catch(err => internalError(res,err));
     if(!snapshot) return;
     if(snapshot.size === 0){
         res.status(404).send('User not found');
@@ -42,7 +42,10 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         if(req.body.postCode) user.postCode = req.body.postCode;
     }
     user.updatedAt = new Date();
-    await updateDoc(doc(db, 'users', cookie.uid), user).catch(err => internalError(res, err));
+    const ref = doc(users, snapshot.docs[0].id);
+    await updateDoc(ref, user)
+    .then(result => res.status(200).json(result))
+    .catch(err => internalError(res, err));
     //Update user information in firestore
 }
 
