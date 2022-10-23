@@ -20,12 +20,13 @@ export default function ProfilePage() {
     const storage = getStorage();
 
     const storageRef = ref(storage, `images/profilePictures/${userId}.jpg`);
-    const res = await uploadBytes(storageRef, file).then(async (snapshot) => {
-      console.log(snapshot)
-      const url = await getDownloadURL(snapshot.ref).then((url) => {
-        updateProfile({ photoURL: url }, user)
-      })
-      return url;
+    const res = await uploadBytes(storageRef, file).then((snapshot) => {
+      //Get download URL and update pictureURL paramater in user
+      getDownloadURL(storageRef).then((url) => {
+        updateProfile({ photoURL: url });
+        axios.put("/api/users", { photoURL: url });
+      });
+      ;
     }).catch((error) => { console.log(error) });
     console.log(res)
     return res
@@ -36,22 +37,26 @@ export default function ProfilePage() {
     user: User;
     image: File | null;
   }) => {
+    if (!user) {
+      console.log("User not initialized");
+      return;
+    }
+
     console.log("Submitted:", formData)
     try {
       if (formData.image) {
-        const url = await uploadProfilePicture(formData.image, user.uid);
+        const res = await uploadProfilePicture(formData.image, user.uid);
+        console.log(res)
       } else {
         updateProfile({ displayName: formData.user.displayName }, user);
       }
-      axios.put("/api/users/", user, {
-        headers: {
-          "Content-Type": "application/json",
-        }
-      })
     } catch (error) {
       setError(error.message);
     }
-  };
+
+    return false; // Prevents page refresh
+  }
+
   return (
     <>
       <Head>

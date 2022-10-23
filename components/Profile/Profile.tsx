@@ -22,7 +22,7 @@ export default function Profile({
   const [userData, setUserData] = useState<User>({ ...user });
   const [image, setImage] = useState<File | null>(null);
 
-  const handleFileChange = (file) => {
+  const handleFileChange = (file: File) => {
     setImage(file);
   }
 
@@ -39,7 +39,7 @@ export default function Profile({
             </div>
           </div>
           <div className="flex flex-col bg-profile-sections md:w-full shadow-md rounded-md p-4 mt-3 mb-10">
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
               <div className="flex flex-row items-center justify-around sm:justify-center">
                 <InputForm
                   labelName="Namn"
