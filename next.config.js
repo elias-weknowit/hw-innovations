@@ -5,7 +5,6 @@ const nextConfig = {
       unoptimized: true,
     },
   },
-  exportTrailingSlash: true,
   reactStrictMode: true,
   swcMinify: true,
   images: {
