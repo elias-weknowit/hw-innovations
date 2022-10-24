@@ -19,8 +19,8 @@ export type Advertisement = {
     typeOfWork?: string;
     description: string;
     requirements: string;
-    contact: {
-        name: string;
+    contact?: {
+        name?: string;
         email?: string;
         phone?: string;
         address?: string;
@@ -29,4 +29,22 @@ export type Advertisement = {
     };
     createdAt?: Moment;
     updatedAt?: Moment;
+}
+
+export interface User {
+    id?: string;
+    company: boolean;
+    name: string;
+    email: string;
+    phone?: string;
+    photoURL?: string;
+    createdAt?: Moment;
+    updatedAt?: Moment;
+}
+
+export interface Company extends User {
+    orgNumber: string;
+    address: string;
+    city: string;
+    postCode: string;
 }

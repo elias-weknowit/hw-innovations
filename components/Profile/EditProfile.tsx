@@ -1,5 +1,6 @@
 import React from "react";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import UploadImgForm from "../Create-Ad/components/UploadImgForm";
 
 export default function EditProfile() {
   return (
@@ -13,6 +14,7 @@ export default function EditProfile() {
           />
         </button>
       </div>
+      <UploadImgForm handleSubmit={() => { }} />
     </div>
   );
 }

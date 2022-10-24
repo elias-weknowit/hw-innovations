@@ -21,6 +21,7 @@ export default function EditAd({
 }) {
   //const { user } = useAuth();
   const [adData, setAdData] = useState({ ...ad });
+  const [image, setImage] = useState(null);
 
   useEffect(() => console.log(adData), [adData]);
 
@@ -39,6 +40,13 @@ export default function EditAd({
         });
     }
   };*/
+
+  const handleFileChange = (file: File) => {
+    setImage({ data: file });
+    // console.log(file);
+  };
+
+
   return (
     <>
       <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-3xl p-4 mt-3 mb-10">
@@ -222,7 +230,7 @@ export default function EditAd({
                 })
               }
             />
-            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
+            <UploadImgForm handleSubmit={handleFileChange} />
             <div className="flex flex-row items-center justify-between mt-14">
               <div className="">
                 <button className="flex items-center" onClick={() => onDelete}>

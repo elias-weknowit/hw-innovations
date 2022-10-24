@@ -14,6 +14,8 @@ import { Advertisement } from '../util/models';
 import axios from "axios";
 import { Pagination } from "@mui/material";
 
+import { ClipLoader } from 'react-spinners';
+import { useRouter } from 'next/router';
 
 type FirestoreAdvertisement = Omit<Advertisement, 'createdAt' | 'updatedAt' | 'period'> & {
   createdAt?: FirebaseTimestamp;
@@ -62,40 +64,29 @@ export default function Job() {
   const [selectedTab, setSelectedTab] = useState<string>('Sök Jobb');
   const [page, setPage] = useState(1);
 
+  const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState<Advertisement[]>([]);
+  const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
 
   useEffect(() => {
     //Fetch first visible page
-
-    let query = `/api/advertisements/?amount=10`;
     //startAt and startAfter parameters can be used for paging if kept track of.
     //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
-    axios.get(query).then((res) => {
+    axios.get("/api/advertisements").then((res) => {
       const ads: Advertisement[] = res.data;
       setAds(ads);
       console.log(ads)
+    }).finally(() => {
+      setLoading(false);
     });
 
-  }, [page]);
-
-  const generateAds = () => {
-    return ads.map((ad, index) => {
-      return (
-        <AdDetail
-          key={index}
-          ad={ad}
-        />
-      );
-    });
-  };
+  }, []);
 
   function handlePaginationChange(e, value) {
     setPage(value);
     console.log(value)
   }
-
-
 
   return (
     <>
@@ -128,44 +119,33 @@ export default function Job() {
           </div>
           <div className='md:w-1/3 p-1'>
             <div>
-              {generateAds()}
+              {loading ?
+                <div className='flex flex-col items-center'>
+                  <ClipLoader
+                    color={'#8467AA'}
+                    size={60}
+                  />
+                </div>
+                :
+                !ads.length ? <p>Inga aktiva annonser för tillfället.</p> :
+                  ads.map((ad, index) => {
+                    const handleClick = () => { setSelectedAd(ad) };
+                    return (
+                      <div
+                        onClick={handleClick}
+                        key={index}>
+                        <AdDetail
+                          key={index}
+                          selectedAd={selectedAd}
+                          ad={ad}
+                        />
+                      </div>
+                    );
+                  })}
             </div>
           </div>
           <div className='hidden md:block md:w-1/2 p-1'>
-            AdView ska mapas här. Hur?
-            <button className="bg-primary-color text-white font-mulish font-semibold text-md px-4 py-2 rounded-lg" onClick={async (e) => {
-              const db: Firestore = getFirestore();
-              const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
-              const queryConstraints: QueryConstraint[] = [];
-              queryConstraints.push(limit(10));
-
-              //If hiringIn is set then we order by period.start
-              queryConstraints.push(orderBy('createdAt', 'asc'));
-              //Otherwise we order by createdAt
-              //startAt and startAfter will be ID's so a fetch must be done to get the actual date
-              let docRef;
-
-              docRef = doc(db, 'advertisements', 'HnqCrA2kWQ4qL9bSINMK');
-              queryConstraints.push(startAt(docRef));
-
-              const toTimestamp = timestampConverter.momentToFirebaseTimestamp;
-
-              const createdAfter = moment().subtract(1, 'years');
-              if (createdAfter.isValid()) queryConstraints.push(where('createdAt', '>=', toTimestamp(createdAfter)));
-
-              const createdBefore = moment().add(1, 'years');
-              if (createdBefore.isValid()) queryConstraints.push(where('createdAt', '<=', toTimestamp(createdBefore)));
-
-              const hiringIn = Number(2);
-
-              queryConstraints.push(where('creatorId', '==', '8zhojt4yOXVvO0KpuKjeqbNGQtz1'));
-              queryConstraints.push(where('location', '==', 'Sweden'));
-
-              await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
-                const snapshot: QuerySnapshot<Advertisement> = snapshotRes;
-                snapshot.docs.map(doc => { if (doc.data().period.start.isBefore(moment().add(hiringIn, 'weeks'))) console.log(doc.data()) });
-              }).catch(console.log);
-            }}>Test</button>
+            {selectedAd != null ? <AdView ad={selectedAd} /> : ''}
           </div>
         </div>
         <Pagination

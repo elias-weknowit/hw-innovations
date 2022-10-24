@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Image, { StaticImageData } from 'next/image';
 import { IconButton } from '@mui/material';
@@ -8,13 +8,20 @@ import logo from '../../public/Logo.svg';
 
 interface AdDetailsProp {
   ad: Advertisement;
+  selectedAd: Advertisement | null;
   // onClick: () => void;
 }
 
-export default function AdDetail({ ad,} : AdDetailsProp
+export default function AdDetail({ ad, selectedAd }: AdDetailsProp
 ) {
+  const [isSelected, setIsSelected] = React.useState(false);
+
+  useEffect(() => {
+    setIsSelected(ad.id === selectedAd?.id);
+  }, [selectedAd]);
+
   return (
-    <div className='bg-profile-sections shadow-md rounded-md p-4 mb-3 cursor-point  hover:bg-primary-color'>
+    <div className={`${isSelected ? "bg-primary-color" : "bg-profile-sections hover:bg-primary-color-hover"} shadow-md rounded-md p-4 mb-3 cursor-point`}>
       {/**Company img and edit button */}
 
       <div className='flex flex-row justify-between items-center '>
@@ -30,7 +37,7 @@ export default function AdDetail({ ad,} : AdDetailsProp
         <div className='flex flex-row'>
           <div>
             <p className='text-md text-black font-mulish text-opacity-70'>
-{ad.company}            </p>
+              {ad.company}            </p>
           </div>
           <p className='font-mulish ml-1 mr-1 text-black text-opacity-70'>.</p>
           <div>

@@ -37,6 +37,7 @@ export default function CreateAccountForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<CreateAccountError | null>(null);
+  const [image, setImage] = useState<FormData | null>(null);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
@@ -52,6 +53,12 @@ export default function CreateAccountForm() {
     setPassword(event.target.value);
     console.log(password);
   };
+
+  /* handleFileChange must be passed to UploadImgForm Component */
+  const handleFileChange = (file) => {
+    setImage(file);
+    console.log(file);
+  }
 
   const { createUserWithEmailAndPassword, updateProfile } = useAuth();
 
@@ -140,7 +147,8 @@ export default function CreateAccountForm() {
               error={null}
               errorMessage={null}
             />
-            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
+            <UploadImgForm
+              handleSubmit={handleFileChange} />
             <LoginButton onClick={null} title="Skapa" />
           </div>
         </form>

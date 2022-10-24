@@ -16,6 +16,8 @@ import UploadImgForm from "../Create-Ad/components/UploadImgForm";
 import RadioButton from "../Create-Ad/components/RadioButton";
 import AlternateLogins from "../Login/AlternateLogins";
 import { Divider } from "@mui/material";
+import axios from "axios";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 type CreateAccountError = {
   message: string;
@@ -34,6 +36,7 @@ export default function CreateAccountForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<CreateAccountError | null>(null);
+  const [image, setImage] = useState<File | null>(null);
 
   const handleUserNameChange = (event) => {
     setUserName(event.target.value);
@@ -50,25 +53,68 @@ export default function CreateAccountForm() {
     console.log(password);
   };
 
-  const { createUserWithEmailAndPassword, updateProfile } = useAuth();
+  /* handleFileChange must be passed to UploadImgForm Component */
+  const handleFileChange = (file) => {
+    setImage(file);
+    console.log(file);
+  }
 
-  //Hej
+  const uploadProfilePicture = async (file: File, userId: string) => {
+    const storage = getStorage();
+
+    const storageRef = ref(storage, `images/profilePictures/${userId}.jpg`);
+    const res = await uploadBytes(storageRef, file).then((snapshot) => {
+      //Get download URL and update pictureURL paramater in user
+      getDownloadURL(storageRef).then((url) => {
+        updateProfile({ photoURL: url });
+        axios.put("/api/users", { photoURL: url });
+      });
+      ;
+    }).catch((error) => { return 500 });
+  };
+
+  const { createUserWithEmailAndPassword, updateProfile, deleteUser } = useAuth();
+
   const onSubmit = async (formData: {
     user: string;
     password: string;
     displayName: string;
+    image: File | null;
   }) => {
     createUserWithEmailAndPassword(formData.user, formData.password)
       .then((result) => {
-        updateProfile({ displayName: formData.displayName }, result.user)
-          .then(() => router.push("/"))
+        //Update display name and assign link to default profile picture (Link and access token can be found in firebase console in storage)
+        updateProfile({
+          displayName: formData.displayName,
+          photoURL: "https://firebasestorage.googleapis.com/v0/b/hw-innovations.appspot.com/o/images%2FprofilePictures%2FdefaultPicture.JPG?alt=media&token=4a44000c-f2bc-4edb-a0f3-35cf907a1fb0"
+        },
+          result.user)
+          .then(() => {
+            result.user.getIdToken().then(idToken => {
+              axios.post("/api/session/", { idToken }).then(() => {
+                return axios.post("/api/users/", { name: formData.displayName, email: formData.user })
+                  .then(() => {
+                    if (formData.image) {
+                      uploadProfilePicture(formData.image, result.user.uid);
+                    }
+                  })
+              }).catch(() => {
+                deleteUser();
+                setError({
+                  message: "Något gick fel. Försök igen senare.",
+                  fields: ["displayName"],
+                });
+              })
+            })
+            router.push("/");
+          })
           .catch((error) => {
-            deleteUser(result.user);
+            deleteUser();
             setError({
               message: "Något gick fel vid sättning av namn.",
               fields: ["displayName"],
             });
-          });
+          })
       })
       .catch((error) => {
         switch (error.code) {
@@ -136,10 +182,11 @@ export default function CreateAccountForm() {
               errorMessage={error?.message}
               valid_user={password.length >= 6}
             />
-            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
+            <UploadImgForm
+              handleSubmit={handleFileChange} />
             <LoginButton
               onClick={() =>
-                onSubmit({ user: email, password, displayName: userName })
+                onSubmit({ user: email, password, displayName: userName, image: image })
               }
               title="Skapa"
             />

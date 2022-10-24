@@ -17,8 +17,8 @@ export default function ProfilePreview({ user, image }: ProfilePreviewProps) {
     <div className="flex flex-row items-center p-2 justify-self-end">
       {user ? (
         <>
-          <div className="flex bg-black bg-opacity-40 rounded-full  w-12 h-12 items-center justify-center text-white overflow-hidden">
-            <Image alt="Profile" src={image} width="100%" height="100%" />
+          <div className="flex bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden">
+            <Image alt="Profile" src={image} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
           </div>
           <div className="flex flex-row items-center">
             <Link href="/profile">

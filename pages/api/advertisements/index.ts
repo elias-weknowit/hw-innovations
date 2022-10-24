@@ -76,7 +76,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     }).catch( err => internalError(res, err));
 }
 
-async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
+async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken, db: Firestore){
     const createdAt = moment();
     const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
@@ -84,16 +84,22 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const db: Firestore = getFirestore();
+
     if(!db) internalError(res, "Firestore not initialized");
-    const decodedCookie = await decodeCookie(req.cookies.session).catch(err => {internalError(res, err, "Faulty cookie"); return null;});
-    if(!decodedCookie) return;
+    const decodedCookie = await decodeCookie(req.cookies.session).catch (err => internalError(res, err));
+    if(!decodedCookie) return res.status(401).send('Unauthorized');
 
     switch(req.method){
         case 'GET':
-            await handleGET(req, res, decodedCookie);
+            try{
+                await handleGET(req, res, decodedCookie);
+            }catch(err){
+                internalError(res, "Error handling GET request");
+            }
             break;
         case 'POST':
-            await handlePOST(req, res, decodedCookie);
+            await handlePOST(req, res, decodedCookie, db);
             break;
         default:
             res.status(405).send(`Method ${req.method} not allowed`);

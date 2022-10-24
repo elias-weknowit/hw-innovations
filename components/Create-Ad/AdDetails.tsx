@@ -19,7 +19,7 @@ export default function AdDetails({
   ad,
 }: AdDetailsProp) {
   return (
-    <div className="bg-profile-sections shadow-md rounded-md p-3 mt-3 cursor-point  hover:bg-primary-color mb-4">
+    <div className="bg-profile-sections shadow-md rounded-md p-3 mt-3 cursor-point hover:bg-primary-color mb-4">
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
@@ -64,13 +64,13 @@ export default function AdDetails({
         <div className="flex flex-row items-center">
           <div className="bg-profile-available rounded-lg p-1 mr-2">
             <p className="font-mulish mx-1 text-sm">
-              {"placeholder"}
+              {ad.period?.start ? moment(ad.period.start).format("YYYY-MM-DD") : "placeholder"}
             </p>
           </div>
           <p className="font-mulish font-normal mr-2">Till</p>
           <div className="bg-profile-available rounded-lg p-1 mr-2">
             <p className="font-mulish mx-1 text-sm">
-              {"placeholder"}
+              {ad.period?.end ? moment(ad.period.end).format("YYYY-MM-DD") : "placeholder"}
             </p>
           </div>
         </div>

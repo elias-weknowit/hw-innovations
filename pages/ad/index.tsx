@@ -13,6 +13,7 @@ import { Advertisement } from "../../util/models";
 import axios from "axios";
 import Footer from "../../components/Footer/Footer";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { ClipLoader } from "react-spinners";
 
 export default function AdPage() {
   const { user } = useAuth();
@@ -31,10 +32,32 @@ export default function AdPage() {
     );
   }, []);
 
+  //function that generates the ads in the ad page
+  const generateAds = () => {
+    return ads.map((ad, index) => {
+      return (
+        <AdDetails
+          key={index}
+          image={logo}
+          onEdit={() => {
+            setSelectionIndex(index);
+            setIsEditing(true);
+          }}
+          onClick={() => {
+            setSelectionIndex(index);
+            setIsCreating(false);
+          }}
+          ad={ad}
+        />
+      );
+    });
+  };
+
+
   useEffect(() => {
     //Fetch first visible page
     if (user) {
-      let query = `/api/advertisements/?creatorId=${user.uid}&amount=15`
+      let query = `/api/advertisements/?creatorId=${user.uid}&amount=15/`
       //startAt and startAfter parameters can be used for paging if kept track of.
       //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
       //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
@@ -81,7 +104,7 @@ export default function AdPage() {
           onSubmit={(ad) => {
             const _ad = { ...ad, creatorId: user.uid };
             setAds((prev) => [...prev, _ad]);
-            axios.post("/api/advertisements", _ad);
+            axios.post("/api/advertisements/", _ad);
             setIsCreating(false);
             setIsEditing(false);
             if (!isMobile) setSelectionIndex(ads.length - 1);
@@ -133,26 +156,33 @@ export default function AdPage() {
               </div>
               <div>
                 <div className="flex-2">
-                  {ads.length < 1 ? (
-                    <p className="font-mulish ">Du har inga annonser!</p>
-                  ) : (
-                    ads.map((ad, index) => (
-                      <AdDetails
-                        key={ad.id}
-                        image={user?.photoURL ? user.photoURL : logo}
-                        onEdit={() => {
-                          setIsEditing(true);
-                          setSelectionIndex(index);
-                        }}
-                        ad={ad}
-                        onClick={() => {
-                          setSelectionIndex(index);
-                          setIsEditing(false);
-                          //console.log(ads[selectionIndex].period);
-                        }}
+                  {loading ?
+                    <div className='flex flex-col items-center mt-10'>
+                      <ClipLoader
+                        color={'#8467AA'}
+                        size={60}
                       />
-                    ))
-                  )}
+                    </div>
+                    : ads.length < 1 ? (
+                      <p className="font-mulish ">Du har inga annonser!</p>
+                    ) : (
+                      ads.map((ad, index) => (
+                        <AdDetails
+                          key={ad.id}
+                          image={user?.photoURL ? user.photoURL : logo}
+                          onEdit={() => {
+                            setIsEditing(true);
+                            setSelectionIndex(index);
+                          }}
+                          ad={ad}
+                          onClick={() => {
+                            setSelectionIndex(index);
+                            setIsEditing(false);
+                            //console.log(ads[selectionIndex].period);
+                          }}
+                        />
+                      ))
+                    )}
                 </div>
               </div>
             </div>

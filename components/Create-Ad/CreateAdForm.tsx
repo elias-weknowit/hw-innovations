@@ -262,7 +262,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
                 setInputPostCode(e.target.value);
               }}
             />
-            <UploadImgForm className="shadow-sm p-1 md:p-2 rounded-md font-mulish w-1/2" />
+            <UploadImgForm handleSubmit={null} />
             <div className="flex flex-row items-center justify-end mt-14">
               <button className="bg-primary-color p-1 rounded-md">
                 <p className="font-mulish font-semibold text-white mx-10">
