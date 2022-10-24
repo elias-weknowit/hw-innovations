@@ -56,4 +56,5 @@ export const timestampConverter = {
             },
         } as Advertisement;
     },
+    momentToFirebaseTimestamp: (moment: Moment) => FirebaseTimestamp.fromDate(moment.toDate()),
 }

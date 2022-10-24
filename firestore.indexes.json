@@ -1,4 +1,14 @@
 {
-  "indexes": [],
+  "indexes": [{
+    "collectionId": "advertisements",
+    "fields": [{
+      "fieldPath": "creatorId",
+      "order": "ASCENDING"
+    },
+    {
+      "fieldPath": "id",
+      "order": "ASCENDING"
+    }]
+  }],
   "fieldOverrides": []
 }
