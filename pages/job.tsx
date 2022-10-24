@@ -88,6 +88,8 @@ export default function Job() {
                         onClick={handleClick}
                         key={index}>
                         <AdDetail
+                          key={index}
+                          selectedAd={selectedAd}
                           ad={ad}
                         />
                       </div>

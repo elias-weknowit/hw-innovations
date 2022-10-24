@@ -65,7 +65,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
             email: req.body.email,
             phone: req.body.phone ? req.body.phone : '',
             orgNumber: req.body.orgNumber,
-            photoURL: req.body.photoURL ? req.body.photoURL : 'https://firebasestorage.googleapis.com/v0/b/hw-innovations.appspot.com/o/images%2FprofilePictures%2FdefaultPic.JPG?alt=media&token=943979c1-733b-4dc3-a4b2-49ad8dbe512b',
+            photoURL: req.body.photoURL ? req.body.photoURL : 'https://firebasestorage.googleapis.com/v0/b/hw-innovations.appspot.com/o/images%2FprofilePictures%2FdefaultPicture.JPG?alt=media&token=4a44000c-f2bc-4edb-a0f3-35cf907a1fb0',
             address: req.body.address,
             city: req.body.city,
             postCode: req.body.postCode,

@@ -19,7 +19,7 @@ export default function AdDetails({
   ad,
 }: AdDetailsProp) {
   return (
-    <div className="bg-profile-sections shadow-md rounded-md p-3 mt-3 cursor-point  hover:bg-primary-color mb-4">
+    <div className="bg-profile-sections shadow-md rounded-md p-3 mt-3 cursor-point hover:bg-primary-color mb-4">
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">

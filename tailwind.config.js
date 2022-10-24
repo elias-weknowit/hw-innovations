@@ -5,6 +5,7 @@ module.exports = {
     colors: {
       "background-white-color": "#F7F7F7",
       "primary-color": "#8467AA",
+      "primary-color-hover": "#cebae8",
       "secondary-color": "#EB363D",
       "light-text": "#6F6F6F",
       white: "#fff",
