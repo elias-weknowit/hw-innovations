@@ -49,7 +49,7 @@ export default function DropDown({ user, image }: DropDownProps) {
                 aria-haspopup="true"
               >
                 <div className="block bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden">
-                  <Image alt="Profile" src={image} width="100%" height="100%" />
+                  <Image alt="Profile" src={image} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
                 </div>
                 <p className="font-mulish ml-5 z-60 pointer-events-none">{user.displayName}</p>
 

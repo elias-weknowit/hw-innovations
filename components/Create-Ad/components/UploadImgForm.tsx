@@ -3,6 +3,7 @@ import Link from "next/link";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
 import { useRef } from "react";
+import Image from "next/image";
 
 export default function UploadImgForm({ handleSubmit }) {
   const [file, setFile] = useState(null);
@@ -48,12 +49,9 @@ export default function UploadImgForm({ handleSubmit }) {
                   {file.name}
                 </label>
                 <div className="flex flex-col justify-center items-center">
-                  <img
-                    className="flex bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden 
-                    hover:opacity-60 hover:cursor-pointer"
-                    onClick={() => fileInputRef.current.click()}
-                    src={file}
-                  />
+                  <div className="flex bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden">
+                    <Image alt="Profile" src={file} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
+                  </div>
                   <label
                     style={{ color: "#8467AA" }}
                     className="font-light text-xs hover:opacity-50 hover:cursor-pointer"
