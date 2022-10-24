@@ -59,21 +59,22 @@ export default function CreateAccountForm() {
     console.log(file);
   }
 
-  const uploadProfilePicture = (file: File, userId: string) => {
+  const uploadProfilePicture = async (file: File, userId: string) => {
     const storage = getStorage();
 
     const storageRef = ref(storage, `images/profilePictures/${userId}.jpg`);
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log(snapshot)
-      getDownloadURL(snapshot.ref).then((url) => {
-        return url
-      })
-    }).catch((error) => { console.log(error) });
+    const res = await uploadBytes(storageRef, file).then((snapshot) => {
+      //Get download URL and update pictureURL paramater in user
+      getDownloadURL(storageRef).then((url) => {
+        updateProfile({ photoURL: url });
+        axios.put("/api/users", { photoURL: url });
+      });
+      ;
+    }).catch((error) => { return 500 });
   };
 
   const { createUserWithEmailAndPassword, updateProfile, deleteUser } = useAuth();
 
-  //Hej
   const onSubmit = async (formData: {
     user: string;
     password: string;
@@ -82,22 +83,21 @@ export default function CreateAccountForm() {
   }) => {
     createUserWithEmailAndPassword(formData.user, formData.password)
       .then((result) => {
-        image && axios.post("/api/upload", image)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            deleteUser();
-            setError({
-              message: "Något gick fel vid uppladdning av bild.",
-              fields: ["displayName"],
-            });
-          });
-        updateProfile({ displayName: formData.displayName }, result.user)
+        //Update display name and assign link to default profile picture (Link and access token can be found in firebase console in storage)
+        updateProfile({
+          displayName: formData.displayName,
+          photoURL: "https://firebasestorage.googleapis.com/v0/b/hw-innovations.appspot.com/o/images%2FprofilePictures%2FdefaultPicture.JPG?alt=media&token=4a44000c-f2bc-4edb-a0f3-35cf907a1fb0"
+        },
+          result.user)
           .then(() => {
             result.user.getIdToken().then(idToken => {
               axios.post("/api/session/", { idToken }).then(() => {
                 return axios.post("/api/users/", { name: formData.displayName, email: formData.user })
+                  .then(() => {
+                    if (formData.image) {
+                      uploadProfilePicture(formData.image, result.user.uid);
+                    }
+                  })
               }).catch(() => {
                 deleteUser();
                 setError({
@@ -106,7 +106,7 @@ export default function CreateAccountForm() {
                 });
               })
             })
-            router.push("/")
+            router.push("/");
           })
           .catch((error) => {
             deleteUser();
@@ -115,11 +115,6 @@ export default function CreateAccountForm() {
               fields: ["displayName"],
             });
           })
-          .finally(() => {
-            if (image) {
-              uploadProfilePicture(image, result.user.uid)
-            }
-          });
       })
       .catch((error) => {
         switch (error.code) {

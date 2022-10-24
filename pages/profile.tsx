@@ -5,6 +5,7 @@ import { useAuth } from "../components/firebase/AuthUserProvider";
 import { User } from "firebase/auth";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 import {
   ref,
   uploadBytes,
@@ -27,9 +28,7 @@ export default function ProfilePage() {
         axios.put("/api/users", { photoURL: url });
       });
       ;
-    }).catch((error) => { console.log(error) });
-    console.log(res)
-    return res
+    }).catch((error) => { return 500 });
   };
 
 
@@ -46,7 +45,6 @@ export default function ProfilePage() {
     try {
       if (formData.image) {
         const res = await uploadProfilePicture(formData.image, user.uid);
-        console.log(res)
       } else {
         updateProfile({ displayName: formData.user.displayName }, user);
       }
