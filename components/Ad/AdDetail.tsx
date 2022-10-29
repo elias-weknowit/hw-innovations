@@ -18,6 +18,7 @@ export default function AdDetail({ ad, selectedAd }: AdDetailsProp
 
   useEffect(() => {
     setIsSelected(ad.id === selectedAd?.id);
+    console.log(ad.id)
   }, [selectedAd]);
 
   return (

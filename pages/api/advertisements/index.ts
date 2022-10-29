@@ -68,15 +68,16 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     const hiringIn = Number(getQuery.hiringIn);
     
     if(getQuery.creatorId) queryConstraints.push(where('creatorId', '==', getQuery.creatorId));
-    if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));
-
-    await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
-        const snapshot: QuerySnapshot<DocumentData> = snapshotRes;
-        res.status(200).json(snapshot.docs.map(doc => doc.data()).filter(doc => doc.period.end.isAfter(moment()) && doc.period.start.isBefore(moment().add(hiringIn, 'weeks'))));
+    if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));        
+    await getDocs(query(collectionRef)).then(snapshotRes => {
+        const snapshot: QuerySnapshot<DocumentData> = snapshotRes; 
+        const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));      
+        //res.status(200).json(snapshot.docs.map(doc => doc.data()).filter(doc => doc.period.end.isAfter(moment()) && doc.period.start.isBefore(moment().add(hiringIn, 'weeks'))));
+        res.status(200).json(data);
     }).catch( err => internalError(res, err));
 }
 
-async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken, db: Firestore){
+async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     const createdAt = moment();
     const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
@@ -84,8 +85,6 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const db: Firestore = getFirestore();
-
     if(!db) internalError(res, "Firestore not initialized");
     const decodedCookie = await decodeCookie(req.cookies.session).catch (err => internalError(res, err));
     if(!decodedCookie) return res.status(401).send('Unauthorized');
@@ -99,7 +98,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             break;
         case 'POST':
-            await handlePOST(req, res, decodedCookie, db);
+            await handlePOST(req, res, decodedCookie);
             break;
         default:
             res.status(405).send(`Method ${req.method} not allowed`);
