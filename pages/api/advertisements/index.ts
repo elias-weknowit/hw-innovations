@@ -59,19 +59,22 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         queryConstraints.push(startAt(docRef));
     }
 
+    if(getQuery.type) queryConstraints.push(where('type', '==', getQuery.type));
+
     const toTimestamp = timestampConverter.momentToFirebaseTimestamp;
 
     const createdAfter = moment(getQuery.createdAfter);
-    if(createdAfter.isValid()) queryConstraints.push(where('createdAt', '>=', toTimestamp(createdAfter)));
+    //if(createdAfter.isValid()) queryConstraints.push(where('createdAt', '>=', toTimestamp(createdAfter)));
 
     const createdBefore = moment(getQuery.createdBefore);
-    if(createdBefore.isValid()) queryConstraints.push(where('createdAt', '<=', toTimestamp(createdBefore)));
+    //if(createdBefore.isValid()) queryConstraints.push(where('createdAt', '<=', toTimestamp(createdBefore)));
 
     const hiringIn = Number(getQuery.hiringIn);
     
     if(getQuery.creatorId) queryConstraints.push(where('creatorId', '==', getQuery.creatorId));
     if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));        
-    await getDocs(query(collectionRef)).then(snapshotRes => {
+    console.log(queryConstraints)
+    await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<DocumentData> = snapshotRes; 
         const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));      
         //res.status(200).json(snapshot.docs.map(doc => doc.data()).filter(doc => doc.period.end.isAfter(moment()) && doc.period.start.isBefore(moment().add(hiringIn, 'weeks'))));

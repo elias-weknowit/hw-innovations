@@ -69,16 +69,17 @@ export default function Job() {
   const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
 
   useEffect(() => {
+    setLoading(true)
     //Fetch first visible page
     //startAt and startAfter parameters can be used for paging if kept track of.
     //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
     axios.get(
-      "/api/advertisements/", { params: { type: selectedTab } })
+      `/api/advertisements/`,
+      { params: { type: selectedTab, page: page } })
       .then((res) => {
         const ads: Advertisement[] = res.data;
         setAds(ads);
-        console.log(ads)
       }).finally(() => {
         setLoading(false);
       });
