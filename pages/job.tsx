@@ -61,7 +61,7 @@ const timestampConverter = {
 }
 
 export default function Job() {
-  const [selectedTab, setSelectedTab] = useState<string>('Sök Jobb');
+  const [selectedTab, setSelectedTab] = useState<string>('work');
   const [page, setPage] = useState(1);
 
   const [loading, setLoading] = useState(true);
@@ -73,15 +73,17 @@ export default function Job() {
     //startAt and startAfter parameters can be used for paging if kept track of.
     //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
-    axios.get("/api/advertisements").then((res) => {
-      const ads: Advertisement[] = res.data;
-      setAds(ads);
-      console.log(ads)
-    }).finally(() => {
-      setLoading(false);
-    });
+    axios.get(
+      "/api/advertisements/", { params: { type: selectedTab } })
+      .then((res) => {
+        const ads: Advertisement[] = res.data;
+        setAds(ads);
+        console.log(ads)
+      }).finally(() => {
+        setLoading(false);
+      });
 
-  }, []);
+  }, [selectedTab]);
 
   function handlePaginationChange(e, value) {
     setPage(value);
@@ -102,7 +104,7 @@ export default function Job() {
           <div className='flex flex-row items-center justify-center'>
             <SelectTypeTabs
               className='w-1/1 mt-10 md:w-1/2'
-              tabs={['Sök Jobb', 'Arbetskraft']}
+              tabs={['work', 'labour']}
               selectedTab={selectedTab}
               onSelect={setSelectedTab}
             />

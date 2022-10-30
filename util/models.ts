@@ -1,6 +1,7 @@
 
 //Declare firestore type for advertisments collection
 import type { Moment } from 'moment';
+import {Timestamp as FirebaseTimestamp} from 'firebase/firestore';
 
 export type Advertisement = {
     id?: string;
@@ -10,8 +11,8 @@ export type Advertisement = {
     company: string;
     location: string;
     period: {
-        start?: Moment;
-        end?: Moment;
+        start?: Moment | FirebaseTimestamp;
+        end?: Moment | FirebaseTimestamp;
     };
     amount: number;
     collectiveAgreement: boolean;
@@ -27,8 +28,8 @@ export type Advertisement = {
         city?:string;
         postCode?:string;
     };
-    createdAt?: Moment;
-    updatedAt?: Moment;
+    createdAt?: Moment | FirebaseTimestamp;
+    updatedAt?: Moment | FirebaseTimestamp;
 }
 
 export interface User {

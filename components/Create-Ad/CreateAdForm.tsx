@@ -49,11 +49,13 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
     setInputRequirements("");
   };
 
+
+
   const onSubmitHandler = (e) => {
     console.log(e);
     e.preventDefault();
     const ad: Advertisement = {
-      type: "work",
+      type: e.target[1].value,
       title: e.target[2].value,
       company: e.target[3].value,
       location: e.target[4].value,
@@ -98,7 +100,6 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               labels={["Jobb", "Arbetskraft"]}
               onChange={(e) => {
                 setSelectedRadio(e.target.value);
-                console.log(e.target.value);
               }}
             />
             <InputForm

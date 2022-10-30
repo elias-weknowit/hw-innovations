@@ -30,10 +30,12 @@ interface GetQuery {
     location?: string;
     hiringIn?: string;
     textSearch?: string;
+    type?: string;
 };
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     const getQuery: GetQuery = req.query;
+
     const amount = Number(getQuery.amount ? getQuery.amount : 10);
     if(!amount){
         res.status(400).send('Invalid type for "amount"');
@@ -78,8 +80,15 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
-    const createdAt = moment();
-    const newAdvertisement: Advertisement = {...req.body, createdAt, updatedAt: createdAt, period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
+    console.log(req.body.period)
+    const newAdvertisement: Advertisement = {...req.body, createdAt: moment(), updatedAt: moment(), period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
+    //convert to period start and period end to firebase timestamp
+    const {createdAt, updatedAt, period } = timestampConverter.toFirestore(newAdvertisement)
+    newAdvertisement.createdAt = createdAt;
+    newAdvertisement.updatedAt = updatedAt;
+    newAdvertisement.period = period;
+    console.log(newAdvertisement)
+
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
     await addDoc(collectionRef, newAdvertisement).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }
