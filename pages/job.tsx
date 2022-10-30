@@ -61,12 +61,18 @@ const timestampConverter = {
 }
 
 export default function Job() {
-  const [selectedTab, setSelectedTab] = useState<string>('work');
+  const router = useRouter();
+  const [selectedTab, setSelectedTab] = useState<string>("");
   const [page, setPage] = useState(1);
 
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
+
+  useEffect(() => {
+    if (!router.query.type) return
+    setSelectedTab(router.query.type as string);
+  }, [router.query]);
 
   useEffect(() => {
     setLoading(true)
