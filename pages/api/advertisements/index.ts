@@ -73,7 +73,6 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     
     if(getQuery.creatorId) queryConstraints.push(where('creatorId', '==', getQuery.creatorId));
     if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));        
-    console.log(queryConstraints)
     await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<DocumentData> = snapshotRes; 
         const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));      
@@ -86,14 +85,11 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
     console.log(req.body.period)
     const newAdvertisement: Advertisement = {...req.body, createdAt: moment(), updatedAt: moment(), period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
     //convert to period start and period end to firebase timestamp
-    const {createdAt, updatedAt, period } = timestampConverter.toFirestore(newAdvertisement)
-    newAdvertisement.createdAt = createdAt;
-    newAdvertisement.updatedAt = updatedAt;
-    newAdvertisement.period = period;
-    console.log(newAdvertisement)
+    const timestamps = timestampConverter.toFirestore(newAdvertisement)
+    console.log(timestamps)
 
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
-    await addDoc(collectionRef, newAdvertisement).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
+    await addDoc(collectionRef, {...newAdvertisement, ...timestamps}).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
