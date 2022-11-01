@@ -62,12 +62,14 @@ const timestampConverter = {
 
 export default function Job() {
   const router = useRouter();
-  const [selectedTab, setSelectedTab] = useState<string>("");
+  const [selectedTab, setSelectedTab] = useState<string>("work");
   const [page, setPage] = useState(1);
 
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
+  const [filter, setFilter] = useState<QueryConstraint[]>([]);
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     if (!router.query.type) return
@@ -82,7 +84,7 @@ export default function Job() {
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
     axios.get(
       `/api/advertisements/`,
-      { params: { type: selectedTab, page: page } })
+      { params: { type: selectedTab, textSearch: search } })
       .then((res) => {
         const ads: Advertisement[] = res.data;
         setAds(ads);
@@ -90,7 +92,11 @@ export default function Job() {
         setLoading(false);
       });
 
-  }, [selectedTab]);
+  }, [selectedTab, search]);
+
+  const onSearchChange = (search: string) => {
+    setSearch(search);
+  }
 
   function handlePaginationChange(e, value) {
     setPage(value);
@@ -105,7 +111,9 @@ export default function Job() {
       <div className='px-8 sm:px-12 md:px-16 lg:px-32 mt-40 md:mt-20'>
         <div>
           <div className='flex flex-row items-center justify-center'>
-            <SearchBar placeholder='Sök efter jobb' />
+            <SearchBar
+              placeholder='Sök efter jobb'
+              onChange={onSearchChange} />
             <FilterButton />
           </div>
           <div className='flex flex-row items-center justify-center'>

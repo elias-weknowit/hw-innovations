@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getDocs, documentId, setDoc, deleteDoc, addDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot, query, where, QueryConstraint, limit, startAfter, startAt, orderBy, serverTimestamp } from 'firebase/firestore'
+import { getDocs, documentId, setDoc, deleteDoc, addDoc, doc, updateDoc, getFirestore, collection, Firestore, DocumentData, QuerySnapshot, query, where, QueryConstraint, limit, startAfter, startAt, orderBy, serverTimestamp, FirestoreError } from 'firebase/firestore'
 import { DecodedIdToken } from 'firebase-admin/auth';
 import type { Advertisement } from '../../../util/models'
 import { internalError, timestampConverter } from '../../../util/firebase/adminUtil';
@@ -33,6 +33,30 @@ interface GetQuery {
     type?: string;
 };
 
+//function for generating trigrams from textSearch, used for search queries with textSearch
+const trigrams = (text: string) => {
+    const trigrams = [];
+    for (let i = 0; i < text.length - 2; i++) {
+        trigrams.push(text.substr(i, 3));
+    }
+    return trigrams;
+}
+
+//function for generating keywords from textSearch, used for search queries with textSearch
+/*const keywords = (text: string) => {
+    let keywords = [];
+    for(let i = 0; i < text.length; i++){
+        let word = "";
+        let j = i;
+        while(j < text.length && text[j] != " " && text[j] != "," && text[j] != "." && text[j] != ""){ 
+            word += text[j];
+            j++;
+        }
+        keywords.push(word);
+    }
+    return keywords;
+}*/
+
 async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     const getQuery: GetQuery = req.query;
 
@@ -47,9 +71,20 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     queryConstraints.push(limit(amount));
     
     //Otherwise we order by createdAt
-    queryConstraints.push(orderBy('createdAt', 'desc'));
+    //queryConstraints.push(getQuery.type ? orderBy('title', 'desc') : orderBy('createdAt', 'desc'));
     //startAt and startAfter will be ID's so a fetch must be done to get the actual date
     let docRef;
+    
+    //use trigram function to generate trigrams from textSearch
+    if(getQuery.textSearch){
+        const trigramsArray = trigrams(getQuery.textSearch);
+        trigramsArray.forEach(trigram => {
+            queryConstraints.push(where('title', '>=', trigram));
+            queryConstraints.push(where('title', '<', trigram + '\uf8ff'));
+        })   
+    }
+
+
 
     if(getQuery.startAfter){
         docRef = doc(db, 'advertisements', getQuery.startAfter);
@@ -75,10 +110,12 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));        
     await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<DocumentData> = snapshotRes; 
-        const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));      
+        const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));  
         //res.status(200).json(snapshot.docs.map(doc => doc.data()).filter(doc => doc.period.end.isAfter(moment()) && doc.period.start.isBefore(moment().add(hiringIn, 'weeks'))));
         res.status(200).json(data);
-    }).catch( err => internalError(res, err));
+    }).catch( FirestoreError => {
+        console.log(FirestoreError) 
+        res.status(500).send('Internal server error');});
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
@@ -101,7 +138,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         case 'GET':
             try{
                 await handleGET(req, res, decodedCookie);
-            }catch(err){
+            }catch(FirestoreError){
+                console.log(FirestoreError)
                 internalError(res, "Error handling GET request");
             }
             break;
