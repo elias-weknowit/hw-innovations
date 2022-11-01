@@ -37,7 +37,7 @@ interface GetQuery {
 const trigrams = (text: string) => {
     const trigrams = [];
     for (let i = 0; i < text.length - 2; i++) {
-        trigrams.push(text.substr(i, 3));
+        trigrams.push(text.substring(i, 3));
     }
     return trigrams;
 }
@@ -76,12 +76,10 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     let docRef;
     
     //use trigram function to generate trigrams from textSearch
-    if(getQuery.textSearch){
+    if(getQuery.textSearch && getQuery.textSearch != ""){
         const trigramsArray = trigrams(getQuery.textSearch);
-        trigramsArray.forEach(trigram => {
-            queryConstraints.push(where('title', '>=', trigram));
-            queryConstraints.push(where('title', '<', trigram + '\uf8ff'));
-        })   
+        console.log(trigramsArray)
+        queryConstraints.push(where('trigram', 'array-contains-any', trigramsArray));
     }
 
 
@@ -126,7 +124,8 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
     console.log(timestamps)
 
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
-    await addDoc(collectionRef, {...newAdvertisement, ...timestamps}).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
+    const trigramsArray = {trigram: trigrams(newAdvertisement.title)};
+    await addDoc(collectionRef, {...newAdvertisement, ...timestamps, ...trigramsArray}).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
