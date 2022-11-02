@@ -23,12 +23,12 @@ export default function FilterView() {
       <Divider variant="middle" />
       <div className="flex flex-col mt-2">
         <p className="font-mulish font-semibold">Plats</p>
-        <input type="text" placeholder="t.ex Stockholm" className="border border-gray-300 rounded-md p-2" />
+        <input type="text" placeholder="t.ex Stockholm" className="border border-gray-300 rounded-md p-2 w-5/6 w-max-10 ml-4 my-2" />
       </div>
       <Divider variant="middle" />
       <div className="flex flex-row items-center justify-evenly mt-5">
         <button className="p-2">
-          <p className="font-mulish text-primary-color font-semibold hover:opacity-80">
+          <p className="font-mulish text-primary-color font-semibold hover:opacity-80 ">
             Återställ
           </p>
         </button>

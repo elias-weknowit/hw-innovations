@@ -86,7 +86,7 @@ export default function Job() {
     axios.get(
       `/api/advertisements/`,
       { params: { type: selectedTab, textSearch: search } })
-      .then((res) => {
+      .then(async (res) => {
         const ads: Advertisement[] = res.data;
         setAds(ads);
       }).finally(() => {

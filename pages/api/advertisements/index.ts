@@ -82,8 +82,6 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         queryConstraints.push(where('trigram', 'array-contains-any', trigramsArray));
     }
 
-
-
     if(getQuery.startAfter){
         docRef = doc(db, 'advertisements', getQuery.startAfter);
         queryConstraints.push(startAt(docRef));
@@ -106,6 +104,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     
     if(getQuery.creatorId) queryConstraints.push(where('creatorId', '==', getQuery.creatorId));
     if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));        
+    
     await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<DocumentData> = snapshotRes; 
         const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));  

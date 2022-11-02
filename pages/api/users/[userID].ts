@@ -19,8 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
-    const userId: string = typeof req.query.userId === 'string' ? req.query.userId : req.query.userId[0];
-    const docRef = doc(users, userId);
+    const userId = req.query.userID;
     const snapshot = await getDocs(query(users, where('id', '==', userId))).catch(err => res.status(500).send(err));
     if(!snapshot) return;
     if(snapshot.size === 0){

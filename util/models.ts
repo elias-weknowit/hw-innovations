@@ -19,6 +19,7 @@ export type Advertisement = {
     contractForm: string;
     typeOfWork?: string;
     description: string;
+    creatorId?: string;
     requirements: string;
     contact?: {
         name?: string;
@@ -30,6 +31,7 @@ export type Advertisement = {
     };
     createdAt?: Moment | FirebaseTimestamp;
     updatedAt?: Moment | FirebaseTimestamp;
+    userObject?: User
 }
 
 export interface User {
