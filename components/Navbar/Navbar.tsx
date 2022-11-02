@@ -48,12 +48,11 @@ export default function Navbar({
         </div>
       </div>
       <div
-        className={`md:flex md:p-1 md:flex-row w-full md:w-auto translate-all ease-in ${
-          open
-            ? "flex flex-col items-center mt-1 w-full " +
-              (transparent ? "" : "bg-primary-color")
-            : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0	"
-        }`}
+        className={`md:flex md:p-1 md:flex-row w-full md:w-auto translate-all ease-in ${open
+          ? "flex flex-col items-center mt-1 w-full " +
+          (transparent ? "" : "bg-primary-color")
+          : "flex flex-col items-center mt-1 md:opacity-100 w-full opacity-0	"
+          }`}
       >
         <Link href={"/"}>
           <p className="font-mulish md:mr-10 text-white cursor-pointer  ">
@@ -67,12 +66,11 @@ export default function Navbar({
         </Link>
       </div>
       <div
-        className={`md:flex md:flex-row md:z-auto w-full md:w-auto translate-all ease-in ${
-          open
-            ? "flex flex-col items-center w-full " +
-              (transparent ? "" : "bg-primary-color")
-            : "flex flex-col items-center md:opacity-100 w-full opacity-0	"
-        }`}
+        className={`md:flex md:flex-row md:z-auto w-full md:w-auto translate-all ease-in ${open
+          ? "flex flex-col items-center w-full " +
+          (transparent ? "" : "bg-primary-color")
+          : "flex flex-col items-center md:opacity-100 w-full opacity-0	"
+          }`}
       >
         {user ? (
           <>
@@ -82,7 +80,7 @@ export default function Navbar({
                 (hideButton ? "hidden" : "")
               }
             >
-              <div className="bg-profile-available p-1 md:p-2 rounded-md ">
+              <div className="bg-profile-available p-1 md:p-2 rounded-md hover:opacity-80 hover:cursor-pointer">
                 <button className="flex flex-row items-center">
                   <AddCircleIcon className="w-6 h-6 mr-2" />
                   <Link href={"/ad"}>Skapa annons </Link>
