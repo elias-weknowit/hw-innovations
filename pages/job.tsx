@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import SearchBar from "../components/Ad/SearchBar";
 import FilterButton from "../components/Ad/FilterButton";
@@ -68,8 +68,9 @@ export default function Job() {
   const [loading, setLoading] = useState(true);
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
-  const [filter, setFilter] = useState<QueryConstraint[]>([]);
   const [search, setSearch] = useState<string>("");
+
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     if (!router.query.type) return
@@ -103,6 +104,11 @@ export default function Job() {
     console.log(value)
   }
 
+  const handleShowFilter = () => {
+    console.log(showFilter)
+    setShowFilter(!showFilter);
+  }
+
   return (
     <>
       <Head>
@@ -110,11 +116,17 @@ export default function Job() {
       </Head>
       <div className='px-8 sm:px-12 md:px-16 lg:px-32 mt-40 md:mt-20'>
         <div>
-          <div className='flex flex-row items-center justify-center'>
-            <SearchBar
-              placeholder='Sök efter jobb'
-              onChange={onSearchChange} />
-            <FilterButton />
+          <div className="flex flex-col">
+            <div className='flex flex-row items-center justify-center'>
+              <SearchBar
+                placeholder='Sök efter jobb'
+                onChange={onSearchChange} />
+              <FilterButton onClickHandler={handleShowFilter} />
+            </div>
+            <div className="flex mt-20 items-center justify-center w-full">
+              {showFilter && <FilterView />}
+            </div>
+
           </div>
           <div className='flex flex-row items-center justify-center'>
             <SelectTypeTabs

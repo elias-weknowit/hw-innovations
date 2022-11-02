@@ -12,22 +12,18 @@ export default function FilterView() {
           name="adDate"
           labels={["Nyligen", "Förra vecka", "Förra månaden", "När som helst"]}
           title="Uppläggningsdatum"
-          onChange={(label) => {}}
+          onChange={(label) => { }}
         />
       </div>
       <Divider variant="middle" />
       <div className="mt-2 mb-4">
         <p className="font-mulish font-semibold">Jobba om</p>
-        <Date title={["Nu", "1v", "2v", "3v"]} onChange={(title) => {}} />
+        <Date title={["Nu", "1v", "2v", "3v"]} onChange={(title) => { }} />
       </div>
       <Divider variant="middle" />
       <div className="flex flex-col mt-2">
-        <CheckBox
-          name="location"
-          title="Plats"
-          labels={["Alla", "Umeå", "Göteborg", "Borås"]}
-          onChange={(label) => {}}
-        />
+        <p className="font-mulish font-semibold">Plats</p>
+        <input type="text" placeholder="t.ex Stockholm" className="border border-gray-300 rounded-md p-2" />
       </div>
       <Divider variant="middle" />
       <div className="flex flex-row items-center justify-evenly mt-5">
