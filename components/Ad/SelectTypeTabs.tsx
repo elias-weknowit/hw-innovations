@@ -12,7 +12,7 @@ export default function SelectTypeTabs({ tabs, selectedTab, onSelect, className 
       {tabs.map((tab, idx) => (
         <div
           key={tab}
-          className={`flex  flex-grow flex-shrink-0 basis-0 flex-row justify-center items-center cursor-pointer ${tab === selectedTab
+          className={`flex flex-grow flex-shrink-0 basis-0 px-20 flex-row justify-center items-center cursor-pointer ${tab === selectedTab
             ? "bg-primary-color text-white shadow-md"
             : "bg-white text-primary-color"
             }
