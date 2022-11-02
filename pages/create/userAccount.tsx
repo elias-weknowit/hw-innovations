@@ -55,7 +55,7 @@ export default function CreateAccountView() {
               </p>
             </div>
             <RadioButton
-              alt_one="Privarperson"
+              alt_one="Privatperson"
               value_one="private"
               alt_two="Företag"
               value_two="company"

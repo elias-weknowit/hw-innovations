@@ -28,12 +28,12 @@ export default function FilterView() {
       <Divider variant="middle" />
       <div className="flex flex-row items-center justify-evenly mt-5">
         <button className="p-2">
-          <p className="font-mulish text-primary-color font-semibold">
+          <p className="font-mulish text-primary-color font-semibold hover:opacity-80">
             Återställ
           </p>
         </button>
-        <button className="bg-secondary-color p-2 rounded-lg lg:mx-4">
-          <p className="font-mulish text-white font-semibold mx-2">
+        <button className="bg-secondary-color hover:bg-secondary-color-hover text-white p-2 rounded-lg lg:mx-4">
+          <p className="font-mulish font-semibold mx-2">
             Visa resultat
           </p>
         </button>
