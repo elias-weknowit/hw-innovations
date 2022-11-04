@@ -50,7 +50,6 @@ export default function CreateAccountForm() {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    console.log(password);
   };
 
   /* handleFileChange must be passed to UploadImgForm Component */
