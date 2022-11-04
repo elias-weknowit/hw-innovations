@@ -34,13 +34,13 @@ interface GetQuery {
 };
 
 //function for generating trigrams from textSearch, used for search queries with textSearch
-const trigrams = (text: string) => {
-    const trigrams = [];
-    for (let i = 0; i < text.length - 2; i++) {
-        trigrams.push(text.substring(i, 3));
-    }
-    return trigrams;
-}
+const trigrams = (txt: string) => {
+    const map = [];
+    const s1 = (txt || '').toLowerCase();
+    const n = 3;
+    for (let k = 0; k <= s1.length - n; k++) map.push(s1.substring(k, k + n))
+    return map;
+  };
 
 //function for generating keywords from textSearch, used for search queries with textSearch
 /*const keywords = (text: string) => {

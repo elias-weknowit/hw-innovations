@@ -99,7 +99,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
               name="type"
               labels={["Jobb", "Arbetskraft"]}
               onChange={(e) => {
-                setSelectedRadio(e.target.value);
+                setSelectedRadio(e.target.value == "Arbetskraft" ? "labour" : "work");
               }}
             />
             <InputForm
