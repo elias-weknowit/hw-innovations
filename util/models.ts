@@ -5,7 +5,7 @@ import {Timestamp as FirebaseTimestamp} from 'firebase/firestore';
 
 export type Advertisement = {
     id?: string;
-    type: 'work' | 'labour';
+    type: string;
     //creatorId: string;
     title: string;
     company: string;

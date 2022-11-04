@@ -27,7 +27,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
   const [inputCity, setInputCity] = useState<string>("");
   const [inputPostcode, setInputPostCode] = useState<string>("");
 
-  const [selectedRadio, setSelectedRadio] = useState<string>();
+  const [selectedRadio, setSelectedRadio] = useState<string>("labour");
   const [selectedRadio2, setSelectedRadio2] = useState<string>();
 
   //Remove charactar input when submiting
@@ -55,7 +55,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
     console.log(e);
     e.preventDefault();
     const ad: Advertisement = {
-      type: e.target[1].value,
+      type: selectedRadio,
       title: e.target[2].value,
       company: e.target[3].value,
       location: e.target[4].value,

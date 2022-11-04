@@ -120,7 +120,7 @@ export default function Job() {
             <div className='flex flex-row items-center justify-center'>
               <SearchBar
                 placeholder='Sök efter jobb'
-                onChange={onSearchChange} />
+                onSubmit={setSearch} />
               <FilterButton onClickHandler={handleShowFilter} />
             </div>
             <div className="flex mt-20 items-center justify-center w-full">
@@ -156,7 +156,7 @@ export default function Job() {
                   />
                 </div>
                 :
-                !ads.length ? <p>Inga aktiva annonser för tillfället.</p> :
+                !ads.length ? <p className="text-xl font-semibold text-primary-color">Inga annonser hittades, kika tillbaka senare!</p> :
                   ads.map((ad, index) => {
                     const handleClick = () => { setSelectedAd(ad) };
                     return (
