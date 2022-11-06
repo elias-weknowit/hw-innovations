@@ -9,9 +9,34 @@ import Experience from "../components/Profile/ExperienceSection/ExperienceBox";
 import Equipment from "../components/Profile/EquipmentSection/EquipmentBox";
 import { useAuth } from "../components/firebase/AuthUserProvider";
 import logo from "../public/Logo.svg";
+import { User } from "firebase/auth";
+import axios from "axios";
+import { UserDetail } from "../util/models";
 
 export default function UserProfile() {
   const { user } = useAuth();
+
+  const [loading, setLoading] = React.useState(true);
+
+  const [userData, setUserData] = React.useState<UserDetail | null>(null);
+
+  React.useEffect(() => {
+    if (userData) {
+      setUserData(userData);
+      setLoading(false);
+    }
+  }, [userData]);
+
+  //get user from id
+  React.useEffect(() => {
+    console.log(user)
+    axios.get(`api/users/${user?.uid}`).then((res) => {
+      console.log(res.data)
+      setUserData(res.data);
+    });
+  }, []);
+
+
   return (
     <div className="px-8 sm:px-12 md:px-16 lg:px-32">
       <Head>
@@ -24,9 +49,9 @@ export default function UserProfile() {
         <div className="flex flex-row w-full rounded-2xl mb-10 h-64 shadow-lg mt-32 bg-primary-color">
           <div className="w-1/3 md:w-1/2 flex justify-start md:m-3 p-2">
             <UserPresentation
-              username="Emil Emilsson"
+              username={user?.displayName}
               image={user?.photoURL ? user.photoURL : logo}
-              userPosition="Umeå, Sverige"
+              userPosition={loading ? "Laddar..." : "Laddar..."}
             />
           </div>
 

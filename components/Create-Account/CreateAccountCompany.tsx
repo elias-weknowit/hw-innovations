@@ -112,6 +112,12 @@ export default function CreateAccountForm() {
     password: string;
     displayName: string;
     image: File | null;
+    orgNumber: string;
+    companyName: string;
+    address: string;
+    postalCode: string;
+    city: string;
+    phone: string;
   }) => {
     createUserWithEmailAndPassword(formData.user, formData.password)
       .then((result) => {
@@ -266,7 +272,18 @@ export default function CreateAccountForm() {
               handleSubmit={handleFileChange} />
             <LoginButton
               onClick={() =>
-                onSubmit({ user: email, password, displayName: userName, image: image })
+                onSubmit({
+                  user: email,
+                  password: password,
+                  displayName: userName,
+                  image: image,
+                  orgNumber: orgNumber,
+                  companyName: companyName,
+                  address: address,
+                  postalCode: postalCode,
+                  city: city,
+                  phone: phone,
+                })
               }
               title="Skapa" />
           </div>

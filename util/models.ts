@@ -51,3 +51,16 @@ export interface Company extends User {
     city: string;
     postCode: string;
 }
+
+export interface UserDetail extends User {
+    experience: {
+        title: string;
+        company: string;
+        startDate: string;
+        endDate: string;
+    }[]
+
+    gearAndTools: string[]
+    about: string
+    skills: string[]
+}

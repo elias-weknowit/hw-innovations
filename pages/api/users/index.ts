@@ -41,6 +41,11 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         if(req.body.city) user.city = req.body.city;
         if(req.body.postCode) user.postCode = req.body.postCode;
     }
+    if(req.body.experience) user.experience = req.body.experience;
+    if(req.body.skills) user.skills = req.body.skills;
+    if(req.body.gearAndTools) user.gearAndTools = req.body.gearAndTools;
+    if(req.body.about) user.about = req.body.about;
+
     user.updatedAt = new Date();
     const ref = doc(users, snapshot.docs[0].id);
     await updateDoc(ref, user)
