@@ -27,7 +27,7 @@ export default function RadioButton({
               value={label}
               defaultChecked={index === 1}
               name={name}
-              onChange={onChange}
+              onChange={(e) => { onChange(e.target.value) }}
             />
             <label className="ml-4 text-md font-mulish text-primary-color">
               {label}

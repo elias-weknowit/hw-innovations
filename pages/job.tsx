@@ -3,7 +3,7 @@ import Head from "next/head";
 import SearchBar from "../components/Ad/SearchBar";
 import FilterButton from "../components/Ad/FilterButton";
 import AdDetail from "../components/Ad/AdDetail";
-import FilterView from "../components/Ad/FilterView";
+import FilterView, { FilterValues } from "../components/Ad/FilterView";
 import AdView from "../components/Create-Ad/AdView";
 import ToggleButton from "../components/Ad/ToggleButton";
 import SelectTypeTabs from "../components/Ad/SelectTypeTabs";
@@ -69,6 +69,8 @@ export default function Job() {
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
   const [search, setSearch] = useState<string>("");
+  const [filterValues, setFilterValues] = useState<FilterValues | null>(null);
+
 
   const [showFilter, setShowFilter] = useState(false);
 
@@ -85,7 +87,7 @@ export default function Job() {
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
     axios.get(
       `/api/advertisements/`,
-      { params: { type: selectedTab, textSearch: search } })
+      { params: { type: selectedTab, textSearch: search, filterValues: filterValues } })
       .then(async (res) => {
         const ads: Advertisement[] = res.data;
         setAds(ads);
@@ -93,7 +95,7 @@ export default function Job() {
         setLoading(false);
       });
 
-  }, [selectedTab, search]);
+  }, [selectedTab, search, filterValues]);
 
   const onSearchChange = (search: string) => {
     setSearch(search);
@@ -124,7 +126,7 @@ export default function Job() {
               <FilterButton onClickHandler={handleShowFilter} />
             </div>
             <div className="flex mt-20 items-center justify-center w-full">
-              {showFilter && <FilterView />}
+              {showFilter && <FilterView onSubmit={setFilterValues} />}
             </div>
 
           </div>
@@ -144,7 +146,7 @@ export default function Job() {
         </div>
         <div className='md:flex mb-5'>
           <div className='hidden md:block md:w-1/4'>
-            <FilterView />
+            <FilterView onSubmit={setFilterValues} />
           </div>
           <div className='md:w-1/3 p-1'>
             <div>
