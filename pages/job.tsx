@@ -26,6 +26,7 @@ type FirestoreAdvertisement = Omit<Advertisement, 'createdAt' | 'updatedAt' | 'p
   }
 }
 
+
 const timestampConverter = {
   toFirestore: (advertisement: Advertisement) => {
     const { createdAt, updatedAt, period, ...rest } = advertisement;

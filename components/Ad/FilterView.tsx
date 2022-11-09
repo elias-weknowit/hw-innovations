@@ -90,7 +90,7 @@ export default function FilterView({ onSubmit }: { onSubmit: (values: FilterValu
         </button>
         <button
           className="bg-secondary-color hover:bg-secondary-color-hover text-white p-2 rounded-lg lg:mx-4"
-          onClick={(filterValues) => onSubmit}>
+          onClick={() => onSubmit(filterValues)}>
           <p className="font-mulish font-semibold mx-2">
             Visa resultat
           </p>

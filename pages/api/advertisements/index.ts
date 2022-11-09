@@ -6,6 +6,7 @@ import type { Advertisement } from '../../../util/models'
 import { internalError, timestampConverter } from '../../../util/firebase/adminUtil';
 import moment from 'moment';
 import { decodeCookie } from '../../../util/firebase/adminUtil';
+import { FilterValues } from '../../../components/Ad/FilterView';
 
 const db: Firestore = getFirestore();
 
@@ -31,6 +32,7 @@ interface GetQuery {
     hiringIn?: string;
     textSearch?: string;
     type?: string;
+    filterValues?: FilterValues;
 };
 
 //function for generating trigrams from textSearch, used for search queries with textSearch
@@ -42,20 +44,6 @@ const trigrams = (txt: string) => {
     return map;
   };
 
-//function for generating keywords from textSearch, used for search queries with textSearch
-/*const keywords = (text: string) => {
-    let keywords = [];
-    for(let i = 0; i < text.length; i++){
-        let word = "";
-        let j = i;
-        while(j < text.length && text[j] != " " && text[j] != "," && text[j] != "." && text[j] != ""){ 
-            word += text[j];
-            j++;
-        }
-        keywords.push(word);
-    }
-    return keywords;
-}*/
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     const getQuery: GetQuery = req.query;
@@ -65,6 +53,10 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         res.status(400).send('Invalid type for "amount"');
         return;
     }
+
+    const filterValues: FilterValues = getQuery.filterValues;
+
+    filterValues ? console.log(filterValues) : console.log('no filter values');
 
     const collectionRef = collection(db, 'advertisements');
     const queryConstraints: QueryConstraint[]  = [];
