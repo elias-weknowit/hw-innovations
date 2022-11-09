@@ -7,6 +7,7 @@ import { internalError, timestampConverter } from '../../../util/firebase/adminU
 import moment from 'moment';
 import { decodeCookie } from '../../../util/firebase/adminUtil';
 import { FilterValues } from '../../../components/Ad/FilterView';
+import { Timestamp } from 'firebase/firestore';
 
 const db: Firestore = getFirestore();
 
@@ -44,7 +45,6 @@ const trigrams = (txt: string) => {
     return map;
   };
 
-
 async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     const getQuery: GetQuery = req.query;
 
@@ -56,7 +56,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 
     const filterValues: FilterValues = getQuery.filterValues;
 
-    filterValues ? console.log(filterValues) : console.log('no filter values');
+    filterValues ? console.log(filterValues) : console.log('no filter values'); 
 
     const collectionRef = collection(db, 'advertisements');
     const queryConstraints: QueryConstraint[]  = [];
@@ -72,6 +72,22 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         const trigramsArray = trigrams(getQuery.textSearch);
         console.log(trigramsArray)
         queryConstraints.push(where('trigram', 'array-contains-any', trigramsArray));
+    }
+
+    if(getQuery.filterValues.location && getQuery.filterValues.location != ""){
+        queryConstraints.push(where('location', '==', getQuery.filterValues.location));
+    }
+
+    if(getQuery.filterValues.startDate){
+        queryConstraints.push(where('start', '>=', getQuery.filterValues.startDate));
+    }
+
+    if(getQuery.filterValues.uploadDate){
+        queryConstraints.push(where('createdAt', '>=', getQuery.filterValues.uploadDate));
+    }
+
+    if(getQuery.filterValues.location) {
+        queryConstraints.push(where('location', '==', getQuery.filterValues.location));
     }
 
     if(getQuery.startAfter){
@@ -109,10 +125,12 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
     console.log(req.body.period)
-    const newAdvertisement: Advertisement = {...req.body, createdAt: moment(), updatedAt: moment(), period: {start: moment(req.body.period.start), end: moment(req.body.period?.end)}};
+    const newAdvertisement: Advertisement = {...req.body, createdAt: moment(), updatedAt: moment(), start: Timestamp.fromDate(moment(req.body.period.start).toDate()), end: Timestamp.fromDate(moment(req.body.period?.end).toDate())};
     //convert to period start and period end to firebase timestamp
     const timestamps = timestampConverter.toFirestore(newAdvertisement)
     console.log(timestamps)
+
+    console.log(newAdvertisement)
 
     const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
     const trigramsArray = {trigram: trigrams(newAdvertisement.title)};

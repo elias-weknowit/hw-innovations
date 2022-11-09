@@ -137,6 +137,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
                 value={inputPeriodStart}
                 onChange={(e) => {
                   setInputPeriodStart(e.target.value);
+                  console.log(e.target.value);
                 }}
               />
               <InputForm
@@ -146,6 +147,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
                 value={inputPeriodEnd}
                 onChange={(e) => {
                   setInputPeriodEnd(e.target.value);
+                  console.log(e.target.value)
                 }}
               />
             </div>

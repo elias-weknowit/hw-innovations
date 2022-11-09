@@ -43,6 +43,8 @@ export const timestampConverter = {
             if(newObj.period.end){
                 newObj.period.end = FirebaseTimestamp.fromDate(newObj.period.end.toDate());
             }
+        }else{
+            console.log('no period');
         }
         return newObj;
     },
