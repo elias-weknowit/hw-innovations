@@ -74,21 +74,23 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         queryConstraints.push(where('trigram', 'array-contains-any', trigramsArray));
     }
 
-    if(getQuery.filterValues.location && getQuery.filterValues.location != ""){
-        queryConstraints.push(where('location', '==', getQuery.filterValues.location));
-    }
-
-    if(getQuery.filterValues.startDate){
-        queryConstraints.push(where('start', '>=', getQuery.filterValues.startDate));
-    }
-
-    if(getQuery.filterValues.uploadDate){
-        queryConstraints.push(where('createdAt', '>=', getQuery.filterValues.uploadDate));
-    }  
-
-    if(getQuery.filterValues.location) {
-        queryConstraints.push(where('location', '==', getQuery.filterValues.location));
-    }
+    if(getQuery.filterValues){
+        if(getQuery.filterValues.location && getQuery.filterValues.location != ""){
+            queryConstraints.push(where('location', '==', getQuery.filterValues.location));
+        }
+    
+        if(getQuery.filterValues.startDate){
+            queryConstraints.push(where('start', '>=', getQuery.filterValues.startDate));
+        }
+    
+        if(getQuery.filterValues.uploadDate){
+            queryConstraints.push(where('createdAt', '>=', getQuery.filterValues.uploadDate));
+        }  
+    
+        if(getQuery.filterValues.location) {
+            queryConstraints.push(where('location', '==', getQuery.filterValues.location));
+        }
+    }   
 
     if(getQuery.startAfter){
         docRef = doc(db, 'advertisements', getQuery.startAfter);

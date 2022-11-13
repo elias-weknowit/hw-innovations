@@ -23,13 +23,14 @@ export default function EditAd({
   const [adData, setAdData] = useState({ ...ad });
   const [image, setImage] = useState(null);
 
+  const user = useAuth();
+
   useEffect(() => console.log(adData), [adData]);
 
-  /** 
   const handlingDelete = () => {
     console.log(ad.id);
     if (user) {
-      let query = `/api/advertisements/${ad.id}`;
+      let query = `/api/advertisements/${ad.id}/`;
       axios
         .delete(query)
         .then((res) => {
@@ -39,7 +40,7 @@ export default function EditAd({
           console.log(e);
         });
     }
-  };*/
+  };
 
   const handleFileChange = (file: File) => {
     setImage({ data: file });
@@ -233,7 +234,7 @@ export default function EditAd({
             <UploadImgForm handleSubmit={handleFileChange} />
             <div className="flex flex-row items-center justify-between mt-14">
               <div className="">
-                <button className="flex items-center" onClick={() => onDelete}>
+                <button className="flex items-center" onClick={handlingDelete}>
                   <DeleteIcon
                     className="h-5 w-5"
                     style={{ color: "#EB363D" }}

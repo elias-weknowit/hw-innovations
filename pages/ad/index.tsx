@@ -32,32 +32,10 @@ export default function AdPage() {
     );
   }, []);
 
-  //function that generates the ads in the ad page
-  const generateAds = () => {
-    return ads.map((ad, index) => {
-      return (
-        <AdDetails
-          key={index}
-          image={logo}
-          onEdit={() => {
-            setSelectionIndex(index);
-            setIsEditing(true);
-          }}
-          onClick={() => {
-            setSelectionIndex(index);
-            setIsCreating(false);
-          }}
-          ad={ad}
-        />
-      );
-    });
-  };
-
-
   useEffect(() => {
     //Fetch first visible page
     if (user) {
-      let query = `/api/advertisements/?creatorId=${user.uid}&amount=15/`
+      let query = `/api/advertisements/?creatorId=${user.uid}`
       //startAt and startAfter parameters can be used for paging if kept track of.
       //When the forwards arrow is pressed the last id fetched can be used with startAfter to fetch the next page
       //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page

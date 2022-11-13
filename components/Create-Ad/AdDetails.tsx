@@ -23,8 +23,8 @@ export default function AdDetails({
       {/**Company img and edit button */}
 
       <div className="flex flex-row justify-between items-center ">
-        <div className="items-center">
-          <Image alt={"Logo"} src={image} width="50%" height="50%" />
+        <div className='block bg-black bg-opacity-40 rounded-full w-16 h-16 items-center justify-center text-white overflow-hidden'>
+          <Image alt={"Logo"} src={image} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
         </div>
         <div className="p-1">
           <IconButton onClick={onEdit}>
@@ -78,7 +78,10 @@ export default function AdDetails({
       {/**Time of post */}
       <div className="flex">
         <p className="font-mulish text-black text-opacity-70 text-sm">
-          {moment(ad.updatedAt).fromNow()}
+          {
+            //@ts-ignore
+            moment.unix(ad.createdAt.seconds).fromNow()
+          }
         </p>
       </div>
     </div>
