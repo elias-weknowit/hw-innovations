@@ -54,6 +54,7 @@ export default function CreateAdForm({ onSubmit }: CreateAdFormProps) {
   const onSubmitHandler = (e) => {
     console.log(e);
     e.preventDefault();
+
     const ad: Advertisement = {
       type: selectedRadio,
       title: e.target[2].value,

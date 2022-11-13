@@ -54,7 +54,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         return;
     }
 
-    const filterValues: FilterValues = getQuery.filterValues;
+    const filterValues: FilterValues = getQuery.filterValues; 
 
     filterValues ? console.log(filterValues) : console.log('no filter values'); 
 
@@ -84,7 +84,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 
     if(getQuery.filterValues.uploadDate){
         queryConstraints.push(where('createdAt', '>=', getQuery.filterValues.uploadDate));
-    }
+    }  
 
     if(getQuery.filterValues.location) {
         queryConstraints.push(where('location', '==', getQuery.filterValues.location));
@@ -132,7 +132,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
 
     console.log(newAdvertisement)
 
-    const collectionRef = collection(db, 'advertisements').withConverter(timestampConverter);
+    const collectionRef = collection(db, 'advertisements')
     const trigramsArray = {trigram: trigrams(newAdvertisement.title)};
     await addDoc(collectionRef, {...newAdvertisement, ...timestamps, ...trigramsArray}).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 
 }

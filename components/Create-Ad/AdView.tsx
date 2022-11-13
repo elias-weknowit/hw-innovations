@@ -1,30 +1,57 @@
 import { Divider } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
-import { Advertisement } from "../../util/models";
+import React, { useEffect, useState } from "react";
+import { Advertisement, User } from "../../util/models";
+import Image from "next/image";
+import axios from "axios";
+import loadingPlaceholderImage from '../../public/gray.jpeg';
+import { Timestamp } from "firebase/firestore";
 
 interface AdViewProps {
   ad: Advertisement;
 }
 
+
+
 export default function AdView({ ad }: AdViewProps) {
+
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [user, setUser] = useState<User>(null);
+  console.log(ad)
+  useEffect(() => {
+    if (!ad.creatorId) return
+    axios.get(`/api/users/${ad.creatorId}`).then(res => {
+      setLoadingUser(false);
+      setUser(res.data);
+      return;
+    })
+
+    setLoadingUser(false);
+  }, []);
+
+  //@ts-ignore
+
   return (
     <div className="flex flex-col bg-profile-sections md:w-full md:ml-2 lg:ml-2 shadow-md rounded-md mt-3 mb-10">
       {/*Ad presentation | bild och cover */}
       <div className="flex flex-col h-24 md:h-36 bg-gradient-to-r from-primary-color to-footer-pink rounded-t-md">
         <div className="flex items-center justify-center ml-8 rounded-full mt-4 md:mt-10 bg-white h-16 w-16 md:h-20 md:w-20">
-          <div className="items-center font-semibold justify-center">Bild</div>
+          <div className="block bg-black bg-opacity-40 rounded-full w-18 h-18 items-center justify-center text-white overflow-hidden">
+            <Image alt={'Logo'} src={(loadingUser || user == null) ? loadingPlaceholderImage : user.photoURL} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
+          </div>
         </div>
       </div>
       <div className="p-4">
         {/*Title, company, timesence */}
         <div className="flex flex-col mb-8">
-          <p className="font-mulish font-semibold text-xl mb-3">{ad.title}</p>
+          <p className="font-mulish font-semibold text-2xl mb-3 text-center">{ad.title}</p>
           <div className="flex flex-row items-center justify-evenly">
             <p className="font-mulish sm:text-md md:text-xl">{ad.company}</p>
             <p className="font-mulish font-bold ">.</p>
             <p className="font-mulish text-md xl:text-lg ">
-              {moment(ad.updatedAt).fromNow()}
+              {
+                //@ts-ignore
+                moment.unix(ad.createdAt.seconds).fromNow()}
             </p>
           </div>
         </div>
@@ -42,10 +69,10 @@ export default function AdView({ ad }: AdViewProps) {
             </p>
             <div className="flex justify-evenly">
               <p className="font-mulish text-md">
-                Från {/*moment(ad.period.start).format("YYYY-MM-DD")*/}
+                Från {moment(ad.period.start).format("YYYY-MM-DD")}
               </p>
               <p className="font-mulish text-md">
-                Till {/*moment(ad.period.end).format("YYYY-MM-DD")}*/}
+                Till {moment(ad.period.end).format("YYYY-MM-DD")}
               </p>
             </div>
           </div>

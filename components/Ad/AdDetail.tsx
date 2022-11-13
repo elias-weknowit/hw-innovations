@@ -82,7 +82,10 @@ export default function AdDetail({ ad, selectedAd }: AdDetailsProp
       {/**Time of post */}
       <div className='flex'>
         <p className='font-mulish text-black text-opacity-70 text-sm'>
-
+          {
+            //@ts-ignore
+            moment.unix(ad.createdAt.seconds).fromNow()
+          }
         </p>
       </div>
     </div>

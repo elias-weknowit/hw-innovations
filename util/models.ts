@@ -11,8 +11,8 @@ export type Advertisement = {
     company: string;
     location: string;
     period: {
-        start?: Moment | FirebaseTimestamp;
-        end?: Moment | FirebaseTimestamp;
+        start?: Moment | FirebaseTimestamp | {seconds: number, nanoseconds: number};
+        end?: Moment | FirebaseTimestamp | {seconds: number, nanoseconds: number};
     };
     amount: number;
     collectiveAgreement: boolean;
@@ -29,8 +29,8 @@ export type Advertisement = {
         city?:string;
         postCode?:string;
     };
-    createdAt?: Moment | FirebaseTimestamp;
-    updatedAt?: Moment | FirebaseTimestamp;
+    createdAt?: Moment | FirebaseTimestamp | {seconds: number, nanoseconds: number};
+    updatedAt?: Moment | FirebaseTimestamp | {seconds: number, nanoseconds: number};
     userObject?: User
 }
 
