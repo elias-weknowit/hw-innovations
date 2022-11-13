@@ -9,6 +9,7 @@ import { useState } from "react";
 
 import { useAuth } from "../firebase/AuthUserProvider";
 import axios from "axios";
+import moment from "moment";
 
 export default function EditAd({
   ad,
@@ -42,6 +43,16 @@ export default function EditAd({
     }
   };
 
+  const handleUpdate = () => {
+    if (user) {
+      let query = `/api/advertisements/${ad.id}/`;
+      axios.put(query, adData).then((res) => {
+        console.log("Updated");
+      });
+    }
+  };
+
+
   const handleFileChange = (file: File) => {
     setImage({ data: file });
     // console.log(file);
@@ -63,7 +74,10 @@ export default function EditAd({
               name="workType"
               labels={["Jobb", "Arbetskraft"]}
               title="Erbjuder"
-              onChange={(label) => { }}
+              onChange={(e) => {
+                setAdData({ ...adData, type: e.target.value == "Arbetskraft" ? "labour" : "work" });
+              }
+              }
             />
             <InputForm
               labelName="Rubrik"
@@ -95,28 +109,26 @@ export default function EditAd({
                 labelName="Period - Start"
                 sort
                 type="date"
-                value={""}
-                //value={adData.period.start.format("YYY-MM-DD")}
+                value={moment(adData.period.start).format("YYYY-MM-DD")}
                 onChange={
-                  () => { } /*(e) =>
-                setAdData({
-                  ...adData,
-                  period: { ...adData.period, start: moment(e.target.value) },
-                })*/
+                  (e) =>
+                    setAdData({
+                      ...adData,
+                      period: { ...adData.period, start: moment(e.target.value) },
+                    })
                 }
               />
               <InputForm
                 labelName="Period - Slut"
                 sort
                 type="date"
-                value={""}
-                //value={adData.period.start.format("YYY-MM-DD")}
+                value={moment(adData.period.end).format("YYYY-MM-DD")}
                 onChange={
-                  () => { } /*(e) =>
-                setAdData({
-                  ...adData,
-                  period: { ...adData.period, start: moment(e.target.value) },
-                })*/
+                  (e) =>
+                    setAdData({
+                      ...adData,
+                      period: { ...adData.period, end: moment(e.target.value) },
+                    })
                 }
               />
             </div>
@@ -231,7 +243,6 @@ export default function EditAd({
                 })
               }
             />
-            <UploadImgForm handleSubmit={handleFileChange} />
             <div className="flex flex-row items-center justify-between mt-14">
               <div className="">
                 <button className="flex items-center" onClick={handlingDelete}>
@@ -245,10 +256,9 @@ export default function EditAd({
                 </button>
               </div>
               <div>
-                <button className="bg-primary-color p-1 rounded-md">
+                <button className="bg-primary-color p-1 rounded-md" onClick={handleUpdate}>
                   <div
                     className="font-mulish font-semibold text-white mx-10"
-                    onClick={() => onSubmit(adData)}
                   >
                     Spara
                   </div>

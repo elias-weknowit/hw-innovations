@@ -6,6 +6,7 @@ import { timestampConverter } from '../../../util/firebase/adminUtil';
 import moment from 'moment';
 import { decodeCookie, internalError } from '../../../util/firebase/adminUtil';
 import { Advertisement } from '../../../util/models';
+import { Timestamp } from 'firebase/firestore';
 
 const db: Firestore = getFirestore();
 
@@ -35,12 +36,9 @@ async function handlePUT(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     const adId: string = typeof req.query.adId === 'string' ? req.query.adId : req.query.adId[0];
 
     //Delete fields which cannot be updated
-    delete updateObject.updatedAt;
-    delete updateObject.createdAt;
-    delete updateObject.id;
 
-    updateObject.updatedAt = moment();
-    
+    updateObject.updatedAt = Timestamp.fromDate(moment().toDate());
+    console.log(updateObject);
     
     //Check if user is creator of advertisement
     //Really should be done in firestore rules but I couldn't figure out how to send the cookie to the rules as request.auth
