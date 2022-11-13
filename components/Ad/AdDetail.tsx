@@ -68,7 +68,7 @@ export default function AdDetail({ ad, selectedAd }: AdDetailsProp
           <p className='font-mulish mx-3 text-sm'>{ad.amount} st</p>
         </div>
         <div className='bg-profile-available rounded-lg p-1 mr-2'>
-          <p className='font-mulish mx-1 text-sm'>12 aug -</p>
+          <p className='font-mulish mx-1 text-sm'>{`${moment(ad.period.start).format('Do MMM')} - ${moment(ad.period.end).format('Do MMM')}`}</p>
         </div>
 
         {/** 
