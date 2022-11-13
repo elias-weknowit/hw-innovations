@@ -40,7 +40,7 @@ export default function AdDetail({ ad, selectedAd }: AdDetailsProp
       {/**Company img and edit button */}
 
       <div className='flex flex-row justify-between items-center '>
-        <div className='block bg-black bg-opacity-40 rounded-full w-12 h-12 items-center justify-center text-white overflow-hidden'>
+        <div className='block bg-black bg-opacity-40 rounded-full w-16 h-16 items-center justify-center text-white overflow-hidden'>
           <Image alt={'Logo'} src={(loadingUser || user == null) ? loadingPlaceholderImage : user.photoURL} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
         </div>
       </div>

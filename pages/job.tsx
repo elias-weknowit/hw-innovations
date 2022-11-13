@@ -26,8 +26,8 @@ type FirestoreAdvertisement = Omit<Advertisement, 'createdAt' | 'updatedAt' | 'p
   }
 }
 
-
-const timestampConverter = {
+//Function below is probably not in use, but might be useful later
+/*const timestampConverter = {
   toFirestore: (advertisement: Advertisement) => {
     const { createdAt, updatedAt, period, ...rest } = advertisement;
     const newObj: FirestoreAdvertisement = { ...rest };
@@ -53,13 +53,13 @@ const timestampConverter = {
       createdAt: moment(snapshot.data().createdAt.toDate()),
       updatedAt: moment(snapshot.data().updatedAt.toDate()),
       period: {
-        start: moment(snapshot.data().period.start.toDate()),
+        start: moment(snapshot. data().period.start.toDate()),
         end: snapshot.data().period.end ? moment(snapshot.data().period.end?.toDate()) : undefined,
       },
     } as Advertisement;
   },
   momentToFirebaseTimestamp: (moment: Moment) => FirebaseTimestamp.fromDate(moment.toDate()),
-}
+}*/
 
 export default function Job() {
   const router = useRouter();
