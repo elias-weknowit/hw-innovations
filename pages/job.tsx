@@ -70,8 +70,7 @@ export default function Job() {
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [selectedAd, setSelectedAd] = useState<Advertisement | null>(null);
   const [search, setSearch] = useState<string>("");
-  const [filterValues, setFilterValues] = useState<FilterValues | null>(null);
-
+  const [filterValues, setFilterValues] = useState<FilterValues>({ startDate: "", uploadDate: "", location: "" });
 
   const [showFilter, setShowFilter] = useState(false);
 
@@ -88,7 +87,9 @@ export default function Job() {
     //and the first id fetched can be stored then used when going back a page with startAt to fetch the previous page
     axios.get(
       `/api/advertisements/`,
-      { params: { type: selectedTab, textSearch: search, filterValues: filterValues } })
+      {
+        params: { type: selectedTab, textSearch: search, startDate: filterValues.startDate, location: filterValues.location, uploadDate: filterValues.uploadDate }
+      },)
       .then(async (res) => {
         const ads: Advertisement[] = res.data;
         setAds(ads);

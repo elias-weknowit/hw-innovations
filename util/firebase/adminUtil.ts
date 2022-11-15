@@ -31,9 +31,11 @@ export const timestampConverter = {
         const {createdAt, updatedAt, period, ...rest} = advertisement;
         const newObj: FirestoreAdvertisement = {...rest};
         if(advertisement.createdAt){
+            //@ts-ignore
             newObj.createdAt = FirebaseTimestamp.fromDate(advertisement.createdAt.toDate());
         }
         if(advertisement.updatedAt){
+            //@ts-ignore
             newObj.updatedAt = FirebaseTimestamp.fromDate(advertisement.updatedAt.toDate());
         }
         if(newObj.period){

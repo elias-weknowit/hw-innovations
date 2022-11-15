@@ -20,30 +20,6 @@ export default function FilterView({ onSubmit }: { onSubmit: (values: FilterValu
   });
 
   React.useEffect(() => {
-    //convert to startDate to current moment and add week(s) depending on label
-    if (filterValues.startDate == 1) {
-      console.log("1v");
-      filterValues.startDate = Timestamp.fromDate(moment().add(1, "week").toDate());
-    } else if (filterValues.startDate == 2) {
-      console.log("2v");
-      filterValues.startDate = Timestamp.fromDate(moment().add(2, "week").toDate());
-    } else if (filterValues.startDate == 3) {
-      console.log("3v");
-      filterValues.startDate = Timestamp.fromDate(moment().add(3, "week").toDate());
-    } else if (filterValues.startDate == 0) {
-      console.log("Nu");
-      filterValues.startDate = Timestamp.fromDate(moment().toDate());
-    }
-
-    //convert to uploadDate to current moment and subtract week or month depending on label
-    if (filterValues.uploadDate == "") {
-      filterValues.uploadDate = Timestamp.fromDate(moment().subtract(1, "day").toDate());
-    } else if (filterValues.uploadDate == "Förra veckan") {
-      filterValues.uploadDate = Timestamp.fromDate(moment().subtract(1, "week").toDate());
-    } else if (filterValues.uploadDate == "Förra månaden") {
-      filterValues.uploadDate = Timestamp.fromDate(moment().subtract(1, "month").toDate());
-    }
-
     if (filterValues.location != "") {
       let { location } = filterValues;
       //set all characters to lowercase except the first character

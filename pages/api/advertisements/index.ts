@@ -33,7 +33,8 @@ interface GetQuery {
     hiringIn?: string;
     textSearch?: string;
     type?: string;
-    filterValues?: FilterValues;
+    startDate?: number | string;
+    uploadDate?: string;
 };
 
 //function for generating trigrams from textSearch, used for search queries with textSearch
@@ -54,10 +55,6 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         return;
     }
 
-    const filterValues: FilterValues = getQuery.filterValues; 
-
-    filterValues ? console.log(filterValues) : console.log('no filter values'); 
-
     const collectionRef = collection(db, 'advertisements');
     const queryConstraints: QueryConstraint[]  = [];
     queryConstraints.push(limit(amount));
@@ -66,7 +63,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
     //queryConstraints.push(getQuery.type ? orderBy('title', 'desc') : orderBy('createdAt', 'desc'));
     //startAt and startAfter will be ID's so a fetch must be done to get the actual date
     let docRef;
-    
+
     //use trigram function to generate trigrams from textSearch
     if(getQuery.textSearch && getQuery.textSearch != ""){
         const trigramsArray = trigrams(getQuery.textSearch);
@@ -74,23 +71,35 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
         queryConstraints.push(where('trigram', 'array-contains-any', trigramsArray));
     }
 
-    if(getQuery.filterValues){
-        if(getQuery.filterValues.location && getQuery.filterValues.location != ""){
-            queryConstraints.push(where('location', '==', getQuery.filterValues.location));
+    if(getQuery.location && getQuery.location != ""){
+        queryConstraints.push(where('location', '==', getQuery.location));
+    }
+
+    /*if(getQuery.uploadDate && getQuery.uploadDate != "" && getQuery.uploadDate != "När som helst"){
+        let uploadDateContraint;
+        if (getQuery.uploadDate == "Förra veckan") {
+            uploadDateContraint = moment().subtract(1, "week").toDate();
+          } 
+        else if (getQuery.uploadDate == "Förra månaden") {
+            uploadDateContraint = moment().subtract(1, "month").toDate();
+          }
+        else if(getQuery.uploadDate == "Nyligen"){
+            uploadDateContraint = moment().subtract(1, "day").toDate();
         }
-    
-        if(getQuery.filterValues.startDate){
-            queryConstraints.push(where('start', '>=', getQuery.filterValues.startDate));
+        if(uploadDateContraint) queryConstraints.push(where('createdAt', '>=', uploadDateContraint));
+    }*/
+
+    if(getQuery.startDate){
+        let startDate = getQuery.startDate;
+        let startDateConstraint;
+        if(startDate != "Nu"){
+            startDateConstraint = moment().add(startDate, "week").toDate();
+        }else{
+            startDateConstraint = moment().toDate();
         }
-    
-        if(getQuery.filterValues.uploadDate){
-            queryConstraints.push(where('createdAt', '>=', getQuery.filterValues.uploadDate));
-        }  
-    
-        if(getQuery.filterValues.location) {
-            queryConstraints.push(where('location', '==', getQuery.filterValues.location));
-        }
-    }   
+
+        queryConstraints.push(where('period.start', '>=', startDateConstraint));
+    }
 
     if(getQuery.startAfter){
         docRef = doc(db, 'advertisements', getQuery.startAfter);
@@ -112,9 +121,9 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: Deco
 
     const hiringIn = Number(getQuery.hiringIn);
     
-    if(getQuery.creatorId) queryConstraints.push(where('creatorId', '==', getQuery.creatorId));
-    if(getQuery.location) queryConstraints.push(where('location', '==', getQuery.location));        
+    if(getQuery.creatorId) queryConstraints.push(where('creatorId', '==', getQuery.creatorId));   
     
+    console.log(queryConstraints)
     await getDocs(query(collectionRef, ...queryConstraints)).then(snapshotRes => {
         const snapshot: QuerySnapshot<DocumentData> = snapshotRes; 
         const data = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));  
@@ -130,10 +139,6 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
     const newAdvertisement: Advertisement = {...req.body, createdAt: moment(), updatedAt: moment(), start: Timestamp.fromDate(moment(req.body.period.start).toDate()), end: Timestamp.fromDate(moment(req.body.period?.end).toDate())};
     //convert to period start and period end to firebase timestamp
     const timestamps = timestampConverter.toFirestore(newAdvertisement)
-    console.log(timestamps)
-
-    console.log(newAdvertisement)
-
     const collectionRef = collection(db, 'advertisements')
     const trigramsArray = {trigram: trigrams(newAdvertisement.title)};
     await addDoc(collectionRef, {...newAdvertisement, ...timestamps, ...trigramsArray}).catch( err => internalError(res, err)).then(result => res.status(200).json({...newAdvertisement, id: result})); //id: result.id 

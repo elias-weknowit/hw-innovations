@@ -65,7 +65,7 @@ export default function DropDown({ user, image }: DropDownProps) {
                 aria-labelledby="menu-button"
               >
                 <div className="py-1" role="none">
-                  <Link href="/profile">
+                  <Link href="/userProfile">
                     <a
                       className="block px-4 py-2 text-sm cursor-pointer"
                       role="menuitem"
