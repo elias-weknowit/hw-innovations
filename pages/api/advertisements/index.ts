@@ -46,7 +46,7 @@ const trigrams = (txt: string) => {
     return map;
   };
 
-async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
+async function handleGET(req: NextApiRequest, res: NextApiResponse){
     const getQuery: GetQuery = req.query;
 
     const amount = Number(getQuery.amount ? getQuery.amount : 10);
@@ -146,19 +146,20 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse, cookie: Dec
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if(!db) internalError(res, "Firestore not initialized");
-    const decodedCookie = await decodeCookie(req.cookies.session).catch (err => internalError(res, err));
-    if(!decodedCookie) return res.status(401).send('Unauthorized');
+
 
     switch(req.method){
         case 'GET':
             try{
-                await handleGET(req, res, decodedCookie);
+                await handleGET(req, res);
             }catch(FirestoreError){
                 console.log(FirestoreError)
                 internalError(res, "Error handling GET request");
             }
             break;
         case 'POST':
+            const decodedCookie = await decodeCookie(req.cookies.session).catch (err => internalError(res, err));
+            if(!decodedCookie) return res.status(401).send('Unauthorized');
             await handlePOST(req, res, decodedCookie);
             break;
         default:

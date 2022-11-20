@@ -6,19 +6,17 @@ import { decodeCookie } from "../../../util/firebase/adminUtil";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
     if(!db) res.status(500).send('Firebase not initialized');
-    const decodedCookie = await decodeCookie(req.cookies.session).catch(err => res.status(500).send(err));
-    if(!decodedCookie) return;
 
     switch(req.method){
         case 'GET':
-            await handleGET(req, res, decodedCookie);
+            await handleGET(req, res);
             break;
         default:
             res.status(405).send(`Method ${req.method} not allowed`);
     }
 }
 
-async function handleGET(req: NextApiRequest, res: NextApiResponse, cookie: DecodedIdToken){
+async function handleGET(req: NextApiRequest, res: NextApiResponse){
     const userId = req.query.userID;
     const snapshot = await getDocs(query(users, where('id', '==', userId))).catch(err => res.status(500).send(err));
     if(!snapshot) return;
