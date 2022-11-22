@@ -4,17 +4,21 @@ import BuildOutlinedIcon from "@mui/icons-material/BuildOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import { Divider } from "@mui/material";
 import Equipment from "./Equipment";
+import { UserDetail } from "../../../util/models";
+import { DetailContext } from "../../../pages/userProfile";
 
 export default function EquipmentBox() {
-  const [equipment, setEquipment] = useState([]);
+  const { userData, setUserData } = React.useContext(DetailContext);
+  const [equipment, setEquipment] = useState(userData?.equipment ?? []);
   const [isAddingEquipment, setIsAddingEquipment] = useState(false);
   const [isRemoveEquipment, setIsRemoveEquipment] = useState(false);
   const [newEquipmentInput, setNewEquipmentInput] = useState<string>("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!equipment.find((equipment) => equipment === e.target[0].value)) {
-      setEquipment((equipment) => [...equipment, e.target[0].value]);
+    if (newEquipmentInput.length > 0) {
+      setEquipment([...equipment, newEquipmentInput]);
+      setUserData({ ...userData, equipment: equipment });
       setNewEquipmentInput("");
     }
   };

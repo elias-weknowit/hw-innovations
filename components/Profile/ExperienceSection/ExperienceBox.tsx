@@ -5,6 +5,8 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import ExperienceDetails from "./ExperienceDetails";
+import { UserDetail } from "../../../util/models";
+import { DetailContext } from "../../../pages/userProfile";
 
 export type Experience = {
   title: string;
@@ -32,9 +34,11 @@ function experienceIsEmpty(experience: Experience): boolean {
 }
 
 export default function ExperienceBox() {
-  const [newExperiences, setNewExperiences] = useState<Experience[]>([]);
+  const { userData, setUserData } = React.useContext(DetailContext);
+  const [newExperiences, setNewExperiences] = useState<Experience[]>(userData?.experiences ?? []);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [isEditing, setIsEditing] = useState(false);
+
 
   const handleAdd = () => {
     let addFlag = true;
@@ -51,6 +55,7 @@ export default function ExperienceBox() {
           (experience) => !experienceIsEmpty(experience)
         ),
       ]);
+      setUserData({ ...userData, experiences: experiences });
       setNewExperiences([]);
     }
 

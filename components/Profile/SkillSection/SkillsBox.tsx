@@ -4,20 +4,28 @@ import MilitaryTechOutlinedIcon from "@mui/icons-material/MilitaryTechOutlined";
 import SaveIcon from "@mui/icons-material/Save";
 import { Divider } from "@mui/material";
 import Skill from "./Skill";
+import { UserDetail } from "../../../util/models";
+import { DetailContext } from "../../../pages/userProfile";
 
 export default function SkillsBox() {
-  const [skills, setSkills] = useState([]);
+  const { userData, setUserData } = React.useContext(DetailContext);
+  const [skills, setSkills] = useState(userData?.skills ?? []);
   const [isAddingSkill, setIsAddingSkill] = useState(false);
   const [isRemovingSkill, setIsRemovingSkill] = useState(false);
   const [newSkillInput, setNewSkillInput] = useState<string>("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!skills.find((skill) => skill === e.target[0].value)) {
-      setSkills((skills) => [...skills, e.target[0].value]);
+    if (newSkillInput !== "") {
+      setSkills([...skills, newSkillInput]);
+      //setUserData({ ...userData, skills: [...skills, newSkillInput] });
       setNewSkillInput("");
     }
   };
+
+  React.useEffect(() => {
+    setUserData({ ...userData, skills: skills });
+  }, [skills]);
 
   return (
     <div className="flex flex-col ml-6">
@@ -67,7 +75,7 @@ export default function SkillsBox() {
       </div>
       <div className="flex flex-row mb-4 justify-center items-center">
         {isAddingSkill && (
-          <form onSubmit={handleSubmit} className="flex items-center">
+          <form onSubmit={(e) => handleSubmit(e)} className="flex items-center">
             <input
               className="font-mulish outline-none ring-1 rounded-lg p-1 ring-white focus:ring-primary-color shadow-md"
               type="text"

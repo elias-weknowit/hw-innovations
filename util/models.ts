@@ -2,6 +2,7 @@
 //Declare firestore type for advertisments collection
 import type { Moment } from 'moment';
 import {Timestamp as FirebaseTimestamp} from 'firebase/firestore';
+import { Experience } from '../components/Profile/ExperienceSection/ExperienceBox';
 
 export type Advertisement = {
     id?: string;
@@ -43,6 +44,7 @@ export interface User {
     photoURL?: string;
     createdAt?: Moment;
     updatedAt?: Moment;
+    userDetail?: UserDetail;
 }
 
 export interface Company extends User {
@@ -52,15 +54,9 @@ export interface Company extends User {
     postCode: string;
 }
 
-export interface UserDetail extends User {
-    experience: {
-        title: string;
-        company: string;
-        startDate: string;
-        endDate: string;
-    }[]
-
-    gearAndTools: string[]
-    about: string
-    skills: string[]
+export interface UserDetail {
+    experiences?: Experience[];
+    equipment?: string[]
+    about?: string
+    skills?: string[]
 }

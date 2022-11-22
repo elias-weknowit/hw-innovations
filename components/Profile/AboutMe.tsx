@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import { Divider } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import { UserDetail } from "../../util/models";
+import { DetailContext } from "../../pages/userProfile";
 
-export default function AboutMe({ title }) {
+export default function AboutMe({ title }: { title: string }) {
   const [aboutmeText, setAboutmeText] = useState("");
   const charactarLimit = 300;
+  const { userData, setUserData } = React.useContext(DetailContext);
 
   const handleChange = (event) => {
     if (charactarLimit - event.target.value.length >= 0) {
       setAboutmeText(event.target.value);
+      setUserData({ ...userData, about: event.target.value });
     }
   };
 
@@ -37,7 +41,7 @@ export default function AboutMe({ title }) {
             className="block w-full font-mulish p-3 md:mx-1 bg-profile-sections border-none resize-none focus:outline-none text-md"
             placeholder="Berätta om dig själv..."
             rows={7}
-            value={aboutmeText}
+            value={userData?.about ?? ""}
             onChange={handleChange}
           />
           <small className="flex justify-end font-mulish mr-2">

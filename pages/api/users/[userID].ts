@@ -5,7 +5,7 @@ import { DecodedIdToken } from "firebase-admin/auth";
 import { decodeCookie } from "../../../util/firebase/adminUtil";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
-    if(!db) res.status(500).send('Firebase not initialized');
+    if(!db) res.status(500).send('Firebase not initialized');   
 
     switch(req.method){
         case 'GET':
@@ -19,8 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 async function handleGET(req: NextApiRequest, res: NextApiResponse){
     const userId = req.query.userID;
     const snapshot = await getDocs(query(users, where('id', '==', userId))).catch(err => res.status(500).send(err));
-    if(!snapshot) return;
-    if(snapshot.size === 0){
+    if(!snapshot ||snapshot.size === 0){
         res.status(404).send('User not found');
         return;
     }

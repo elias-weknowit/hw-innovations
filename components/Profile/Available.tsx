@@ -1,8 +1,9 @@
 import React from "react";
 import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
 import { Divider } from "@mui/material";
+import { UserDetail } from "../../util/models";
 
-export default function Available({ startDate, endDate }) {
+export default function Available({ startDate, endDate }: { startDate: string, endDate: string }) {
   return (
     <div className="flex flex-col lg:flex-row items-center lg:justify-center w-full py-2 sm:py-4 md:py-6">
       <div className="lg:w-1/2 flex">
