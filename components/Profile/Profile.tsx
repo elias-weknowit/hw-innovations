@@ -33,8 +33,8 @@ export default function Profile({
         <>
           <div className="flex flex-row h-24 mt-44 md:h-36 justify-center bg-gradient-to-r from-primary-color to-footer-pink rounded-md">
             <div className="flex items-center justify-center mt-2 rounded-full md:mt-10 bg-white h-20 w-20 md:h-20 md:w-20">
-              <div className="items-center font-semibold justify-center">
-                <Image alt={"Logo"} src={logo} width="100%" height="100%" />
+              <div className="flex bg-black bg-opacity-40 rounded-full w-20 h-20 items-center justify-center text-white overflow-hidden">
+                <Image alt="Profile" src={userData?.photoURL ?? logo} layout="intrinsic" objectFit="cover" width="100%" height="100%" />
               </div>
             </div>
           </div>
