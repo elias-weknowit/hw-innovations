@@ -19,11 +19,10 @@ export default function Home() {
             <p className="text-5xl items-center  text-center md:text-start font-mulish md:text-6xl text-white">
               Erbjud och hitta arbetskraft här
             </p>
-            <p className="font-mulish tex-lg mt-12 mb-12 text-center md:text-start text-white">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry&apos;s standard dummy text
-              ever since the 1500s. Lorem Ipsum has been the industry&apos;s standard
-              dummy text ever since the 1500s.
+            <p className="font-mulish text-xl mt-12 mb-12 text-center md:text-start text-white">
+              Vi vill passa ihop rätt förmåga med rätt
+              arbetsgivare så att det passar båda
+              parter i både tid, kunskaper och plats.
             </p>
             <div className="flex flex-row items-center justify-center md:justify-start">
               <button
